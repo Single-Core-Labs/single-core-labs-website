@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
-import DnaModel from '@/components/DnaModel'
 import { ArrowRight, Shield, Cpu, Cloud, Code2, Workflow, LineChart, BookOpen, Building2, Users, CheckCircle, Lock, Server, GitBranch, BarChart3, MessagesSquare, ChevronRight } from 'lucide-react'
 
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_055001_8e16d972-3b2b-441c-86ad-2901a54682f9.mp4'
@@ -164,10 +163,8 @@ function LazyHeroVideo() {
 
   return (
     <div ref={containerRef} className="hero-video-wrap">
-      {/* DNA model — always visible as placeholder */}
-      <div className="hero-3d-scene" style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.6s ease' }}>
-        <DnaModel />
-      </div>
+      {/* Subtle placeholder gradient while video loads */}
+      <div className="hero-3d-scene" style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.6s ease', background: 'radial-gradient(ellipse at 50% 50%, rgba(184,164,120,0.04), transparent 70%)', borderRadius: '16px' }} />
       {/* Video — fades in once loaded */}
       <video
         ref={videoRef}

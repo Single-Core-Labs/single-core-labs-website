@@ -16,7 +16,7 @@ const supabase = createClient(url, key, {
 async function main() {
   console.log('🔍 Testing Research Collective pipeline...\n')
 
-  // 1. Test connection
+  // 1. Test connection (select limit 1 to check table exists)
   console.log('1️⃣  Testing Supabase connection...')
   const { error: pingErr } = await supabase.from('research_collective_applications').select('id').limit(1)
   if (pingErr) {
@@ -26,7 +26,7 @@ async function main() {
   }
   console.log('   ✅ Table exists and accessible\n')
 
-  // 2. Insert test application
+  // 2. Insert test application (no .select() — anon only has INSERT)
   console.log('2️⃣  Inserting test application...')
   const testPayload = {
     first_name: 'Test',
@@ -38,46 +38,18 @@ async function main() {
     work_link: 'https://github.com/test',
   }
 
-  const { data, error: insertErr } = await supabase
+  const { error: insertErr, status } = await supabase
     .from('research_collective_applications')
     .insert([testPayload])
-    .select()
 
   if (insertErr) {
     console.error(`   ❌ Insert failed: ${insertErr.message}`)
     process.exit(1)
   }
-  console.log(`   ✅ Test application inserted (ID: ${data[0].id})\n`)
-
-  // 3. Verify it's readable
-  console.log('3️⃣  Verifying readback...')
-  const { data: readback, error: readErr } = await supabase
-    .from('research_collective_applications')
-    .select('*')
-    .eq('id', data[0].id)
-    .single()
-
-  if (readErr || !readback) {
-    console.error(`   ❌ Readback failed: ${readErr?.message}`)
-    process.exit(1)
-  }
-  console.log(`   ✅ Readback OK — ${readback.first_name} ${readback.last_name}, ${readback.research_area}\n`)
-
-  // 4. Clean up test row
-  console.log('4️⃣  Cleaning up test row...')
-  const { error: delErr } = await supabase
-    .from('research_collective_applications')
-    .delete()
-    .eq('id', data[0].id)
-
-  if (delErr) {
-    console.warn(`   ⚠️  Cleanup failed (delete manually in Table Editor): ${delErr.message}`)
-  } else {
-    console.log('   ✅ Test row deleted\n')
-  }
+  console.log(`   ✅ Insert succeeded (HTTP ${status})\n`)
 
   console.log('🎉 All tests passed! Pipeline is working.')
-  console.log('   Check your email / ntfy / Slack for the notification (if webhook is configured).')
+  console.log('   Check your email / ntfy / Slack for the webhook notification.')
 }
 
 main().catch((err) => {
