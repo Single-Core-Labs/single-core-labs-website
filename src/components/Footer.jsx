@@ -216,10 +216,30 @@ export function Footer() {
             boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <p style={{ fontSize: '11px', color: 'rgba(228, 222, 201, 0.5)', letterSpacing: '0.04em', fontWeight: 500, textTransform: 'uppercase' }}>
               © {new Date().getFullYear()} Single Core Labs. <span style={{ opacity: 0.6 }}>All rights reserved.</span>
             </p>
+            <a href="https://claude.com/programs/startups" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>  <span style={{
+              fontSize: '10px',
+              color: 'rgba(228, 222, 201, 0.3)',
+              letterSpacing: '0.08em',
+              fontWeight: 400,
+              textTransform: 'uppercase',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '3px 10px',
+              border: '1px solid rgba(228, 222, 201, 0.08)',
+              borderRadius: '100px',
+            }}>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+              Claude for Startups
+            </span></a>
           </div>
           
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 24px' }}>

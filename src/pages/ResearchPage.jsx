@@ -1,59 +1,12 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, Cpu, GitBranch, Globe, Repeat, Microscope, Atom, Brain, RotateCcw, Layers, Workflow } from 'lucide-react'
+import { ArrowRight, Brain, RotateCcw, Layers, Workflow } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
 import { HorizontalRule } from '@/components/HorizontalRule'
 import SEO from '@/components/SEO'
-
-// ─── CONSTANTS ──────────────────────────────────────────────────────────────
-
-const RESEARCH_LINEAGE = [
-  {
-    year: '2024',
-    icon: Cpu,
-    title: 'BioFormer — Original Transformer Architecture',
-    summary: 'Designed and trained a novel transformer architecture from scratch for genetic mutation effect prediction, trained on ClinVar and gnomAD. Built for diagnostic labs requiring explainable, high-confidence genomic inference.',
-    tags: ['Transformer Design', 'Genomics', 'Foundation Model'],
-  },
-  {
-    year: '2024',
-    icon: Repeat,
-    title: 'Semantic Cache — Adaptive LLM Inference Optimisation',
-    summary: 'Developed a production-grade semantic caching system using embedding-based prompt similarity with Adaptive Threshold Calibration. Achieves 47.3% token savings and 61% latency reduction on cache hits with zero client-side changes.',
-    tags: ['LLM Inference', 'Semantic Search', 'Optimisation'],
-  },
-  {
-    year: '2025',
-    icon: GitBranch,
-    title: 'Platform-Agent — Open-Source Composable Agent Framework',
-    summary: 'Built an open-source CLI coding agent with composable tool workflows, designed for developer teams that need transparent, auditable AI-assisted engineering pipelines.',
-    tags: ['Agentic AI', 'Open Source', 'Developer Tools'],
-  },
-  {
-    year: '2025',
-    icon: Microscope,
-    title: 'Enterprise Agentic Workflows — Production Multi-Step Orchestration',
-    summary: 'Deployed autonomous orchestration systems for insurance claims processing, financial risk reporting, and clinical documentation — each operating under strict regulatory constraints with full audit trails.',
-    tags: ['Agentic Workflows', 'Enterprise', 'Regulated AI'],
-  },
-  {
-    year: '2026',
-    icon: Globe,
-    title: 'Sovereign AI Infrastructure — Air-Gapped Deployments',
-    summary: 'Designed and deployed fully offline, air-gapped AI systems for regulated healthcare and defence clients. Complete data sovereignty with HIPAA and SOC-2 compliance, fine-tuned open-source models running entirely within client networks.',
-    tags: ['Sovereign AI', 'Air-Gapped', 'Compliance'],
-  },
-  {
-    year: '2026',
-    icon: Atom,
-    title: 'AgentWatch — LLM Observability & Production Tracing',
-    summary: 'Built a comprehensive observability platform for LLM agents in production: cost and performance explorer, trace visualisation, and continuous drift monitoring for teams running mission-critical agent deployments.',
-    tags: ['Observability', 'MLOps', 'Production AI'],
-  },
-]
 
 // ─── HERO ────────────────────────────────────────────────────────────────────
 
@@ -241,52 +194,6 @@ function LineageItem({ item, index }) {
         </div>
       </div>
     </motion.div>
-  )
-}
-
-function LineageSection() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-
-  return (
-    <section ref={ref} style={{ padding: 'var(--spacing-section-lg) 0' }}>
-      <div className="container-editorial">
-        <RevealText>
-          <p className="text-eyebrow" style={{ marginBottom: '20px' }}>Our Lineage</p>
-        </RevealText>
-        <RevealText delay={1}>
-          <h2
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
-              fontWeight: 400,
-              lineHeight: 1.08,
-              letterSpacing: '-0.03em',
-              maxWidth: '720px',
-              marginBottom: '20px',
-            }}
-          >
-            From architecture design to{' '}
-            <span style={{ fontStyle: 'italic', color: 'var(--color-text-muted)' }}>
-              production deployment.
-            </span>
-          </h2>
-        </RevealText>
-        <RevealText delay={2}>
-          <p className="text-body" style={{ maxWidth: '580px', marginBottom: 'clamp(40px, 5vh, 64px)' }}>
-            Every line of research we ship moves through the same loop: identify a hard constraint,
-            design an architecture that respects it, prove it works in production. Below is the work
-            that defines us.
-          </p>
-        </RevealText>
-
-        <div style={{ position: 'relative' }}>
-          {RESEARCH_LINEAGE.map((item, i) => (
-            <LineageItem key={item.title} item={item} index={i} />
-          ))}
-        </div>
-      </div>
-    </section>
   )
 }
 
@@ -716,7 +623,6 @@ export default function ResearchPage() {
       <Navbar />
       <main id="main-content" style={{ minHeight: '100vh' }}>
         <HeroSection />
-        <LineageSection />
         <TrajectorySection />
         <RSISection />
         <CTASection />

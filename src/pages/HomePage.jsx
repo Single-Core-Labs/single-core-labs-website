@@ -359,6 +359,47 @@ function BackedBySection() {
             </motion.span>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            marginTop: 'clamp(32px, 4vw, 56px)',
+            paddingTop: 'clamp(24px, 3vw, 40px)',
+            borderTop: '1px solid rgba(225,224,204,0.08)',
+          }}
+        >
+          <p style={{
+            color: 'rgba(225,224,204,0.35)',
+            fontSize: 'clamp(9px, 0.7vw, 11px)',
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            fontWeight: 400,
+            marginBottom: '16px',
+          }}>
+            Selected for
+          </p>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            color: 'rgba(225,224,204,0.6)',
+            fontSize: 'clamp(14px, 1.2vw, 18px)',
+            fontWeight: 500,
+            letterSpacing: '0.02em',
+            padding: '8px 20px',
+            border: '1px solid rgba(225,224,204,0.12)',
+            borderRadius: '100px',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+            Claude for Startups
+          </span>
+        </motion.div>
       </div>
     </section>
   )

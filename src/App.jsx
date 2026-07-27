@@ -18,7 +18,6 @@ const SecurityPage = lazy(() => import('./pages/SecurityPage'))
 const TechPage = lazy(() => import('./pages/TechPage'))
 const ResearchPage = lazy(() => import('./pages/ResearchPage'))
 const ResearchCollectivePage = lazy(() => import('./pages/ResearchCollectivePage'))
-const SemanticCachePaper = lazy(() => import('./pages/SemanticCachePaper'))
 
 function ScrollToHashAndTop() {
   const { pathname, hash } = useLocation()
@@ -78,7 +77,6 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/guides" element={<GuidesPage />} />
           <Route path="/research" element={<ResearchPage />} />
-          <Route path="/research/semantic-cache" element={<SemanticCachePaper />} />
           <Route path="/research-collective" element={<ResearchCollectivePage />} />
           <Route path="/security" element={<SecurityPage />} />
           <Route path="/deployment" element={<DeploymentPage />} />
