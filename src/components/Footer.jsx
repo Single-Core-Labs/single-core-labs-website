@@ -13,7 +13,6 @@ const FOOTER_LINKS = [
       { label: 'Product', href: '/coming-soon' },
       { label: 'Case Studies', href: '/case-studies' },
       { label: 'Careers', href: '/careers' },
-      { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
       { label: 'LinkedIn', href: SOCIAL_LINKS.linkedin, isExternal: true },
     ],
@@ -30,9 +29,7 @@ const FOOTER_LINKS = [
   },
   {
     heading: 'Resources',
-    links: [
-      { label: 'Blog', href: '/blog' },
-    ],
+    links: [],
   },
 ]
 

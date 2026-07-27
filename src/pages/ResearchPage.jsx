@@ -379,26 +379,6 @@ function CTASection() {
               Get in Touch
               <ArrowRight size={15} />
             </Link>
-            <Link
-              to="/blog"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '13px',
-                fontWeight: 500,
-                color: 'var(--color-text-muted)',
-                textDecoration: 'none',
-                letterSpacing: '0.02em',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-text)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-text-muted)'}
-            >
-              Read Our Blog
-              <ArrowRight size={13} />
-            </Link>
           </div>
         </RevealText>
       </div>

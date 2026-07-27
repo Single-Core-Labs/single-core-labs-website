@@ -16,8 +16,6 @@ const RESOURCES_LEFT = {
 
 const RESOURCES_RIGHT = [
   { label: 'Contact us',    href: '/contact' },
-  { label: 'Blog',          href: '/blog' },
-  { label: 'Events',        href: '/events' },
   { label: 'Documentation', href: '/docs' },
 ]
 

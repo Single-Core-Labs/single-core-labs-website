@@ -7,8 +7,6 @@ const SolutionsPage = lazy(() => import('./pages/SolutionsPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'))
 const ComingSoonPage = lazy(() => import('./pages/ComingSoonPage'))
-const BlogPage = lazy(() => import('./pages/BlogPage'))
-const BlogPost = lazy(() => import('./pages/BlogPost'))
 const AboutPage = lazy(() => import('./pages/AboutPage'))
 const AIModernizationPage = lazy(() => import('./pages/AIModernizationPage'))
 const HealthcareIntelligencePage = lazy(() => import('./pages/HealthcareIntelligencePage'))
@@ -72,8 +70,6 @@ function App() {
           <Route path="/solutions/tech" element={<TechPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/guides" element={<GuidesPage />} />
           <Route path="/research" element={<ResearchPage />} />
