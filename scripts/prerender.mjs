@@ -37,6 +37,8 @@ const ROUTES = [
   '/security',
   '/deployment',
   '/research-collective',
+  '/terms',
+  '/privacy',
   '/ai-infrastructure-vs-cloud',
   '/indian-ai-cloud-market-alternative',
 ]

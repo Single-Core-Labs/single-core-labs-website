@@ -22,6 +22,8 @@ export const STATIC_ROUTES = [
   { path: '/security', priority: 0.85, changefreq: 'monthly' },
   { path: '/deployment', priority: 0.85, changefreq: 'monthly' },
   { path: '/research-collective', priority: 0.85, changefreq: 'monthly' },
+  { path: '/terms', priority: 0.5, changefreq: 'monthly' },
+  { path: '/privacy', priority: 0.5, changefreq: 'monthly' },
 ]
 
 export const BLOG_TABLE = 'blog_posts'

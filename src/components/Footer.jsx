@@ -29,7 +29,11 @@ const FOOTER_LINKS = [
   },
   {
     heading: 'Resources',
-    links: [],
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Use', href: '/terms' },
+    ],
   },
 ]
 
