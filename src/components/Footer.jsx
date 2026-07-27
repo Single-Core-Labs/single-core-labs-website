@@ -45,10 +45,22 @@ const linkStyle = {
   transition: 'color 0.2s',
 };
 
+const linkProminentStyle = {
+  fontFamily: 'var(--font-sans)',
+  fontSize: '13px',
+  fontWeight: 600,
+  color: 'rgba(228, 222, 201, 0.85)',
+  textDecoration: 'none',
+  transition: 'color 0.2s',
+  letterSpacing: '0.01em',
+};
+
 const FooterLink = memo(function FooterLink({ link }) {
-  if (link.isExternal) return <a href={link.href} target="_blank" rel="noopener noreferrer" style={linkStyle} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.5)'}>{link.label}</a>;
-  if (link.isHash) return <a href={link.href} style={linkStyle} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.5)'}>{link.label}</a>;
-  return <Link to={link.href} style={linkStyle} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.5)'}>{link.label}</Link>;
+  const style = link.prominent ? linkProminentStyle : linkStyle;
+  const leaveColor = link.prominent ? 'rgba(228, 222, 201, 0.85)' : 'rgba(228, 222, 201, 0.5)';
+  if (link.isExternal) return <a href={link.href} target="_blank" rel="noopener noreferrer" style={style} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = leaveColor}>{link.label}</a>;
+  if (link.isHash) return <a href={link.href} style={style} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = leaveColor}>{link.label}</a>;
+  return <Link to={link.href} style={style} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = leaveColor}>{link.label}</Link>;
 });
 
 export function Footer() {
@@ -218,8 +230,8 @@ export function Footer() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-            <p style={{ fontSize: '11px', color: 'rgba(228, 222, 201, 0.5)', letterSpacing: '0.04em', fontWeight: 500, textTransform: 'uppercase' }}>
-              © {new Date().getFullYear()} Single Core Labs. <span style={{ opacity: 0.6 }}>All rights reserved.</span>
+            <p style={{ fontSize: '13px', color: 'rgba(228, 222, 201, 0.8)', letterSpacing: '0.02em', fontWeight: 500 }}>
+              Copyright © {new Date().getFullYear()} Single Core Labs. All rights reserved.
             </p>
             <a href="https://claude.com/programs/startups" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>  <span style={{
               fontSize: '10px',
@@ -246,7 +258,7 @@ export function Footer() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 24px' }}>
             {[
               { label: 'Terms of Use', href: '/terms' },
-              { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Privacy Policy', href: '/privacy', prominent: true },
               { label: 'Acceptable Use', href: '/acceptable-use' },
               { label: 'Cookie Settings', href: '#cookie-settings' },
               { label: 'Trust Center', href: '/trust' },
