@@ -41,8 +41,8 @@ export default function BlogPostPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Blog', item: 'https://singlecorelabs.com/blog' },
-      { '@type': 'ListItem', position: 2, name: post.title, item: `https://singlecorelabs.com/blog/${post.slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Blog', item: 'https://singlecorelabs.in/blog' },
+      { '@type': 'ListItem', position: 2, name: post.title, item: `https://singlecorelabs.in/blog/${post.slug}` },
     ],
   }
 
@@ -55,7 +55,7 @@ export default function BlogPostPage() {
     publisher: { '@type': 'Organization', name: 'Single Core Labs' },
     datePublished: post.date,
     articleSection: post.category,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://singlecorelabs.com/blog/${post.slug}` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://singlecorelabs.in/blog/${post.slug}` },
   }
 
   const relatedGuides = (post.relatedGuides || []).map(slug => GUIDE_CONTENT[slug]).filter(Boolean)

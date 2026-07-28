@@ -587,7 +587,7 @@ export default function ResearchPage() {
     '@context': 'https://schema.org',
     '@type': 'ResearchOrganization',
     name: 'Single Core Labs',
-    url: 'https://singlecorelabs.com/research',
+    url: 'https://singlecorelabs.in/research',
     description:
       'Single Core Labs research — LLMOps, inference optimisation, agentic systems, and sovereign AI infrastructure.',
   }

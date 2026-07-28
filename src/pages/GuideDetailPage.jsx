@@ -26,7 +26,7 @@ function slugify(text) {
 
 function ShareButton({ platform, color }) {
   const loc = useLocation()
-  const url = typeof window !== 'undefined' ? window.location.href : 'https://singlecorelabs.com' + loc.pathname
+  const url = typeof window !== 'undefined' ? window.location.href : 'https://singlecorelabs.in' + loc.pathname
   const text = 'Check out this guide from Single Core Labs'
 
   const href = platform === 'linkedin'
@@ -93,8 +93,8 @@ export default function GuideDetailPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Guides', item: 'https://singlecorelabs.com/guides' },
-      { '@type': 'ListItem', position: 2, name: meta.title, item: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.com/guides/${guideSlug}` },
+      { '@type': 'ListItem', position: 1, name: 'Guides', item: 'https://singlecorelabs.in/guides' },
+      { '@type': 'ListItem', position: 2, name: meta.title, item: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.in/guides/${guideSlug}` },
     ],
   }
 
@@ -107,7 +107,7 @@ export default function GuideDetailPage() {
     publisher: { '@type': 'Organization', name: 'Single Core Labs' },
     datePublished: '2026-07-28',
     articleSection: meta.category,
-    url: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.com/guides/${guideSlug}`,
+    url: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.in/guides/${guideSlug}`,
   }
 
   const otherGuides = Object.values(GUIDE_CONTENT).filter(g => g.meta.title !== meta.title)

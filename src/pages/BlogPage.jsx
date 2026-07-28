@@ -20,7 +20,7 @@ const schema = {
   '@type': 'Blog',
   name: 'Blog — Single Core Labs',
   description: 'Articles on AI infrastructure, sovereign AI, and enterprise AI engineering from Single Core Labs.',
-  url: 'https://singlecorelabs.com/blog',
+  url: 'https://singlecorelabs.in/blog',
   publisher: { '@type': 'Organization', name: 'Single Core Labs' },
 }
 

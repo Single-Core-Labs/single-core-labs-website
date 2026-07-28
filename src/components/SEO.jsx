@@ -10,7 +10,7 @@ const SEO = ({
   schema
 }) => {
   const { pathname } = useLocation();
-  const siteUrl = 'https://singlecorelabs.com'; // Adjust if different
+  const siteUrl = 'https://singlecorelabs.in'
   const url = `${siteUrl}${pathname}`;
   const siteName = 'Single Core Labs';
   const fullTitle = title === siteName ? title : `${title} | ${siteName}`;

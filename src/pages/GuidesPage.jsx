@@ -70,7 +70,7 @@ const schema = {
   '@type': 'CollectionPage',
   name: 'Guides — Single Core Labs',
   description: 'In-depth guides on AI infrastructure, sovereign AI, and enterprise AI engineering from Single Core Labs.',
-  url: 'https://singlecorelabs.com/guides',
+  url: 'https://singlecorelabs.in/guides',
   publisher: { '@type': 'Organization', name: 'Single Core Labs' },
 }
 

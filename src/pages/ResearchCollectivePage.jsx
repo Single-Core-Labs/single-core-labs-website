@@ -734,7 +734,7 @@ export default function ResearchCollectivePage() {
     '@context': 'https://schema.org',
     '@type': 'ResearchOrganization',
     name: 'Single Core Labs Research Collective',
-    url: 'https://singlecorelabs.com/research-collective',
+    url: 'https://singlecorelabs.in/research-collective',
     description:
       'Single Core Labs Research Collective — empowering the next generation of AI researchers with mentorship, compute resources, and funding.',
   }
