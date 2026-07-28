@@ -37,6 +37,15 @@ export default function BlogPostPage() {
     )
   }
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Blog', item: 'https://singlecorelabs.com/blog' },
+      { '@type': 'ListItem', position: 2, name: post.title, item: `https://singlecorelabs.com/blog/${post.slug}` },
+    ],
+  }
+
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -46,7 +55,11 @@ export default function BlogPostPage() {
     publisher: { '@type': 'Organization', name: 'Single Core Labs' },
     datePublished: post.date,
     articleSection: post.category,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://singlecorelabs.com/blog/${post.slug}` },
   }
+
+  const relatedGuides = (post.relatedGuides || []).map(slug => GUIDE_CONTENT[slug]).filter(Boolean)
+  const otherPosts = BLOG_POSTS.filter(p => p.slug !== post.slug)
 
   return (
     <div className="page-dark">
@@ -156,6 +169,60 @@ export default function BlogPostPage() {
                 return null
             }
           })}
+
+          {(relatedGuides.length > 0 || otherPosts.length > 0) && (
+            <div style={{ marginTop: '64px', paddingTop: '32px', borderTop: '1px solid var(--color-border)' }}>
+              {relatedGuides.length > 0 && (
+                <>
+                  <p style={{
+                    fontFamily: 'var(--font-display)', fontSize: '10px', fontWeight: 600,
+                    letterSpacing: '0.14em', textTransform: 'uppercase',
+                    color: 'var(--color-accent)', marginBottom: '16px',
+                  }}>Related guides</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '32px' }}>
+                    {relatedGuides.map((g) => (
+                      <Link key={g.meta.title} to={`/guides/${g.meta.slug || ''}`} style={{
+                        textDecoration: 'none', color: 'inherit', display: 'block',
+                        padding: '16px 0', borderBottom: '1px solid var(--color-border)',
+                        transition: 'opacity 0.2s',
+                      }}
+                        onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
+                        onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                      >
+                        <div style={{ fontFamily: 'var(--font-serif)', fontSize: '15px', color: 'var(--color-text)', marginBottom: '4px' }}>{g.meta.title}</div>
+                        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--color-text-dim)' }}>{g.meta.category} · {g.meta.readTime}</div>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {otherPosts.length > 0 && (
+                <>
+                  <p style={{
+                    fontFamily: 'var(--font-display)', fontSize: '10px', fontWeight: 600,
+                    letterSpacing: '0.14em', textTransform: 'uppercase',
+                    color: 'var(--color-accent)', marginBottom: '16px',
+                  }}>More articles</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    {otherPosts.slice(0, 3).map((p) => (
+                      <Link key={p.slug} to={`/blog/${p.slug}`} style={{
+                        textDecoration: 'none', color: 'inherit', display: 'block',
+                        padding: '16px 0', borderBottom: '1px solid var(--color-border)',
+                        transition: 'opacity 0.2s',
+                      }}
+                        onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
+                        onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                      >
+                        <div style={{ fontFamily: 'var(--font-serif)', fontSize: '15px', color: 'var(--color-text)', marginBottom: '4px' }}>{p.title}</div>
+                        <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--color-text-dim)' }}>{p.category} · {p.readTime}</div>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </main>
 

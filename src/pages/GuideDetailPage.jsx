@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer'
 import { ArrowLeft } from 'lucide-react'
 import SEO from '@/components/SEO'
 import { GUIDE_CONTENT, renderDiagram } from '@/lib/guide-content.jsx'
+import { BLOG_POSTS } from '@/lib/blog-content.jsx'
 
 const containerStyle = {
   maxWidth: '1200px',
@@ -88,6 +89,15 @@ export default function GuideDetailPage() {
   const tocItems = sections.filter(s => s.type === 'section' || s.type === 'subheading')
   const bodySections = sections.filter(s => s.type !== 'intro')
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Guides', item: 'https://singlecorelabs.com/guides' },
+      { '@type': 'ListItem', position: 2, name: meta.title, item: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.com/guides/${guideSlug}` },
+    ],
+  }
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -99,6 +109,9 @@ export default function GuideDetailPage() {
     articleSection: meta.category,
     url: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.com/guides/${guideSlug}`,
   }
+
+  const otherGuides = Object.values(GUIDE_CONTENT).filter(g => g.meta.title !== meta.title)
+  const relatedPosts = BLOG_POSTS.filter(p => p.relatedGuides?.includes(guideSlug))
 
   return (
     <div className="page-dark">
@@ -517,6 +530,88 @@ export default function GuideDetailPage() {
                             {section.content}
                           </p>
                         </div>
+                      </motion.div>
+                    )
+
+                  case 'outro':
+                    return (
+                      <motion.div key={index}
+                        variants={fadeUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={viewport}
+                      >
+                        <div style={{
+                          marginTop: '48px',
+                          padding: '24px',
+                          borderLeft: '2px solid var(--color-accent)',
+                          background: 'rgba(184, 164, 120, 0.04)',
+                          borderRadius: '0 10px 10px 0',
+                        }}>
+                          <p style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: 'clamp(1rem, 1.3vw, 1.1rem)',
+                            lineHeight: 1.7,
+                            color: 'rgba(228, 222, 201, 0.85)',
+                            fontStyle: 'italic',
+                          }}>
+                            {section.content}
+                          </p>
+                        </div>
+
+                        {(otherGuides.length > 0 || relatedPosts.length > 0) && (
+                          <div style={{ marginTop: '64px', paddingTop: '32px', borderTop: '1px solid var(--color-border)' }}>
+                            {otherGuides.length > 0 && (
+                              <>
+                                <p style={{
+                                  fontFamily: 'var(--font-display)', fontSize: '10px', fontWeight: 600,
+                                  letterSpacing: '0.14em', textTransform: 'uppercase',
+                                  color: 'var(--color-accent)', marginBottom: '16px',
+                                }}>More guides</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '32px' }}>
+                                  {otherGuides.slice(0, 3).map((g) => (
+                                    <Link key={g.meta.title} to={`/guides/${g.meta.slug || g.meta.title.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '')}`} style={{
+                                      textDecoration: 'none', color: 'inherit', display: 'block',
+                                      padding: '16px 0', borderBottom: '1px solid var(--color-border)',
+                                      transition: 'opacity 0.2s',
+                                    }}
+                                      onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
+                                      onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                                    >
+                                      <div style={{ fontFamily: 'var(--font-serif)', fontSize: '15px', color: 'var(--color-text)', marginBottom: '4px' }}>{g.meta.title}</div>
+                                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--color-text-dim)' }}>{g.meta.category} · {g.meta.readTime}</div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+
+                            {relatedPosts.length > 0 && (
+                              <>
+                                <p style={{
+                                  fontFamily: 'var(--font-display)', fontSize: '10px', fontWeight: 600,
+                                  letterSpacing: '0.14em', textTransform: 'uppercase',
+                                  color: 'var(--color-accent)', marginBottom: '16px',
+                                }}>Related blog posts</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                  {relatedPosts.slice(0, 2).map((p) => (
+                                    <Link key={p.slug} to={`/blog/${p.slug}`} style={{
+                                      textDecoration: 'none', color: 'inherit', display: 'block',
+                                      padding: '16px 0', borderBottom: '1px solid var(--color-border)',
+                                      transition: 'opacity 0.2s',
+                                    }}
+                                      onMouseEnter={e => e.currentTarget.style.opacity = '0.7'}
+                                      onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                                    >
+                                      <div style={{ fontFamily: 'var(--font-serif)', fontSize: '15px', color: 'var(--color-text)', marginBottom: '4px' }}>{p.title}</div>
+                                      <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--color-text-dim)' }}>{p.category} · {p.readTime}</div>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        )}
                       </motion.div>
                     )
 

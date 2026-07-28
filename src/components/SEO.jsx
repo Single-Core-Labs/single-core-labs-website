@@ -6,7 +6,7 @@ const SEO = ({
   description, 
   keywords, 
   type = 'website',
-  image = '/og-image.jpg',
+  image = '/og-image.svg',
   schema
 }) => {
   const { pathname } = useLocation();
