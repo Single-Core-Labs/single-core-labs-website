@@ -7,6 +7,62 @@ import { ArrowRight } from 'lucide-react'
 import SEO from '@/components/SEO'
 
 const GUIDES = [
+  {
+    title: 'Deploying Sovereign AI Infrastructure in Regulated Markets',
+    description: 'A technical walkthrough of deploying air-gapped, on-premise LLM infrastructure for defense, healthcare, and government clients — covering GPU orchestration, model hardening, and audit compliance.',
+    category: 'Infrastructure',
+    readTime: '14 min read',
+    href: '/guides/sovereign-ai-infrastructure',
+  },
+  {
+    title: 'Building Agentic Workflows: From Prototype to Production',
+    description: 'How to design, evaluate, and scale multi-agent systems that combine retrieval-augmented generation, tool use, and human-in-the-loop oversight for enterprise use cases.',
+    category: 'Engineering',
+    readTime: '18 min read',
+    href: '/guides/agentic-workflows',
+  },
+  {
+    title: 'LLM Fine-Tuning Strategy for Domain-Specific Applications',
+    description: 'A practical framework for deciding when to fine-tune vs. prompt-engineer, how to curate high-signal training data, and which parameter-efficient methods deliver the best ROI for Indian enterprises.',
+    category: 'Models',
+    readTime: '12 min read',
+    href: '/guides/llm-fine-tuning',
+  },
+  {
+    title: 'Semantic Caching for Production LLM APIs',
+    description: 'Architecture patterns for reducing latency and cost by caching semantically similar queries — covering embedding selection, similarity thresholds, cache invalidation, and hybrid strategies.',
+    category: 'Infrastructure',
+    readTime: '10 min read',
+    href: '/guides/semantic-caching',
+  },
+  {
+    title: 'Evaluating LLM Providers for the Indian Enterprise',
+    description: 'A comparison of OpenAI, Anthropic, Google, Groq, Together, and open-weight models across latency, pricing in INR, multilingual capability, and data residency requirements for the Indian market.',
+    category: 'Strategy',
+    readTime: '16 min read',
+    href: '/guides/llm-providers-india',
+  },
+  {
+    title: 'Designing AI-Ready Data Pipelines for Healthcare',
+    description: 'End-to-end guidance on ingesting, de-identifying, and structuring EHR, PACS, and clinical notes for downstream AI inference — with emphasis on HIPAA compliance and Indian data protection law.',
+    category: 'Healthcare',
+    readTime: '13 min read',
+    href: '/guides/healthcare-data-pipelines',
+  },
+  {
+    title: 'Enterprise Security Patterns for LLM Deployments',
+    description: 'Threat modeling for production AI systems: prompt injection defenses, PII redaction in real-time streams, access control for model endpoints, and audit logging for regulated environments.',
+    category: 'Security',
+    readTime: '11 min read',
+    href: '/guides/llm-security-patterns',
+  },
+  {
+    title: 'Cost Optimization for Large-Scale Model Inference',
+    description: 'Strategies for reducing per-token costs through model quantization, speculative decoding, batching strategies, fallback routing, and multi-provider arbitration without sacrificing quality.',
+    category: 'Engineering',
+    readTime: '15 min read',
+    href: '/guides/inference-cost-optimization',
+  },
 ]
 
 const schema = {

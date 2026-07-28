@@ -31,6 +31,7 @@ const FOOTER_LINKS = [
     heading: 'Resources',
     links: [
       { label: 'Blog', href: '/blog' },
+      { label: 'Guides', href: '/guides' },
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Use', href: '/terms' },
     ],
