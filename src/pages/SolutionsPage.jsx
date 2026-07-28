@@ -316,6 +316,36 @@ export default function SolutionsPage() {
           `}</style>
         </section>
 
+        {/* ──────── Related Guides ──────── */}
+        <section className="container-editorial" style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-eyebrow" style={{ marginBottom: '24px' }}>Read the guides</p>
+            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              {[
+                { label: 'LLM Providers for India', href: '/guides/llm-providers-india' },
+                { label: 'Cost Optimization', href: '/guides/inference-cost-optimization' },
+                { label: 'Deploying Sovereign AI', href: '/guides/sovereign-ai-infrastructure' },
+              ].map((g) => (
+                <Link key={g.href} to={g.href} style={{
+                  fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500,
+                  color: 'rgba(228, 222, 201, 0.6)', textDecoration: 'none',
+                  padding: '8px 16px', border: '1px solid var(--color-border)',
+                  borderRadius: '100px', transition: 'color 0.2s, border-color 0.2s',
+                }}
+                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'rgba(184, 164, 120, 0.3)' }}
+                  onMouseLeave={e => { e.target.style.color = 'rgba(228, 222, 201, 0.6)'; e.target.style.borderColor = 'var(--color-border)' }}
+                >
+                  {g.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
         {/* ──────── Closing CTA ──────── */}
         <section className="container-editorial" style={{ textAlign: 'center', marginBottom: '120px' }}>
           <motion.div

@@ -202,9 +202,9 @@ function HeroSection() {
                 fontFamily: "'Almarai', sans-serif",
               }}
             >
-              Single Core Labs is an applied AI research lab building foundation models and
-              end-to-end AI products — bound not by a single domain, but by a discipline
-              for turning novel architectures into systems that ship.
+              We design and deploy production AI systems for Indian enterprises —
+              sovereign infrastructure, fine-tuned models, and agentic workflows
+              that ship securely and scale on your terms.
             </motion.p>
 
             <motion.div
@@ -677,7 +677,7 @@ export default function HomePage() {
     <div style={{ background: '#000', minHeight: '100vh' }}>
       <SEO
         title="Single Core Labs — Applied AI Research"
-        description="Single Core Labs is an applied AI research lab building foundation models and end-to-end AI products — bound not by a single domain, but by a discipline for turning novel architectures into systems that ship."
+        description="Enterprise AI infrastructure, fine-tuned LLMs, and sovereign deployment for Indian enterprises. From agentic workflows to air-gapped inference."
         keywords="applied AI research, foundation models, AI products, BioFormer, machine learning, enterprise AI"
       />
       <HeroSection />

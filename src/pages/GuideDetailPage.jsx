@@ -88,11 +88,24 @@ export default function GuideDetailPage() {
   const tocItems = sections.filter(s => s.type === 'section' || s.type === 'subheading')
   const bodySections = sections.filter(s => s.type !== 'intro')
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: meta.title,
+    description: meta.description,
+    author: { '@type': 'Organization', name: 'Single Core Labs' },
+    publisher: { '@type': 'Organization', name: 'Single Core Labs' },
+    datePublished: '2026-07-28',
+    articleSection: meta.category,
+    url: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.com/guides/${guideSlug}`,
+  }
+
   return (
     <div className="page-dark">
       <SEO
         title={`${meta.title} | Single Core Labs Guides`}
         description={meta.description}
+        schema={articleSchema}
       />
       <Navbar />
 

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
+import { Link } from 'react-router-dom'
 import {
   ArrowRight, Shield, Activity, Microscope,
   Stethoscope, FileText, Lock, CheckCircle,
@@ -630,6 +631,36 @@ export default function HealthcareIntelligencePage() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* ──────── Related Guides ──────── */}
+        <section className="container-editorial" style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-eyebrow" style={{ marginBottom: '24px' }}>Read the guides</p>
+            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              {[
+                { label: 'Healthcare Data Pipelines', href: '/guides/healthcare-data-pipelines' },
+                { label: 'LLM Fine-Tuning Strategy', href: '/guides/llm-fine-tuning' },
+                { label: 'Deploying Sovereign AI', href: '/guides/sovereign-ai-infrastructure' },
+              ].map((g) => (
+                <Link key={g.href} to={g.href} style={{
+                  fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500,
+                  color: 'rgba(228, 222, 201, 0.6)', textDecoration: 'none',
+                  padding: '8px 16px', border: '1px solid var(--color-border)',
+                  borderRadius: '100px', transition: 'color 0.2s, border-color 0.2s',
+                }}
+                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'rgba(184, 164, 120, 0.3)' }}
+                  onMouseLeave={e => { e.target.style.color = 'rgba(228, 222, 201, 0.6)'; e.target.style.borderColor = 'var(--color-border)' }}
+                >
+                  {g.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         {/* ──────── Closing CTA ──────── */}

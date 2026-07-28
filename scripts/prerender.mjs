@@ -22,6 +22,26 @@ const PORT      = 4173
 
 // ─── All routes to pre-render ────────────────────────────────────────────────
 // Keep in sync with App.jsx. Dynamic /:slug routes use ComingSoon so skip them.
+const BLOG_SLUGS = [
+  'why-indian-enterprises-need-sovereign-ai',
+  'real-cost-gpt4o-indian-startups',
+  'fine-tuning-vs-rag-decision-guide',
+  'healthcare-ai-india-2026',
+  'llm-security-checklist',
+  'reducing-llm-costs-without-sacrificing-quality',
+]
+
+const GUIDE_SLUGS = [
+  'sovereign-ai-infrastructure',
+  'agentic-workflows',
+  'llm-fine-tuning',
+  'semantic-caching',
+  'llm-providers-india',
+  'healthcare-data-pipelines',
+  'llm-security-patterns',
+  'inference-cost-optimization',
+]
+
 const ROUTES = [
   '/',
   '/solutions',
@@ -33,6 +53,9 @@ const ROUTES = [
   '/case-studies',
   '/about',
   '/guides',
+  ...GUIDE_SLUGS.map(s => `/guides/${s}`),
+  '/blog',
+  ...BLOG_SLUGS.map(s => `/blog/${s}`),
   '/research',
   '/security',
   '/deployment',

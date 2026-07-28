@@ -103,7 +103,7 @@ export default function AboutPage() {
     <div className="page-dark">
       <SEO 
         title="About Us | Single Core Labs"
-        description="Single Core Labs is an elite applied AI research lab and systems engineering firm. We design, deploy, and operate custom agentic architectures."
+        description="We design, deploy, and operate sovereign AI infrastructure, fine-tuned LLMs, and agentic systems for Indian enterprises in regulated industries."
         keywords="applied AI research, AI systems engineering firm, custom agentic architectures"
       />
       <Navbar />
@@ -122,7 +122,7 @@ export default function AboutPage() {
           </RevealText>
           <RevealText delay={2}>
             <div className="text-body" style={{ maxWidth: '600px' }}>
-              Single Core Labs is an elite applied AI research lab and AI systems engineering firm. We provide:
+              We design, deploy, and operate AI systems for Indian enterprises. Our work spans:
               <ul style={{ paddingLeft: '20px', marginTop: '12px', marginBottom: '12px', listStyleType: 'disc' }}>
                 <li style={{ marginBottom: '8px' }}><strong>Custom AI Systems Engineering:</strong> Designing and deploying bespoke agentic architectures.</li>
                 <li style={{ marginBottom: '8px' }}><strong>Sovereign AI Infrastructure:</strong> Implementing air-gapped and on-premise models for strict privacy.</li>

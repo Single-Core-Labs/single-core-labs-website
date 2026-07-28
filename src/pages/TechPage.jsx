@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
+import { Link } from 'react-router-dom'
 import { ArrowRight, Shield, Cpu, Cloud, Code2, Workflow, LineChart, BookOpen, Building2, Users, CheckCircle, Lock, Server, GitBranch, BarChart3, MessagesSquare, ChevronRight } from 'lucide-react'
 
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_055001_8e16d972-3b2b-441c-86ad-2901a54682f9.mp4'
@@ -661,6 +662,36 @@ export default function TechPage() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* ──────── Related Guides ──────── */}
+        <section className="container-editorial" style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-eyebrow" style={{ marginBottom: '24px' }}>Read the guides</p>
+            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              {[
+                { label: 'Building Agentic Workflows', href: '/guides/agentic-workflows' },
+                { label: 'LLM Security Patterns', href: '/guides/llm-security-patterns' },
+                { label: 'Semantic Caching', href: '/guides/semantic-caching' },
+              ].map((g) => (
+                <Link key={g.href} to={g.href} style={{
+                  fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500,
+                  color: 'rgba(228, 222, 201, 0.6)', textDecoration: 'none',
+                  padding: '8px 16px', border: '1px solid var(--color-border)',
+                  borderRadius: '100px', transition: 'color 0.2s, border-color 0.2s',
+                }}
+                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'rgba(184, 164, 120, 0.3)' }}
+                  onMouseLeave={e => { e.target.style.color = 'rgba(228, 222, 201, 0.6)'; e.target.style.borderColor = 'var(--color-border)' }}
+                >
+                  {g.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         {/* ──────── Closing CTA ──────── */}

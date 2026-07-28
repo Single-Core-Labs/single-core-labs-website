@@ -12,6 +12,8 @@ const AIModernizationPage = lazy(() => import('./pages/AIModernizationPage'))
 const HealthcareIntelligencePage = lazy(() => import('./pages/HealthcareIntelligencePage'))
 const GuidesPage = lazy(() => import('./pages/GuidesPage'))
 const GuideDetailPage = lazy(() => import('./pages/GuideDetailPage'))
+const BlogPage = lazy(() => import('./pages/BlogPage'))
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 const DeploymentPage = lazy(() => import('./pages/DeploymentPage'))
 const SecurityPage = lazy(() => import('./pages/SecurityPage'))
 const TechPage = lazy(() => import('./pages/TechPage'))
@@ -76,6 +78,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/guides" element={<GuidesPage />} />
           <Route path="/guides/:guideSlug" element={<GuideDetailPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:postSlug" element={<BlogPostPage />} />
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/research-collective" element={<ResearchCollectivePage />} />
           <Route path="/security" element={<SecurityPage />} />
