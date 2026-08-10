@@ -16,6 +16,7 @@ function TreeBranch({ left, delay = 0 }) {
   return (
     <svg
       ref={ref}
+      className="tree-branch"
       style={{
         position: 'absolute',
         top: 0,
@@ -378,6 +379,26 @@ export default function SolutionsPage() {
             <TalkToSalesForm />
           </motion.div>
         </section>
+
+        <style>{`
+          @media (max-width: 860px) {
+            .contact-grid {
+              grid-template-columns: 1fr !important;
+            }
+            .tree-branch {
+              display: none !important;
+            }
+            .industry-card {
+              width: calc(100% - 24px) !important;
+              margin: 0 auto !important;
+              padding: 24px !important;
+            }
+          }
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+          }
+        `}</style>
 
       </main>
       <Footer />
