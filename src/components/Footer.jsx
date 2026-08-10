@@ -260,10 +260,6 @@ export function Footer() {
             {[
               { label: 'Terms of Use', href: '/terms' },
       { label: 'Privacy Policy', href: '/privacy', prominent: true },
-              { label: 'Acceptable Use', href: '/acceptable-use' },
-              { label: 'Cookie Settings', href: '#cookie-settings' },
-              { label: 'Trust Center', href: '/trust' },
-              { label: 'Report a Vulnerability', href: '/vulnerability' },
             ].map((link) => (
               <Link
                 key={link.label}

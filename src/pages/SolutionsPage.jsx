@@ -326,8 +326,6 @@ export default function SolutionsPage() {
             <p className="text-eyebrow" style={{ marginBottom: '24px' }}>Read the guides</p>
             <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
               {[
-                { label: 'LLM Providers for India', href: '/guides/llm-providers-india' },
-                { label: 'Cost Optimization', href: '/guides/inference-cost-optimization' },
                 { label: 'Deploying Sovereign AI', href: '/guides/sovereign-ai-infrastructure' },
               ].map((g) => (
                 <Link key={g.href} to={g.href} style={{

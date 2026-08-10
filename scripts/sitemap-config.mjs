@@ -12,19 +12,15 @@ export const GUIDE_ROUTES = [
   { path: '/guides/agentic-workflows', priority: 0.8, changefreq: 'monthly' },
   { path: '/guides/llm-fine-tuning', priority: 0.8, changefreq: 'monthly' },
   { path: '/guides/semantic-caching', priority: 0.8, changefreq: 'monthly' },
-  { path: '/guides/llm-providers-india', priority: 0.8, changefreq: 'monthly' },
   { path: '/guides/healthcare-data-pipelines', priority: 0.8, changefreq: 'monthly' },
   { path: '/guides/llm-security-patterns', priority: 0.8, changefreq: 'monthly' },
-  { path: '/guides/inference-cost-optimization', priority: 0.8, changefreq: 'monthly' },
 ]
 
 export const BLOG_SLUGS = [
   'why-indian-enterprises-need-sovereign-ai',
-  'real-cost-gpt4o-indian-startups',
   'fine-tuning-vs-rag-decision-guide',
   'healthcare-ai-india-2026',
   'llm-security-checklist',
-  'reducing-llm-costs-without-sacrificing-quality',
 ]
 
 export const STATIC_ROUTES = [

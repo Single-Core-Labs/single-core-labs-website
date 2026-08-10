@@ -1,8 +1,7 @@
-import {
-  ArrowRight, Server, Shield, Cpu, Lock, HardDrive, Cloud, Wifi,
-  Monitor, GitBranch, Users, CheckCircle, Workflow, Layers, Search,
-  BarChart3, DollarSign, Clock, Globe, BookOpen, Database, FileText,
-  Activity, AlertTriangle, Eye, Key, Radio, Zap
+﻿import {
+  ArrowRight, Server, Shield, Cpu, Lock, Cloud,
+  Monitor, Users, Workflow, Layers, Search,
+  BookOpen, Database, Key, Zap
 } from 'lucide-react'
 
 function SectionTitle({ children }) {
@@ -116,7 +115,7 @@ function BulletList({ items }) {
             color: 'var(--color-accent)',
             marginTop: '6px',
             flexShrink: 0,
-          }}>—</span>
+          }}>â€”</span>
           <span>{item}</span>
         </li>
       ))}
@@ -458,20 +457,6 @@ function renderDiagram(guideSlug) {
         </DiagramBox>
       )
 
-    case 'llm-providers-india':
-      return (
-        <DiagramBox label="Figure 1: Provider Selection Criteria for Indian Enterprises" caption="Six weighted criteria for evaluating LLM providers: latency from Indian regions, INR pricing, multilingual quality, data residency, compliance, and context window.">
-          <ComparisonChart items={[
-            { label: 'Latency (India)', value: 95, color: 'rgba(184, 164, 120, 0.7)' },
-            { label: 'INR Pricing', value: 90, color: 'rgba(184, 164, 120, 0.6)' },
-            { label: 'Multilingual', value: 80, color: 'rgba(184, 164, 120, 0.5)' },
-            { label: 'Data Residency', value: 85, color: 'rgba(80, 200, 120, 0.6)' },
-            { label: 'Compliance', value: 75, color: 'rgba(80, 200, 120, 0.5)' },
-            { label: 'Context Window', value: 70, color: 'rgba(184, 164, 120, 0.4)' },
-          ]} h={230} />
-        </DiagramBox>
-      )
-
     case 'healthcare-data-pipelines':
       return (
         <DiagramBox label="Figure 1: Healthcare Data Pipeline Architecture" caption="Data flows from clinical sources through de-identification and structuring layers before reaching the AI inference engine.">
@@ -513,20 +498,6 @@ function renderDiagram(guideSlug) {
         </DiagramBox>
       )
 
-    case 'inference-cost-optimization':
-      return (
-        <DiagramBox label="Figure 1: Cost-Per-Token Reduction by Technique" caption="Relative cost savings from each optimization technique applied independently to a baseline Llama 3 70B deployment.">
-          <ComparisonChart items={[
-            { label: 'Quantization (FP16→INT4)', value: 75, color: 'rgba(80, 200, 120, 0.7)' },
-            { label: 'Speculative Decoding', value: 40, color: 'rgba(80, 200, 120, 0.5)' },
-            { label: 'Continuous Batching', value: 55, color: 'rgba(184, 164, 120, 0.6)' },
-            { label: 'Cache-Aware Routing', value: 30, color: 'rgba(184, 164, 120, 0.4)' },
-            { label: 'Multi-Provider Arb', value: 25, color: 'rgba(80, 200, 120, 0.4)' },
-            { label: 'Prompt Compression', value: 35, color: 'rgba(184, 164, 120, 0.5)' },
-          ]} h={230} />
-        </DiagramBox>
-      )
-
     default:
       return null
   }
@@ -536,7 +507,7 @@ export const GUIDES_META = {
   'deploying-sovereign-ai-infrastructure-in-regulated-markets': {
     ...null,
     title: 'Deploying Sovereign AI Infrastructure in Regulated Markets',
-    description: 'A technical walkthrough of deploying air-gapped, on-premise LLM infrastructure for defense, healthcare, and government clients — covering GPU orchestration, model hardening, and audit compliance.',
+    description: 'A technical walkthrough of deploying air-gapped, on-premise LLM infrastructure for defense, healthcare, and government clients â€” covering GPU orchestration, model hardening, and audit compliance.',
     category: 'Infrastructure',
     readTime: '14 min read',
     slug: 'sovereign-ai-infrastructure',
@@ -560,23 +531,15 @@ export const GUIDES_META = {
   'semantic-caching-for-production-llm-apis': {
     ...null,
     title: 'Semantic Caching for Production LLM APIs',
-    description: 'Architecture patterns for reducing latency and cost by caching semantically similar queries — covering embedding selection, similarity thresholds, cache invalidation, and hybrid strategies.',
+    description: 'Architecture patterns for reducing latency and cost by caching semantically similar queries â€” covering embedding selection, similarity thresholds, cache invalidation, and hybrid strategies.',
     category: 'Infrastructure',
     readTime: '10 min read',
     slug: 'semantic-caching',
   },
-  'evaluating-llm-providers-for-the-indian-enterprise': {
-    ...null,
-    title: 'Evaluating LLM Providers for the Indian Enterprise',
-    description: 'A comparison of OpenAI, Anthropic, Google, Groq, Together, and open-weight models across latency, pricing in INR, multilingual capability, and data residency requirements for the Indian market.',
-    category: 'Strategy',
-    readTime: '16 min read',
-    slug: 'llm-providers-india',
-  },
   'designing-ai-ready-data-pipelines-for-healthcare': {
     ...null,
     title: 'Designing AI-Ready Data Pipelines for Healthcare',
-    description: 'End-to-end guidance on ingesting, de-identifying, and structuring EHR, PACS, and clinical notes for downstream AI inference — with emphasis on HIPAA compliance and Indian data protection law.',
+    description: 'End-to-end guidance on ingesting, de-identifying, and structuring EHR, PACS, and clinical notes for downstream AI inference â€” with emphasis on HIPAA compliance and Indian data protection law.',
     category: 'Healthcare',
     readTime: '13 min read',
     slug: 'healthcare-data-pipelines',
@@ -589,21 +552,13 @@ export const GUIDES_META = {
     readTime: '11 min read',
     slug: 'llm-security-patterns',
   },
-  'cost-optimization-for-large-scale-model-inference': {
-    ...null,
-    title: 'Cost Optimization for Large-Scale Model Inference',
-    description: 'Strategies for reducing per-token costs through model quantization, speculative decoding, batching strategies, fallback routing, and multi-provider arbitration without sacrificing quality.',
-    category: 'Engineering',
-    readTime: '15 min read',
-    slug: 'inference-cost-optimization',
-  },
 }
 
 export const GUIDE_CONTENT = {
   'sovereign-ai-infrastructure': {
     meta: {
       title: 'Deploying Sovereign AI Infrastructure in Regulated Markets',
-      description: 'A technical walkthrough of deploying air-gapped, on-premise LLM infrastructure for defense, healthcare, and government clients — covering GPU orchestration, model hardening, and audit compliance.',
+      description: 'A technical walkthrough of deploying air-gapped, on-premise LLM infrastructure for defense, healthcare, and government clients â€” covering GPU orchestration, model hardening, and audit compliance.',
       category: 'Infrastructure',
       readTime: '14 min read',
     },
@@ -645,7 +600,7 @@ export const GUIDE_CONTENT = {
         type: 'callout',
         icon: Server,
         title: 'Hardware Note',
-        content: 'For defense clients, we typically spec 8x NVIDIA H100 SXM nodes with NVSwitch. For healthcare, 4x A100 nodes suffice for most clinical workloads. The key constraint is not just VRAM but memory bandwidth — LLM inference is bandwidth-bound, and you want at least 2 TB/s aggregate per node.',
+        content: 'For defense clients, we typically spec 8x NVIDIA H100 SXM nodes with NVSwitch. For healthcare, 4x A100 nodes suffice for most clinical workloads. The key constraint is not just VRAM but memory bandwidth â€” LLM inference is bandwidth-bound, and you want at least 2 TB/s aggregate per node.',
       },
       {
         type: 'section',
@@ -704,7 +659,7 @@ export const GUIDE_CONTENT = {
         content: [
           'Every production agentic system we have built uses an orchestrator pattern. A single orchestrator agent receives the user request and decomposes it into subtasks. Each subtask is dispatched to a specialist agent. The specialist agent has access to a limited set of tools relevant to its domain.',
           'The orchestrator maintains a shared state object that tracks what has been done, what remains, and what decisions are pending. This state object is the source of truth. If the orchestrator crashes, the workflow resumes from the last persisted state, not from the beginning.',
-          'We use LangGraph for most Python-based deployments and a custom Rust runtime for latency-sensitive workloads. The key requirement is that the orchestrator supports cycles — loops where an agent can retry a tool call with modified parameters or backtrack to a previous step.',
+          'We use LangGraph for most Python-based deployments and a custom Rust runtime for latency-sensitive workloads. The key requirement is that the orchestrator supports cycles â€” loops where an agent can retry a tool call with modified parameters or backtrack to a previous step.',
         ],
       },
       {
@@ -777,7 +732,7 @@ export const GUIDE_CONTENT = {
         title: 'Fine-Tune vs. Prompt-Engineer vs. RAG',
         content: [
           'Prompt engineering works when the task is well-understood by the model and the required knowledge fits in the context window. If your task is summarization, classification, or extraction from text that the model already handles well on the first try, you do not need fine-tuning.',
-          'RAG works when the model understands the task but needs access to information it was not trained on. Company policies, product catalogs, recent research papers — these are retrieval problems, not fine-tuning problems. A good RAG pipeline with chunking, embedding, and hybrid search replaces 80 percent of fine-tuning use cases.',
+          'RAG works when the model understands the task but needs access to information it was not trained on. Company policies, product catalogs, recent research papers â€” these are retrieval problems, not fine-tuning problems. A good RAG pipeline with chunking, embedding, and hybrid search replaces 80 percent of fine-tuning use cases.',
           'Fine-tuning is for when the model does not understand the task or the domain deeply enough. Three scenarios: the output format is highly specific and structured (legal documents, medical reports), the domain has terminology and conventions the model was not trained on (Indian regulatory filings, Ayushman Bharat codes), or you need to suppress certain behaviors and reinforce others.',
         ],
       },
@@ -836,7 +791,7 @@ export const GUIDE_CONTENT = {
   'semantic-caching': {
     meta: {
       title: 'Semantic Caching for Production LLM APIs',
-      description: 'Architecture patterns for reducing latency and cost by caching semantically similar queries — covering embedding selection, similarity thresholds, cache invalidation, and hybrid strategies.',
+      description: 'Architecture patterns for reducing latency and cost by caching semantically similar queries â€” covering embedding selection, similarity thresholds, cache invalidation, and hybrid strategies.',
       category: 'Infrastructure',
       readTime: '10 min read',
     },
@@ -901,93 +856,10 @@ export const GUIDE_CONTENT = {
     ],
   },
 
-  'llm-providers-india': {
-    meta: {
-      title: 'Evaluating LLM Providers for the Indian Enterprise',
-      description: 'A comparison of OpenAI, Anthropic, Google, Groq, Together, and open-weight models across latency, pricing in INR, multilingual capability, and data residency requirements for the Indian market.',
-      category: 'Strategy',
-      readTime: '16 min read',
-    },
-    sections: [
-      {
-        type: 'intro',
-        content: [
-          'Indian enterprises evaluating LLM providers face a problem that their US counterparts do not: every major provider serves the Indian market as an afterthought. Pricing is quoted in USD. Latency is optimized for US West Coast data centers. Multilingual support for Indian languages is inconsistent at best.',
-          'This guide is based on benchmark data we collected over Q1 2026, running standardized test suites from AWS Mumbai (ap-south-1) and Azure Central India. We measured latency, cost, output quality, and multilingual capability across seven providers and six open-weight models.',
-        ],
-      },
-      {
-        type: 'diagram',
-        slug: 'llm-providers-india',
-      },
-      {
-        type: 'section',
-        title: 'Latency from Indian Data Centers',
-        content: [
-          'Latency is the most visible quality metric for end users. A model that returns results in 400ms feels fast. One that takes 3 seconds feels broken. For Indian users, the critical factor is where inference happens.',
-          'Google Gemini has the lowest latency from India because Googles Cloud infrastructure in Mumbai and Delhi means inference can happen within the country. Median time-to-first-token for Gemini 1.5 Pro measured from AWS Mumbai is 320ms.',
-          'OpenAI and Anthropic do not have inference endpoints in India. Requests route through US data centers, adding 180-250ms of network latency before any computation starts. Median TTFT for GPT-4o from Mumbai is 680ms. For Claude 3.5 Sonnet, it is 720ms.',
-          'Groq and Together run inference on specialized hardware in US data centers. Groqs LPU architecture delivers fast generation once the connection is established, but the initial network round trip from India adds 200ms. Together offers the option to deploy models in specific regions, but India is not currently supported.',
-        ],
-      },
-      {
-        type: 'callout',
-        icon: Globe,
-        title: 'The Data Residency Question',
-        content: 'Indian enterprises in regulated sectors cannot send data to US-based inference endpoints. This eliminates OpenAI, Anthropic, and Groq for defense, healthcare, and BFSI workloads. Google Gemini (via GCP India) and open-weight models deployed on Indian infrastructure are the only options for these sectors.',
-      },
-      {
-        type: 'subheading',
-        title: 'Pricing in INR: The Real Cost',
-        content: [
-          'Pricing is typically quoted in USD per million tokens. At 86 INR to the USD, the effective cost in rupees varies significantly by provider. But the headline rate is misleading because different providers have different context windows, caching policies, and throughput commitments.',
-          'OpenAI charges 10 USD per million input tokens for GPT-4o and 30 USD for output. In INR, that is 860 and 2,580 per million tokens. An Indian enterprise processing 10 million tokens per day spends roughly 25,000 INR daily on GPT-4o alone.',
-          'Anthropic is similar: 8 USD input, 24 USD output for Claude 3.5 Sonnet. Google Gemini 1.5 Pro is cheaper at 5 USD input, 20 USD output. But Gemini offers a 50 percent discount for requests processed within GCPs India region, making it significantly cheaper for Indian enterprises.',
-          'The most cost-effective option for high-volume workloads is self-hosting open-weight models. Running Llama 3 70B on a 2x A100 node costs roughly 2 USD per million tokens in compute and electricity, a 5x reduction from GPT-4o. The tradeoff is quality, which is 5-10 percent lower on most benchmarks.',
-        ],
-      },
-      {
-        type: 'table',
-        headers: ['Provider', 'Input (INR/M)', 'Output (INR/M)', 'Latency (ms)', 'Hindi Support', 'Data Residency'],
-        rows: [
-          ['GPT-4o', '860', '2,580', '680', 'Good', 'No India DC'],
-          ['Claude 3.5 Sonnet', '688', '2,064', '720', 'Moderate', 'No India DC'],
-          ['Gemini 1.5 Pro', '250', '1,720', '320', 'Excellent', 'GCP India'],
-          ['Groq Mixtral', '387', '1,548', '410', 'Limited', 'No India DC'],
-          ['Together Llama 3 70B', '344', '1,376', '490', 'Moderate', 'No India DC'],
-          ['Self-Hosted Llama 3 70B', '~172', '~172', '250', 'Moderate', 'Full control'],
-        ],
-      },
-      {
-        type: 'section',
-        title: 'Multilingual Capability',
-        content: [
-          'For Indian enterprises, English-only is not an option. Customer support, legal documents, and government compliance require handling Hindi, Tamil, Telugu, Bengali, Marathi, and code-switched Hinglish.',
-          'Google Gemini leads in multilingual support, likely because its training data includes more Indic languages. In our tests, Gemini 1.5 Pro correctly handles queries in all 22 scheduled Indian languages, with best results for Hindi, Tamil, and Telugu.',
-          'OpenAI GPT-4o handles Hindi and Hinglish well but degrades noticeably for Tamil and Telugu. Anthropic Claude is worse: it handles Hindi adequately but produces incorrect or nonsensical output for Dravidian languages in about 30 percent of test cases.',
-          'Open-weight models like Llama 3 and Qwen 2.5 can be fine-tuned for multilingual performance. We achieved a 23 percent improvement in Tamil accuracy by fine-tuning Qwen 2.5 72B on 5,000 Tamil-English parallel examples. This is a viable path for enterprises that need strong multilingual support and have the in-house ML capability.',
-        ],
-      },
-      {
-        type: 'section',
-        title: 'Making the Decision',
-        content: [
-          'For Indian enterprises, the provider decision splits cleanly along regulatory lines. Regulated sectors (BFSI, healthcare, defense, government) need self-hosted open-weight models on Indian infrastructure. Unregulated sectors can use Google Gemini through GCP India for the best latency and multilingual support.',
-          'OpenAI and Anthropic remain the best choices for quality, but their lack of Indian infrastructure and high cost make them hard to justify for production workloads at scale. They work well for prototyping, internal tooling, and low-volume use cases.',
-          'The fast-moving segment is open-weight models. Llama 3, Qwen 2.5, and Mistral are improving rapidly, and the gap with proprietary models is closing. We expect that by the end of 2026, most Indian enterprises will standardize on fine-tuned open-weight models deployed on domestic infrastructure, with proprietary APIs reserved for specific high-stakes tasks.',
-        ],
-      },
-      {
-        type: 'outro',
-        content: 'There is no single best provider for Indian enterprises. The right choice depends on your regulatory requirements, latency sensitivity, multilingual needs, and budget. Our recommendation: start with Google Gemini if you can use cloud, or self-hosted Llama 3 if you cannot. Reevaluate every quarter as the open-weight ecosystem evolves.',
-      },
-    ],
-  },
-
   'healthcare-data-pipelines': {
     meta: {
       title: 'Designing AI-Ready Data Pipelines for Healthcare',
-      description: 'End-to-end guidance on ingesting, de-identifying, and structuring EHR, PACS, and clinical notes for downstream AI inference — with emphasis on HIPAA compliance and Indian data protection law.',
+      description: 'End-to-end guidance on ingesting, de-identifying, and structuring EHR, PACS, and clinical notes for downstream AI inference â€” with emphasis on HIPAA compliance and Indian data protection law.',
       category: 'Healthcare',
       readTime: '13 min read',
     },
@@ -1134,96 +1006,6 @@ export const GUIDE_CONTENT = {
     ],
   },
 
-  'inference-cost-optimization': {
-    meta: {
-      title: 'Cost Optimization for Large-Scale Model Inference',
-      description: 'Strategies for reducing per-token costs through model quantization, speculative decoding, batching strategies, fallback routing, and multi-provider arbitration without sacrificing quality.',
-      category: 'Engineering',
-      readTime: '15 min read',
-    },
-    sections: [
-      {
-        type: 'intro',
-        content: [
-          'LLM inference costs are the single largest line item in any production AI budget. A company running 100 million tokens per day on GPT-4o spends roughly 75,000 USD per month on inference alone. At scale, optimization is not optional; it is the difference between a viable product and one that burns through its budget in weeks.',
-          'The good news is that the optimization landscape has matured significantly in the past year. Techniques that required custom CUDA kernels six months ago are now available in off-the-shelf inference engines. This guide covers the techniques we use to reduce inference costs by 60 to 80 percent in production deployments.',
-        ],
-      },
-      {
-        type: 'diagram',
-        slug: 'inference-cost-optimization',
-      },
-      {
-        type: 'section',
-        title: 'Model Quantization',
-        content: [
-          'Quantization is the single highest-impact optimization. It reduces the precision of model weights from 16-bit floating point to 4-bit or 8-bit integers, shrinking memory requirements by 4x and improving throughput by 2-3x.',
-          'The key insight is that most LLM weights do not need full precision. The distribution of weights is concentrated around zero, and the important information is in the relative values, not the absolute precision. Quantization preserves the ordering of weights while discarding precision.',
-          'For production deployment, we use INT4 quantization with AWQ (Activation-Aware Weight Quantization) or GPTQ (Post-Training Quantization). Both methods achieve under 1 percent quality degradation on most benchmarks while reducing memory by 4x. AWQ is our preferred method because it is more robust to the calibration dataset choice.',
-          'The tradeoff is that quantized models are less suitable for fine-tuning. If you plan to fine-tune, keep a FP16 copy of the model for training and use the INT4 copy for inference. The cost savings from inference quantization easily justify maintaining two copies.',
-        ],
-      },
-      {
-        type: 'callout',
-        icon: BarChart3,
-        title: 'Real-World Savings',
-        content: 'We deployed a Llama 3 70B model for a customer support application. FP16 inference required 4x A100 GPUs and cost 3,200 USD per day. After INT4 quantization and continuous batching, the same workload runs on 1x A100 and costs 800 USD per day. Latency increased by 15 percent, which was within the acceptable threshold.',
-      },
-      {
-        type: 'subheading',
-        title: 'Speculative Decoding',
-        content: [
-          'Speculative decoding uses a smaller, faster draft model to propose tokens, which the larger target model then verifies in parallel. Because the verification step processes multiple tokens at once, the effective generation speed increases by 2-3x without any quality loss.',
-          'The draft model is typically 1-2 billion parameters, running on CPU or a small GPU. It generates K candidate tokens auto-regressively. The target model processes all K candidates in a single forward pass and accepts or rejects them. Accepted tokens are returned immediately. Rejected tokens trigger a resample from the target models distribution.',
-          'The efficiency depends on the acceptance rate. If the draft model agrees with the target model 80 percent of the time, the effective speedup is roughly 3x. We use a fine-tuned draft model that achieves 85 percent acceptance on our customer support domain.',
-          'Speculative decoding is most effective for latency-sensitive applications. It does not reduce total compute cost because the target model still processes every token. But it improves user experience by reducing perceived latency, which indirectly reduces costs by improving conversion rates.',
-        ],
-      },
-      {
-        type: 'section',
-        title: 'Continuous Batching',
-        content: [
-          'Continuous batching is the most important throughput optimization. Traditional inference processes requests one at a time or in fixed batches. Continuous batching dynamically adds new requests to a running batch as soon as earlier requests finish generating.',
-          'The result is dramatically higher GPU utilization. Our deployments achieve 70-80 percent GPU utilization with continuous batching, compared to 20-30 percent with static batching. This translates directly to cost: you need fewer GPUs to serve the same traffic.',
-          'vLLM and TensorRT-LLM both support continuous batching out of the box. The key configuration parameters are max_num_seqs (how many sequences can be batched) and max_num_batched_tokens (how many tokens can be processed in a single forward pass). We tune these based on the model size and expected traffic pattern.',
-        ],
-      },
-      {
-        type: 'table',
-        headers: ['Technique', 'Cost Reduction', 'Quality Impact', 'Latency Impact', 'Implementation Effort'],
-        rows: [
-          ['INT4 Quantization', '4x', '<1%', '+10-20%', 'Low (off-the-shelf)'],
-          ['Speculative Decoding', '1.5-3x', 'None', '-40-60%', 'Medium (draft model)'],
-          ['Continuous Batching', '2-3x', 'None', '+5-15%', 'Low (config)'],
-          ['Prompt Compression', '1.2-2x', '-2-5%', '-10-20%', 'Medium (LLMLingua)'],
-          ['Multi-Provider Arb', '1.5-2x', 'Variable', '+0-10%', 'High (routing infra)'],
-        ],
-      },
-      {
-        type: 'section',
-        title: 'Multi-Provider Arbitration',
-        content: [
-          'No single provider is optimal for all queries. A simple classification task does not need GPT-4o. A complex reasoning task should not be sent to Gemini Flash. Multi-provider arbitration routes each query to the cheapest provider that can handle it adequately.',
-          'We use a router model that predicts which provider will give acceptable quality for a given query. The router is a small classifier (DeBERTa-v3) trained on hand-labeled examples of query difficulty. It classifies each query as easy, medium, or hard and routes accordingly.',
-          'Easy queries go to Groq or Together (fast and cheap). Medium queries go to Gemini Flash or Claude Haiku. Hard queries go to GPT-4o or Claude Sonnet. The splitting rule is simple but effective: 50 percent of queries are easy, 30 percent are medium, and 20 percent are hard.',
-          'The result is a 45 percent reduction in average cost per query with under 3 percent degradation in user satisfaction scores. The routing adds 50ms of latency, which is imperceptible to users.',
-        ],
-      },
-      {
-        type: 'section',
-        title: 'Prompt Compression',
-        content: [
-          'Many queries include long context that is mostly irrelevant to the task. Prompt compression techniques reduce the input length while preserving the information needed for the task.',
-          'We use LLMLingua for prompt compression. It uses a smaller model to score the importance of each token in the prompt and removes low-importance tokens. Typical compression ratios are 2-5x with minimal quality loss. For retrieval-augmented generation, where the context includes multiple document chunks, compression is particularly effective.',
-          'The tradeoff is that compression adds latency (50-100ms) and can occasionally remove important information. We apply compression selectively: only for queries with context over 4,000 tokens, and only for non-critical tasks where a small quality degradation is acceptable.',
-        ],
-      },
-      {
-        type: 'outro',
-        content: 'Cost optimization is not a one-time effort. Model prices change, new techniques emerge, and traffic patterns shift. The most important investment is not any single optimization but the measurement infrastructure that lets you track cost per query, quality per provider, and the tradeoffs between them. Build the dashboards first, optimize second.',
-      },
-    ],
-  },
 }
 
 export {

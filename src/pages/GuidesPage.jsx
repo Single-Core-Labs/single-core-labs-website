@@ -36,13 +36,6 @@ const GUIDES = [
     href: '/guides/semantic-caching',
   },
   {
-    title: 'Evaluating LLM Providers for the Indian Enterprise',
-    description: 'A comparison of OpenAI, Anthropic, Google, Groq, Together, and open-weight models across latency, pricing in INR, multilingual capability, and data residency requirements for the Indian market.',
-    category: 'Strategy',
-    readTime: '16 min read',
-    href: '/guides/llm-providers-india',
-  },
-  {
     title: 'Designing AI-Ready Data Pipelines for Healthcare',
     description: 'End-to-end guidance on ingesting, de-identifying, and structuring EHR, PACS, and clinical notes for downstream AI inference — with emphasis on HIPAA compliance and Indian data protection law.',
     category: 'Healthcare',
@@ -55,13 +48,6 @@ const GUIDES = [
     category: 'Security',
     readTime: '11 min read',
     href: '/guides/llm-security-patterns',
-  },
-  {
-    title: 'Cost Optimization for Large-Scale Model Inference',
-    description: 'Strategies for reducing per-token costs through model quantization, speculative decoding, batching strategies, fallback routing, and multi-provider arbitration without sacrificing quality.',
-    category: 'Engineering',
-    readTime: '15 min read',
-    href: '/guides/inference-cost-optimization',
   },
 ]
 

@@ -51,50 +51,6 @@ export const BLOG_POSTS = [
     ],
   },
   {
-    slug: 'real-cost-gpt4o-indian-startups',
-    title: 'The Real Cost of GPT-4o for Indian Startups',
-    excerpt: 'At 86 INR to the dollar, GPT-4o costs Indian startups 2,580 INR per million output tokens. Here is how that adds up and what you can do about it.',
-    category: 'Strategy',
-    readTime: '7 min read',
-    date: '2026-07-22',
-    author: 'Single Core Labs',
-    tags: ['GPT-4o pricing', 'LLM costs', 'Indian startups', 'INR pricing'],
-    relatedGuides: ['llm-providers-india', 'inference-cost-optimization'],
-    content: [
-      {
-        type: 'paragraph',
-        text: 'Indian startups burn through cash faster than their US counterparts on LLM APIs. The obvious reason is the exchange rate. OpenAI charges 30 USD per million output tokens for GPT-4o. At 86 INR to the dollar, that is 2,580 INR. A startup processing 5 million tokens per day spends nearly 4 lakh rupees per month on a single model.',
-      },
-      {
-        type: 'paragraph',
-        text: 'But the exchange rate is only part of the story. The real problem is that Indian startups use LLMs differently. Customer support chatbots for Indian users generate longer conversations because users frequently switch between English and Hindi. Content generation tools produce longer outputs because Indian business communication is more formal and detailed. Every extra token costs money.',
-      },
-      {
-        type: 'callout',
-        title: 'The Hidden Cost: Context Windows',
-        text: 'Indian enterprises tend to have larger context windows because they include regulatory disclaimers, multilingual content, and compliance boilerplate. A single customer support interaction can easily hit 8,000 tokens of context. At that scale, context caching helps, but most Indian startups are not using it.',
-      },
-      {
-        type: 'paragraph',
-        text: 'The fix is not to stop using LLMs. It is to use them smarter. Route simple queries to cheaper models. Use semantic caching to avoid reprocessing the same question. Quantize self-hosted models for high-volume workloads. These optimizations can cut costs by 60 to 80 percent.',
-      },
-      {
-        type: 'guide-link',
-        slug: 'llm-providers-india',
-        text: 'Read our full comparison of LLM providers for the Indian enterprise',
-      },
-      {
-        type: 'guide-link',
-        slug: 'inference-cost-optimization',
-        text: 'Read our guide on cost optimization for large-scale model inference',
-      },
-      {
-        type: 'paragraph',
-        text: 'The cheapest option is self-hosting. Running Llama 3 70B on an A100 node costs roughly 172 INR per million tokens in compute and electricity. That is a 15x reduction from GPT-4o. The tradeoff is a 5-10 percent quality drop, which is acceptable for most customer-facing applications.',
-      },
-    ],
-  },
-  {
     slug: 'fine-tuning-vs-rag-decision-guide',
     title: 'Fine-Tuning vs. RAG: When to Use Which',
     excerpt: 'Most teams reach for fine-tuning when they should use RAG, or vice versa. Here is a decision framework based on dozens of enterprise deployments.',
@@ -195,53 +151,6 @@ export const BLOG_POSTS = [
         type: 'guide-link',
         slug: 'llm-security-patterns',
         text: 'Read our full guide on enterprise security patterns for LLM deployments',
-      },
-    ],
-  },
-  {
-    slug: 'reducing-llm-costs-without-sacrificing-quality',
-    title: 'Reducing LLM Costs Without Sacrificing Quality',
-    excerpt: 'How one deployment went from 3,200 USD per day to 800 USD per day using quantization, batching, and routing — without users noticing a difference.',
-    category: 'Engineering',
-    readTime: '7 min read',
-    date: '2026-07-08',
-    author: 'Single Core Labs',
-    tags: ['LLM costs', 'optimization', 'quantization', 'routing'],
-    relatedGuides: ['inference-cost-optimization', 'semantic-caching'],
-    content: [
-      {
-        type: 'paragraph',
-        text: 'A customer support chatbot for a financial services company. Four A100 GPUs running Llama 3 70B in FP16. Cost: 3,200 USD per day. Throughput: 500 requests per minute. Quality: excellent. Budget: unsustainable.',
-      },
-      {
-        type: 'paragraph',
-        text: 'We applied four optimizations. First, INT4 quantization using AWQ dropped memory requirements by 4x and let us run the same model on one GPU instead of four. Quality loss: under 1 percent on internal benchmarks.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Second, continuous batching increased GPU utilization from 25 percent to 72 percent. The single GPU could now handle the same 500 requests per minute that previously required four GPUs.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Third, we added a semantic cache. About 35 percent of customer queries were repeats with different wording. The cache caught them and returned responses in 30ms instead of 250ms, reducing the total inference load by a third.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Fourth, we deployed a multi-provider router. Easy queries went to Groq (fast and cheap). Hard queries stayed on Llama. The result: average cost per query dropped by another 25 percent.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Final cost: 800 USD per day. That is a 75 percent reduction. The users did not notice any difference in response quality. Latency actually improved because the cache and router handled most queries faster.',
-      },
-      {
-        type: 'guide-link',
-        slug: 'inference-cost-optimization',
-        text: 'Read our full guide on cost optimization for large-scale model inference',
-      },
-      {
-        type: 'guide-link',
-        slug: 'semantic-caching',
-        text: 'Read our guide on semantic caching for production LLM APIs',
       },
     ],
   },
