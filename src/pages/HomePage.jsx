@@ -641,6 +641,11 @@ function BackedBySection() {
       label: 'Claude for Startups',
       href: 'https://claude.com/programs/startups',
     },
+    {
+      src: '/zai-logo.png',
+      alt: 'Z.ai',
+      href: 'https://www.z.ai',
+    },
   ]
 
   return (
