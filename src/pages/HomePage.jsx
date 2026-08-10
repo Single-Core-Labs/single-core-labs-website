@@ -279,6 +279,23 @@ function AboutSection() {
       }}
     >
       <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          color: 'rgba(225,224,204,0.45)',
+          fontSize: 'clamp(10px, 0.85vw, 12px)',
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          fontWeight: 400,
+          textAlign: 'center',
+          marginBottom: 'clamp(20px, 2.5vw, 32px)',
+          fontFamily: "'Almarai', sans-serif",
+        }}
+      >
+        Accelerating embodied AGI
+      </motion.p>
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -292,13 +309,320 @@ function AboutSection() {
           textAlign: 'center',
         }}
       >
-        We design original architectures and ship them into production — across healthcare, infrastructure, and developer tooling.
+        We design original architectures and ship them into production — from perception to action, across healthcare, infrastructure, and developer tooling.
       </motion.p>
     </section>
   )
 }
 
-// ─── SECTION 3: BACKED BY ────────────────────────────────────────────────────
+// ─── SECTION 3: HOW WE WORK ──────────────────────────────────────────────────
+
+const HOW_WE_WORK_STEPS = [
+  {
+    number: '01',
+    layer: 'Layer / 01',
+    title: 'Data Capturing',
+    image: '/workflow-data-capture.png',
+    description:
+      "We embed capture and integration tooling into your environment and record the workflows that run your operation — the real tasks, the edge cases and the expertise that lives in your teams. There is no interruption — your operations keep running while we capture.",
+  },
+  {
+    number: '02',
+    layer: 'Layer / 02',
+    title: 'Model Training',
+    image: '/workflow-model-training.png',
+    description:
+      'We train foundation models on your captured data and tune them to your tasks, your objects and your environment. We are not locked to a single model or lab, so whenever a stronger model appears, your data works with it.',
+  },
+  {
+    number: '03',
+    layer: 'Layer / 03',
+    title: 'Deployment',
+    image: '/workflow-deployment.png',
+    description:
+      'We deploy the system that fits your task — a copilot, an agent, or an autonomous workflow — from whichever stack does the job best. Our team ships it into your infrastructure, handles security and handover, and stays until it runs reliably in production.',
+  },
+]
+
+function HowWeWorkSection() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: '#000',
+        padding: 'clamp(80px, 10vw, 160px) clamp(20px, 4vw, 60px)',
+        fontFamily: "'Almarai', sans-serif",
+      }}
+    >
+      <h2 style={{ textAlign: 'center', marginBottom: 'clamp(16px, 2vw, 24px)' }}>
+        <WordsPullUpMultiStyle
+          segments={[
+            {
+              text: 'How we work',
+              style: {
+                color: CREAM,
+                fontSize: 'clamp(28px, 4vw, 56px)',
+                fontWeight: 400,
+                lineHeight: 1.1,
+                letterSpacing: '-0.03em',
+              },
+            },
+          ]}
+          stagger={0.08}
+        />
+      </h2>
+      <div style={{ textAlign: 'center', maxWidth: '620px', margin: '0 auto clamp(56px, 6vw, 96px)' }}>
+        <WordsPullUpMultiStyle
+          segments={[
+            {
+              text: 'We capture the workflows that run your operation and turn them into the data foundation for intelligence — from documentation to autonomous workflows.',
+              style: {
+                color: CREAM_70,
+                fontSize: 'clamp(13px, 1.1vw, 16px)',
+                fontWeight: 300,
+                lineHeight: 1.6,
+              },
+            },
+          ]}
+          stagger={0.03}
+        />
+      </div>
+
+      <div style={{ maxWidth: '1080px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 'clamp(48px, 6vw, 96px)' }}>
+        {HOW_WE_WORK_STEPS.map((step, i) => {
+          const flipped = i % 2 === 1
+          return (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 40 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'clamp(24px, 4vw, 64px)',
+                flexDirection: flipped ? 'row-reverse' : 'row',
+                flexWrap: 'wrap',
+              }}
+            >
+              <div style={{ flex: '1 1 380px', minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 'clamp(12px, 1.5vw, 20px)', marginBottom: '12px' }}>
+                  <span style={{
+                    color: 'rgba(225,224,204,0.5)',
+                    fontSize: 'clamp(44px, 6vw, 84px)',
+                    fontWeight: 500,
+                    lineHeight: 1,
+                    letterSpacing: '-0.04em',
+                  }}>
+                    {step.number}
+                  </span>
+                  <span style={{
+                    color: 'rgba(90,158,143,0.8)',
+                    fontSize: 'clamp(10px, 0.9vw, 12px)',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    fontWeight: 400,
+                  }}>
+                    {step.layer}
+                  </span>
+                </div>
+                <h3 style={{ marginBottom: '14px' }}>
+                  <WordsPullUpMultiStyle
+                    segments={[
+                      {
+                        text: step.title,
+                        style: {
+                          color: CREAM,
+                          fontSize: 'clamp(20px, 2.2vw, 32px)',
+                          fontWeight: 600,
+                          lineHeight: 1.2,
+                        },
+                      },
+                    ]}
+                    stagger={0.06}
+                  />
+                </h3>
+                <p style={{ maxWidth: '460px' }}>
+                  <WordsPullUpMultiStyle
+                    segments={[
+                      {
+                        text: step.description,
+                        style: {
+                          color: '#9CA3AF',
+                          fontSize: 'clamp(13px, 1vw, 15px)',
+                          fontWeight: 300,
+                          lineHeight: 1.7,
+                        },
+                      },
+                    ]}
+                    stagger={0.015}
+                  />
+                </p>
+              </div>
+              <div style={{ flex: '1 1 380px', minWidth: 0 }}>
+                <img
+                  src={step.image}
+                  alt={`${step.title} — Single Core Labs`}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+// ─── SECTION 4: THE DATA ADVANTAGE ───────────────────────────────────────────
+
+const WITH_US = [
+  'Project scoping',
+  'Data capturing',
+  'Model training',
+  'Deployment and operations',
+  'Competition outpaced',
+]
+
+const WITHOUT_US = [
+  'No data collected',
+  'No data collected',
+  'Problem realized',
+  'Starting from scratch',
+  'Outpaced by competition',
+]
+
+function DataAdvantageSection() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: '#000',
+        padding: 'clamp(80px, 10vw, 160px) clamp(20px, 4vw, 60px)',
+        fontFamily: "'Almarai', sans-serif",
+        borderTop: '1px solid rgba(225,224,204,0.06)',
+      }}
+    >
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          color: CREAM,
+          fontSize: 'clamp(26px, 3.6vw, 48px)',
+          fontWeight: 400,
+          lineHeight: 1.15,
+          letterSpacing: '-0.03em',
+          textAlign: 'center',
+          maxWidth: '860px',
+          margin: '0 auto clamp(56px, 6vw, 96px)',
+        }}
+      >
+        The models will be ready for everyone at the same time.{' '}
+        <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic' }}>The data won't.</span>
+      </motion.h2>
+
+      <div style={{
+        maxWidth: '1000px',
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: 'clamp(16px, 2vw, 28px)',
+      }}>
+        {[
+          {
+            title: 'With us',
+            steps: WITH_US,
+            tone: 'green',
+          },
+          {
+            title: 'Without us',
+            steps: WITHOUT_US,
+            tone: 'dim',
+          },
+        ].map((col, colIdx) => (
+          <motion.div
+            key={col.title}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: colIdx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              background: col.tone === 'green' ? 'rgba(90,158,143,0.05)' : '#0E0E0D',
+              border: col.tone === 'green'
+                ? '1px solid rgba(90,158,143,0.3)'
+                : '1px solid rgba(225,224,204,0.08)',
+              borderRadius: 'clamp(14px, 1.5vw, 20px)',
+              padding: 'clamp(24px, 3vw, 40px)',
+              opacity: col.tone === 'dim' ? 0.6 : 1,
+            }}
+          >
+            <p style={{
+              color: col.tone === 'green' ? 'rgba(90,158,143,0.9)' : 'rgba(225,224,204,0.5)',
+              fontSize: 'clamp(10px, 0.85vw, 12px)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              fontWeight: 500,
+              marginBottom: 'clamp(20px, 2.5vw, 32px)',
+            }}>
+              {col.title}
+            </p>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+              {col.steps.map((step, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: colIdx === 0 ? -16 : 16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '14px',
+                    padding: 'clamp(12px, 1.5vw, 16px) 0',
+                    borderBottom: i < col.steps.length - 1 ? '1px solid rgba(225,224,204,0.07)' : 'none',
+                  }}
+                >
+                  <span style={{
+                    flexShrink: 0,
+                    width: 'clamp(26px, 2vw, 32px)',
+                    height: 'clamp(26px, 2vw, 32px)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 'clamp(11px, 0.9vw, 13px)',
+                    fontWeight: 600,
+                    background: col.tone === 'green' ? 'rgba(90,158,143,0.15)' : 'rgba(225,224,204,0.06)',
+                    border: col.tone === 'green' ? '1px solid rgba(90,158,143,0.5)' : '1px solid rgba(225,224,204,0.15)',
+                    color: col.tone === 'green' ? 'rgba(90,158,143,0.9)' : 'rgba(225,224,204,0.45)',
+                  }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span style={{
+                    color: col.tone === 'green' ? CREAM : 'rgba(225,224,204,0.7)',
+                    fontSize: 'clamp(14px, 1.2vw, 17px)',
+                    fontWeight: col.tone === 'green' ? 500 : 300,
+                    textDecoration: col.tone === 'dim' ? 'line-through rgba(225,224,204,0.25)' : 'none',
+                  }}>
+                    {step}
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ─── SECTION 5: BACKED BY ────────────────────────────────────────────────────
 
 function BackedBySection() {
   const ref = useRef(null)
@@ -683,6 +1007,8 @@ export default function HomePage() {
       <HeroSection />
       <BackedBySection />
       <AboutSection />
+      <HowWeWorkSection />
+      <DataAdvantageSection />
       <FeaturesSection />
       <NewsletterSection />
       <Footer />
