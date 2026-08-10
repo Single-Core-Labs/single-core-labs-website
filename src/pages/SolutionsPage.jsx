@@ -1,59 +1,13 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import SEO from '@/components/SEO'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
-import { ArrowRight, Landmark, Monitor, Factory, SquarePlus, Shield } from 'lucide-react'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-
-const INDUSTRIES = [
-  {
-    id: 'finance',
-    icon: Landmark,
-    label: 'Finance',
-    tagline: 'Precision AI for high-stakes financial operations',
-    description: 'Fraud detection, underwriting automation, portfolio intelligence, and regulatory compliance powered by purpose-built models in air-gapped environments.',
-    href: '/solutions/finance',
-    color: 'rgba(184, 164, 120, 0.12)',
-  },
-  {
-    id: 'tech',
-    icon: Monitor,
-    label: 'Tech',
-    tagline: 'Ship smarter software with sovereign AI',
-    description: 'Agentic coding assistants, automated CI/CD intelligence, and context-aware developer tools that understand your entire tech stack.',
-    href: '/solutions/tech',
-    color: 'rgba(184, 164, 120, 0.12)',
-  },
-  {
-    id: 'manufacturing',
-    icon: Factory,
-    label: 'Manufacturing',
-    tagline: 'Intelligent automation for Industry 4.0',
-    description: 'Predictive maintenance, computer vision quality assurance, supply chain optimization, and digital twin integration for smart manufacturing.',
-    href: '/solutions/manufacturing',
-    color: 'rgba(184, 164, 120, 0.12)',
-  },
-  {
-    id: 'healthcare',
-    icon: SquarePlus,
-    label: 'Healthcare',
-    tagline: 'AI that understands clinical complexity',
-    description: 'EHR-integrated clinical intelligence, medical imaging diagnostics, and HIPAA-compliant NLP pipelines for the most regulated environments.',
-    href: '/solutions/healthcare-intelligence',
-    color: 'rgba(184, 164, 120, 0.12)',
-  },
-  {
-    id: 'defense',
-    icon: Shield,
-    label: 'Defense & Government',
-    tagline: 'Sovereign AI for national security',
-    description: 'Air-gapped LLM deployment, intelligence analysis automation, and secure multi-level classification systems for defense and public sector.',
-    href: '/solutions/defense',
-    color: 'rgba(184, 164, 120, 0.12)',
-  },
-]
+import { INDUSTRIES } from '@/lib/industries'
+import { supabase } from '@/lib/supabase'
 
 function TreeBranch({ left, delay = 0 }) {
   const ref = useRef(null)
@@ -203,8 +157,8 @@ export default function SolutionsPage() {
     <div className="page-dark">
       <SEO
         title="AI Solutions by Industry | Single Core Labs"
-        description="Single Core Labs delivers enterprise AI solutions across Finance, Tech, Manufacturing, Healthcare, and Defense — purpose-built for regulated, high-stakes environments."
-        keywords="enterprise AI solutions, finance AI, healthcare AI, defense AI, manufacturing AI, sovereign AI"
+        description="Single Core Labs delivers embodied AI across Logistics, Manufacturing, Healthcare, Energy, and Defense — from perception to action in the physical world."
+        keywords="embodied AI, logistics AI, manufacturing AI, healthcare AI, energy AI, defense AI, sovereign AI"
       />
       <Navbar />
 
@@ -225,7 +179,7 @@ export default function SolutionsPage() {
         >
           <div className="container-editorial" style={{ position: 'relative', zIndex: 1 }}>
             <RevealText>
-              <p className="text-eyebrow" style={{ marginBottom: '24px' }}>Solutions by Industry</p>
+              <p className="text-eyebrow" style={{ marginBottom: '24px' }}>Accelerating embodied AGI</p>
             </RevealText>
             <RevealText delay={0.15}>
               <h1 className="solutions-hero__title" style={{ marginBottom: '28px', maxWidth: '1000px', marginInline: 'auto' }}>
@@ -235,8 +189,8 @@ export default function SolutionsPage() {
             </RevealText>
             <RevealText delay={0.3}>
               <p className="text-body" style={{ maxWidth: '640px', marginInline: 'auto', fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'var(--color-text)', marginBottom: '40px' }}>
-                From finance to defense, we engineer sovereign AI systems that respect your data,
-                understand your domain, and deploy on your terms.
+                From logistics to defense, we train embodied systems that respect your data,
+                understand your physical world, and deploy on your terms.
               </p>
             </RevealText>
           </div>
@@ -344,31 +298,263 @@ export default function SolutionsPage() {
           </motion.div>
         </section>
 
-        {/* ──────── Closing CTA ──────── */}
-        <section className="container-editorial" style={{ textAlign: 'center', marginBottom: '120px' }}>
+        {/* ──────── Talk to sales ──────── */}
+        <section className="container-editorial" style={{ marginBottom: '120px' }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="card card--rounded card--pad"
-            style={{ padding: 'clamp(48px, 6vw, 80px)', background: 'var(--color-bg-elevated)' }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 'clamp(40px, 6vw, 96px)',
+              alignItems: 'center',
+            }}
+            className="contact-grid"
           >
-            <h2 className="text-display" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', color: 'var(--color-text)', marginBottom: '16px' }}>
-              Not sure where to start?
-            </h2>
-            <p className="text-body" style={{ color: 'var(--color-text-muted)', maxWidth: '560px', marginInline: 'auto', marginBottom: '36px', fontSize: '15px' }}>
-              Tell us about your industry and goals. We'll map out the right AI architecture
-              for your infrastructure, data, and compliance requirements.
-            </p>
-            <a href="/contact" className="btn-primary">
-              Talk to an expert
-              <ArrowRight size={18} />
-            </a>
+            <div>
+              <p className="text-eyebrow" style={{ marginBottom: '20px' }}>Talk to sales</p>
+              <h2 className="text-display" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', color: 'var(--color-text)', marginBottom: '16px' }}>
+                Not sure where to start?
+              </h2>
+              <p className="text-body" style={{ color: 'var(--color-text-muted)', maxWidth: '460px', marginBottom: '40px', fontSize: '15px' }}>
+                Tell us about your industry and goals. We'll map out the right embodied AI
+                architecture for your infrastructure, data, and compliance requirements.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {INDUSTRIES.map((industry, i) => (
+                  <Link
+                    key={industry.id}
+                    to={industry.href}
+                    style={{
+                      display: 'flex',
+                      gap: '20px',
+                      alignItems: 'baseline',
+                      padding: '18px 0',
+                      textDecoration: 'none',
+                      borderBottom: '1px solid var(--color-border)',
+                      transition: 'background 0.25s',
+                    }}
+                  >
+                    <span style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      color: 'var(--color-accent)',
+                      letterSpacing: '0.06em',
+                      flexShrink: 0,
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span>
+                      <span style={{
+                        display: 'block',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '16px',
+                        fontWeight: 500,
+                        color: 'var(--color-text)',
+                        marginBottom: '4px',
+                      }}>
+                        {industry.label}
+                      </span>
+                      <span style={{
+                        display: 'block',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '13px',
+                        color: 'var(--color-text-muted)',
+                      }}>
+                        {industry.tagline}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      size={16}
+                      style={{ marginLeft: 'auto', alignSelf: 'center', color: 'rgba(228, 222, 201, 0.4)', flexShrink: 0 }}
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <TalkToSalesForm />
           </motion.div>
         </section>
 
       </main>
       <Footer />
+    </div>
+  )
+}
+
+// ─── TALK TO SALES FORM ───────────────────────────────────────────────────────
+
+const baseInput = {
+  width: '100%',
+  padding: '10px 0',
+  fontFamily: 'var(--font-sans)',
+  fontSize: '14px',
+  color: 'var(--color-text)',
+  background: 'transparent',
+  border: 'none',
+  borderBottom: '1px solid var(--color-border)',
+  outline: 'none',
+  borderRadius: 0,
+  appearance: 'none',
+  WebkitAppearance: 'none',
+  transition: 'border-color 0.2s',
+}
+
+function SalesField({ label, id, type = 'text', required, placeholder, value, onChange }) {
+  const [focused, setFocused] = useState(false)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+      <label htmlFor={id} style={{
+        fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 500,
+        color: 'var(--color-text-muted)', letterSpacing: '0.01em',
+      }}>
+        {label}{required && <span style={{ color: 'var(--color-accent)' }}> *</span>}
+      </label>
+      <input
+        id={id} type={type} required={required}
+        placeholder={placeholder} value={value} onChange={onChange}
+        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+        style={{ ...baseInput, borderBottomColor: focused ? 'var(--color-accent)' : 'var(--color-border)' }}
+      />
+    </div>
+  )
+}
+
+function SalesSelect({ label, id, required, value, onChange, children }) {
+  const [focused, setFocused] = useState(false)
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+      <label htmlFor={id} style={{
+        fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 500,
+        color: 'var(--color-text-muted)', letterSpacing: '0.01em',
+      }}>
+        {label}{required && <span style={{ color: 'var(--color-accent)' }}> *</span>}
+      </label>
+      <div style={{ position: 'relative' }}>
+        <select
+          id={id} required={required} value={value} onChange={onChange}
+          onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+          style={{
+            ...baseInput,
+            borderBottomColor: focused ? 'var(--color-accent)' : 'var(--color-border)',
+            paddingRight: '24px', cursor: 'pointer',
+          }}
+        >
+          {children}
+        </select>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+          style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--color-text-dim)' }}>
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
+    </div>
+  )
+}
+
+function TalkToSalesForm() {
+  const [form, setForm] = useState({
+    name: '', email: '', company: '', industry: '', message: '',
+  })
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading]   = useState(false)
+  const [error, setError]       = useState(null)
+
+  const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
+    try {
+      const { error: err } = await supabase.from('contact_submissions').insert([{
+        first_name: form.name,
+        last_name:  '',
+        email:      form.email,
+        phone:      '',
+        company:    form.company,
+        role:       form.industry,
+        country:    '—',
+        message:    form.message,
+      }])
+      if (err) throw err
+      setSubmitted(true)
+    } catch (err) {
+      console.error(err)
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div className="card card--rounded card--pad" style={{ background: 'var(--color-bg-elevated)' }}>
+        <p className="text-eyebrow" style={{ marginBottom: '16px' }}>Message sent</p>
+        <h3 className="text-display" style={{ fontSize: 'clamp(1.4rem, 2.4vw, 2rem)', color: 'var(--color-text)', marginBottom: '14px' }}>
+          We'll be in touch{' '}
+          <span className="text-italic-serif">shortly.</span>
+        </h3>
+        <p className="text-body" style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>
+          Thanks for reaching out. Someone from our team will review your enquiry
+          and get back to you within one business day.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="card card--rounded card--pad" style={{ background: 'var(--color-bg-elevated)' }}>
+      <h3 className="text-display" style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', color: 'var(--color-text)', marginBottom: '28px' }}>
+        Request a <span className="text-italic-serif">call</span>
+      </h3>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+        <SalesField label="Full name" id="sales-name" required placeholder="Jane Doe" value={form.name} onChange={set('name')} />
+        <SalesField label="Work email" id="sales-email" type="email" required placeholder="jane@company.com" value={form.email} onChange={set('email')} />
+        <SalesField label="Company" id="sales-company" placeholder="Company Ltd." value={form.company} onChange={set('company')} />
+        <SalesSelect label="Industry" id="sales-industry" required value={form.industry} onChange={set('industry')}>
+          <option value="" disabled>Select your industry</option>
+          {INDUSTRIES.map((i) => (
+            <option key={i.id} value={i.label}>{i.label}</option>
+          ))}
+          <option value="Other">Other</option>
+        </SalesSelect>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <label htmlFor="sales-message" style={{
+            fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 500,
+            color: 'var(--color-text-muted)', letterSpacing: '0.01em',
+          }}>
+            Project details
+          </label>
+          <textarea
+            id="sales-message" rows={4} placeholder="What are you trying to build?" value={form.message} onChange={set('message')}
+            style={{ ...baseInput, resize: 'vertical', paddingTop: '8px' }}
+          />
+        </div>
+        {error && (
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: '#E07A5F' }}>{error}</p>
+        )}
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn-primary"
+          style={{ marginTop: '6px', justifyContent: 'center', cursor: loading ? 'wait' : 'pointer' }}
+        >
+          {loading ? (
+            <>
+              <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
+              Sending…
+            </>
+          ) : (
+            <>
+              Request a call
+              <ArrowRight size={18} />
+            </>
+          )}
+        </button>
+      </form>
     </div>
   )
 }

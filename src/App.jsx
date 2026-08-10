@@ -18,6 +18,7 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 const DeploymentPage = lazy(() => import('./pages/DeploymentPage'))
 const SecurityPage = lazy(() => import('./pages/SecurityPage'))
 const TechPage = lazy(() => import('./pages/TechPage'))
+const IndustryPage = lazy(() => import('./pages/IndustryPage'))
 const ResearchPage = lazy(() => import('./pages/ResearchPage'))
 const ResearchCollectivePage = lazy(() => import('./pages/ResearchCollectivePage'))
 const TermsPage = lazy(() => import('./pages/TermsPage'))
@@ -74,6 +75,10 @@ function App() {
           <Route path="/solutions/healthcare-intelligence" element={<HealthcareIntelligencePage />} />
           <Route path="/solutions/ai-modernization" element={<AIModernizationPage />} />
           <Route path="/solutions/tech" element={<TechPage />} />
+          <Route path="/solutions/logistics" element={<IndustryPage />} />
+          <Route path="/solutions/manufacturing" element={<IndustryPage />} />
+          <Route path="/solutions/energy" element={<IndustryPage />} />
+          <Route path="/solutions/defense" element={<IndustryPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/about" element={<AboutPage />} />

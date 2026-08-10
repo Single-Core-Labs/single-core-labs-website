@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ChevronDown, Factory, Landmark, Monitor, Shield, SquarePlus } from 'lucide-react'
+import { ChevronDown, ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 
 const RESOURCES_LEFT = {
@@ -18,14 +18,6 @@ const RESOURCES_RIGHT = [
   { label: 'Contact us',    href: '/contact' },
   { label: 'Guides',        href: '/guides' },
   { label: 'Documentation', href: '/docs' },
-]
-
-const INDUSTRIES = [
-  { label: 'Finance', href: '/solutions/finance', icon: Landmark },
-  { label: 'Tech', href: '/solutions/tech', icon: Monitor },
-  { label: 'Manufacturing', href: '/solutions/manufacturing', icon: Factory },
-  { label: 'Healthcare', href: '/solutions/healthcare-intelligence', icon: SquarePlus },
-  { label: 'Defense', href: '/solutions/defense', icon: Shield },
 ]
 
 const darkBg = 'rgba(11, 11, 11, 0.88)'
@@ -54,85 +46,43 @@ function SolutionsDropdown({ onClose, onMouseEnter, onMouseLeave }) {
       <div style={{
         maxWidth: '860px',
         marginInline: 'auto',
-        padding: '14px clamp(18px, 3vw, 32px) 18px',
-        display: 'grid',
-        gridTemplateColumns: '180px 190px',
-        alignItems: 'start',
-        columnGap: 'clamp(32px, 6vw, 74px)',
+        padding: '18px clamp(18px, 3vw, 32px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
       }}>
-        <div style={{ paddingTop: '2px' }}>
-          <p style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '13px',
-            fontWeight: 500,
-            lineHeight: 1.1,
-            color: 'var(--color-text)',
-            marginBottom: '10px',
-          }}>
-            Custom AI Solutions
-          </p>
-          <p style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '11px',
-            fontWeight: 500,
-            lineHeight: 1.45,
-            color: 'rgba(228, 222, 201, 0.48)',
-            maxWidth: '172px',
-          }}>
-            Built by AI experts and tuned to your data and use case
-          </p>
-        </div>
-
-        <div>
-          <span style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '13px',
-            fontWeight: 400,
-            lineHeight: 1,
-            color: 'rgba(228, 222, 201, 0.45)',
-            display: 'block',
-            marginBottom: '14px',
-          }}>
-            Industries
-          </span>
-          <div style={{
+        <p style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '13px',
+          fontWeight: 500,
+          lineHeight: 1.1,
+          color: 'var(--color-text)',
+          margin: 0,
+        }}>
+          Custom AI Solutions
+        </p>
+        <Link
+          to="/solutions"
+          onClick={onClose}
+          style={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-          }}>
-            {INDUSTRIES.map((ind) => (
-              <Link
-                key={ind.label}
-                to={ind.href}
-                onClick={onClose}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  width: 'max-content',
-                  minHeight: '18px',
-                  textDecoration: 'none',
-                  color: 'rgba(228, 222, 201, 0.7)',
-                  transition: 'color 0.18s',
-                }}
-                onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.7)'}
-              >
-                <span style={{ display: 'inline-flex', color: 'currentColor' }}>
-                  <ind.icon size={15} strokeWidth={1.8} aria-hidden="true" />
-                </span>
-                <span style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '13px',
-                  fontWeight: 400,
-                  lineHeight: 1,
-                }}>
-                  {ind.label}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
+            alignItems: 'center',
+            gap: '8px',
+            textDecoration: 'none',
+            color: 'rgba(228, 222, 201, 0.85)',
+            transition: 'color 0.18s',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '13px',
+            fontWeight: 500,
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.85)'}
+        >
+          Embodied AGI
+          <span style={{ display: 'inline-flex', color: 'currentColor' }}>
+            <ArrowRight size={13} strokeWidth={2} />
+          </span>
+        </Link>
       </div>
     </motion.div>
   )
@@ -442,13 +392,11 @@ export function Navbar({ category }) {
               <span style={{ fontFamily:'var(--font-display)', fontSize:'10px', fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'rgba(228,222,201,0.4)' }}>
                 Solutions
               </span>
-              {INDUSTRIES.map(ind => (
-                <Link key={ind.label} to={ind.href} onClick={closeAll}
-                  style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(22px,4.5vw,32px)', fontWeight:400, color:'rgba(228,222,201,0.6)', textDecoration:'none', letterSpacing:'-0.02em' }}
-                >
-                  {ind.label}
-                </Link>
-              ))}
+              <Link to="/solutions" onClick={closeAll}
+                style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(22px,4.5vw,32px)', fontWeight:400, color:'rgba(228,222,201,0.6)', textDecoration:'none', letterSpacing:'-0.02em' }}
+              >
+                Embodied AGI
+              </Link>
             </motion.div>
 
             {[...NAV_LINKS.filter(l => l.label !== 'Solutions'), { label: 'Case Studies', href: '/case-studies' }].map((link, i) => (

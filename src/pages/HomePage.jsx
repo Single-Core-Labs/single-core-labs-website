@@ -344,6 +344,45 @@ const HOW_WE_WORK_STEPS = [
   },
 ]
 
+function WorkflowImage({ src, alt, flipped = false }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [18, 0, -18])
+  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [flipped ? 10 : -10, 0, flipped ? -10 : 10])
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.88, 1, 0.94])
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [48, 0, -48])
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.35, 1, 1, 0.35])
+
+  return (
+    <div style={{ perspective: 1000 }}>
+      <motion.div
+        style={{
+          rotateX,
+          rotateY,
+          scale,
+          y,
+          opacity,
+          transformStyle: 'preserve-3d',
+          willChange: 'transform',
+        }}
+      >
+        <motion.img
+          ref={ref}
+          src={src}
+          alt={alt}
+          loading="lazy"
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+      </motion.div>
+    </div>
+  )
+}
+
 function HowWeWorkSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -463,12 +502,7 @@ function HowWeWorkSection() {
                 </p>
               </div>
               <div style={{ flex: '1 1 380px', minWidth: 0 }}>
-                <img
-                  src={step.image}
-                  alt={`${step.title} — Single Core Labs`}
-                  loading="lazy"
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
+                <WorkflowImage src={step.image} alt={`${step.title} — Single Core Labs`} flipped={flipped} />
               </div>
             </motion.div>
           )
