@@ -726,7 +726,7 @@ function BackedBySection() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: 'clamp(20px, 3vw, 40px)',
+            gap: 'clamp(32px, 5vw, 72px)',
             flexWrap: 'wrap',
           }}>
             {supportLogos.map((logo, i) => (
