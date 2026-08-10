@@ -629,6 +629,19 @@ function BackedBySection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   const companies = ['Cognizant', 'Bank of America', 'Global Logic']
+  const supportLogos = [
+    {
+      src: '/scl-logo-light.png',
+      alt: 'Single Core Labs',
+      href: '/',
+    },
+    {
+      src: '/anthropic-logo.png',
+      alt: 'Anthropic',
+      label: 'Claude for Startups',
+      href: 'https://claude.com/programs/startups',
+    },
+  ]
 
   return (
     <section
@@ -700,29 +713,62 @@ function BackedBySection() {
             letterSpacing: '0.16em',
             textTransform: 'uppercase',
             fontWeight: 400,
-            marginBottom: '16px',
+            marginBottom: 'clamp(20px, 2.5vw, 32px)',
           }}>
-            Selected for
+            Supported by the startup ecosystem
           </p>
-          <span style={{
-            display: 'inline-flex',
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
             alignItems: 'center',
-            gap: '8px',
-            color: 'rgba(225,224,204,0.6)',
-            fontSize: 'clamp(14px, 1.2vw, 18px)',
-            fontWeight: 500,
-            letterSpacing: '0.02em',
-            padding: '8px 20px',
-            border: '1px solid rgba(225,224,204,0.12)',
-            borderRadius: '100px',
+            gap: 'clamp(20px, 3vw, 40px)',
+            flexWrap: 'wrap',
           }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-            Claude for Startups
-          </span>
+            {supportLogos.map((logo, i) => (
+              <motion.a
+                key={logo.alt}
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 15 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1, delay: 0.9 + i * 0.2, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '10px',
+                  textDecoration: 'none',
+                  opacity: 0.85,
+                  transition: 'opacity 0.25s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = 1)}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = 0.85)}
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  loading="lazy"
+                  style={{
+                    height: 'clamp(28px, 2.6vw, 40px)',
+                    width: 'auto',
+                    display: 'block',
+                  }}
+                />
+                {logo.label && (
+                  <span style={{
+                    color: 'rgba(225,224,204,0.5)',
+                    fontSize: 'clamp(10px, 0.8vw, 12px)',
+                    fontWeight: 500,
+                    letterSpacing: '0.03em',
+                    whiteSpace: 'nowrap',
+                  }}>
+                    {logo.label}
+                  </span>
+                )}
+              </motion.a>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
