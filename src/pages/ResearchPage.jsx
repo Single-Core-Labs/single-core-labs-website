@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowRight, Brain, RotateCcw, Layers, Workflow } from 'lucide-react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
@@ -82,120 +82,6 @@ function HeroSection() {
 }
 
 // ─── RESEARCH LINEAGE ───────────────────────────────────────────────────────
-
-function LineageItem({ item, index }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-  const Icon = item.icon
-  const isLeft = index % 2 === 0
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 1fr)',
-        gap: 'clamp(20px, 3vw, 40px)',
-        padding: 'clamp(32px, 4vh, 48px)',
-        border: '1px solid var(--color-border)',
-        background: 'var(--color-bg-card)',
-        marginBottom: '16px',
-        position: 'relative',
-      }}
-    >
-      {/* Year badge */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
-          marginBottom: '16px',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '13px',
-            fontWeight: 500,
-            letterSpacing: '0.12em',
-            color: 'var(--color-accent)',
-            padding: '4px 12px',
-            border: '1px solid var(--color-accent-dim)',
-          }}
-        >
-          {item.year}
-        </span>
-        <div style={{ height: '1px', flex: 1, background: 'var(--color-border)' }} />
-      </div>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr',
-          gap: 'clamp(16px, 2.5vw, 28px)',
-          alignItems: 'start',
-        }}
-      >
-        {/* Icon */}
-        <div
-          style={{
-            width: '48px',
-            height: '48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid var(--color-border-strong)',
-            background: 'var(--color-bg-elevated)',
-            color: 'var(--color-accent)',
-            flexShrink: 0,
-          }}
-        >
-          <Icon size={20} strokeWidth={1.5} />
-        </div>
-
-        <div>
-          <h3
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)',
-              fontWeight: 400,
-              lineHeight: 1.25,
-              letterSpacing: '-0.02em',
-              color: 'var(--color-text)',
-              marginBottom: '10px',
-            }}
-          >
-            {item.title}
-          </h3>
-          <p
-            className="text-body"
-            style={{
-              fontSize: '14px',
-              lineHeight: 1.7,
-              marginBottom: '16px',
-            }}
-          >
-            {item.summary}
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {item.tags.map((tag) => (
-              <span
-                key={tag}
-                className="tag"
-                style={{ fontSize: '10px', padding: '4px 10px' }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
 
 // ─── TRAJECTORY ─────────────────────────────────────────────────────────────
 
@@ -463,7 +349,6 @@ function RSIDiagram() {
 
 function RSISection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
     <section ref={ref} style={{

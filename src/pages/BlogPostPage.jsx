@@ -37,15 +37,6 @@ export default function BlogPostPage() {
     )
   }
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Blog', item: 'https://singlecorelabs.in/blog' },
-      { '@type': 'ListItem', position: 2, name: post.title, item: `https://singlecorelabs.in/blog/${post.slug}` },
-    ],
-  }
-
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Article',

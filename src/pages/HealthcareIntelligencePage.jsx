@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
 import { Link } from 'react-router-dom'
 import {
-  ArrowRight, Shield, Activity, Microscope,
+  ArrowRight, Activity, Microscope,
   Stethoscope, FileText, Lock, CheckCircle,
   Users, Building2, BarChart3, ChevronRight, Search,
   Zap, FlaskConical, ClipboardList, BrainCircuit,
@@ -297,6 +297,7 @@ export default function HealthcareIntelligencePage() {
               .hc-hero-split { grid-template-columns: 1fr; gap: 32px; }
               .hc-hero-split__text { text-align: center; }
               .hc-hero-visual { max-width: 320px; }
+              .hc-teams-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
             }
           `}</style>
         </section>
@@ -315,7 +316,7 @@ export default function HealthcareIntelligencePage() {
             </RevealText>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '24px' }}>
             {CAPABILITIES.map((cap, i) => (
               <motion.div
                 key={cap.label}
@@ -558,7 +559,7 @@ export default function HealthcareIntelligencePage() {
             </RevealText>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '20px' }}>
             {SERVICES.map((svc, i) => (
               <motion.div
                 key={svc.title}

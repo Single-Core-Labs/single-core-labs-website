@@ -3,6 +3,15 @@ import { Resend } from 'https://esm.sh/resend@2.0.0'
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 serve(async (req) => {
   if (req.method !== 'POST') return new Response('Method Not Allowed', { status: 405 })
 
@@ -13,15 +22,22 @@ serve(async (req) => {
       return new Response('Ignored', { status: 200 })
     }
 
+    const email = String(record.email ?? '')
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return new Response('Invalid email', { status: 400 })
+    }
+
+    const firstName = escapeHtml(record.first_name)
+
     const resend = new Resend(RESEND_API_KEY)
 
     await resend.emails.send({
       from: 'SCL Research Collective <research@singlecorelabs.in>',
-      to: [record.email],
+      to: [email],
       subject: 'Thank you for applying to the Single Core Labs Research Collective',
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
-          <p>Dear ${record.first_name},</p>
+          <p>Dear ${firstName},</p>
 
           <p>Thank you for applying to join our Research Collective.</p>
 

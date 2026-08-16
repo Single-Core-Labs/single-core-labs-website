@@ -4,6 +4,7 @@ import { Lock, Sliders, Zap, Server, Cloud, Shield, Check, ArrowRight, Loader2 }
 import SEO from '@/components/SEO'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { supabase } from '@/lib/supabase'
 
 const CREAM = '#E1E0CC'
 
@@ -164,18 +165,42 @@ function RevealSection({ children, delay = 0 }) {
 
 export default function DeploymentPage() {
   const [form, setForm] = useState({
-    firstName: '', lastName: '', email: '', company: '', message: '', consent: false,
+    firstName: '', lastName: '', email: '', company: '', message: '', consent: false, website: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const set = (key) => (e) => {
     const val = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     setForm(f => ({ ...f, [key]: val }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    if (form.website) return
+    setLoading(true)
+    setError(null)
+    try {
+      if (!supabase) throw new Error('Supabase is not configured')
+      const { error: insertError } = await supabase.from('contact_submissions').insert([{
+        first_name: form.firstName,
+        last_name:  form.lastName,
+        email:      form.email,
+        phone:      '',
+        company:    form.company,
+        role:       'Private Deployment',
+        country:    '—',
+        message:    form.message,
+      }])
+      if (insertError) throw insertError
+      setSubmitted(true)
+    } catch (err) {
+      console.error('[deployment] Insert error:', err)
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -475,6 +500,15 @@ export default function DeploymentPage() {
                 ) : (
                   <form onSubmit={handleSubmit} noValidate>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                      <input
+                        type="text"
+                        value={form.website}
+                        onChange={set('website')}
+                        tabIndex={-1}
+                        autoComplete="off"
+                        aria-hidden="true"
+                        style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                      />
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                         <Field label="First name" id="dfn" required value={form.firstName} onChange={set('firstName')} />
                         <Field label="Last name" id="dln" required value={form.lastName} onChange={set('lastName')} />
@@ -537,18 +571,18 @@ export default function DeploymentPage() {
 
                       <button
                         type="submit"
-                        disabled={!form.consent}
+                        disabled={!form.consent || loading}
                         style={{
                           width: '100%',
                           padding: '14px',
-                          background: form.consent ? CREAM : 'rgba(225,224,204,0.08)',
-                          color: form.consent ? '#0B0B0B' : 'rgba(225,224,204,0.3)',
+                          background: (form.consent && !loading) ? CREAM : 'rgba(225,224,204,0.08)',
+                          color: (form.consent && !loading) ? '#0B0B0B' : 'rgba(225,224,204,0.3)',
                           fontFamily: 'var(--font-sans)',
                           fontSize: '14px',
                           fontWeight: 600,
                           letterSpacing: '0.02em',
                           border: 'none',
-                          cursor: form.consent ? 'pointer' : 'not-allowed',
+                          cursor: (form.consent && !loading) ? 'pointer' : 'not-allowed',
                           transition: 'opacity 0.2s',
                           display: 'flex',
                           alignItems: 'center',
@@ -557,9 +591,20 @@ export default function DeploymentPage() {
                           borderRadius: '6px',
                         }}
                       >
-                        Submit
-                        <ArrowRight size={15} />
+                        {loading ? (
+                          <><Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} /> Sending...</>
+                        ) : (
+                          <>
+                            Submit
+                            <ArrowRight size={15} />
+                          </>
+                        )}
                       </button>
+                      {error && (
+                        <p style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', color: 'var(--color-accent)', fontWeight: 500 }}>
+                          {error}
+                        </p>
+                      )}
                     </div>
                   </form>
                 )}

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function AIAgentWidget() {
   const [open, setOpen] = useState(false);
@@ -9,6 +10,8 @@ export default function AIAgentWidget() {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [awaitingEmail, setAwaitingEmail] = useState(false);
+  const pendingQuestion = useRef(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,27 +22,58 @@ export default function AIAgentWidget() {
     scrollToBottom();
   }, [messages]);
 
+  const submitLead = async (email, question) => {
+    const { error } = await supabase.from('contact_submissions').insert([{
+      first_name: '',
+      last_name:  '',
+      email,
+      phone:      '',
+      company:    '',
+      role:       'Website Chat',
+      country:    '—',
+      message:    question,
+    }])
+    return error
+  }
+
   const handleSend = async (e) => {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed || isTyping) return;
-    
+
     const userMsg = { role: 'user', content: trimmed };
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setIsTyping(true);
 
+    if (awaitingEmail) {
+      const email = trimmed
+      const question = pendingQuestion.current || ''
+      const err = await submitLead(email, question)
+      setAwaitingEmail(false)
+      pendingQuestion.current = null
+      setMessages((prev) => [...prev, {
+        role: 'assistant',
+        content: err
+          ? 'Sorry — we could not save your details right now. Please try again or email us directly at contact@singlecorelabs.in.'
+          : 'Thanks! Your question is with our team and someone will follow up shortly.',
+      }])
+      setIsTyping(false)
+      return
+    }
+
     // Create a placeholder for the assistant's response
     setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
 
     const gatewayUrl = import.meta.env?.VITE_GATEWAY_URL || 'http://localhost:8001';
+    const gatewayToken = import.meta.env?.VITE_GATEWAY_TOKEN;
 
     try {
       const response = await fetch(`${gatewayUrl}/v1/chat/completions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer sk-test-123'
+          ...(gatewayToken ? { 'Authorization': `Bearer ${gatewayToken}` } : {}),
         },
         body: JSON.stringify({
           model: 'auto',
@@ -90,29 +124,18 @@ export default function AIAgentWidget() {
       }
     } catch (error) {
       console.error("Chat error:", error);
-      
-      // Fallback mock streaming so the user can test the UI when the backend is offline
-      const mockText = "This is a mock response since the Gateway backend is currently offline. I am streaming this word-by-word to help you preview the chat UI animations and styling!";
-      const words = mockText.split(" ");
-      let currentText = "";
-      
-      // Optional initial delay for realism
-      await new Promise(r => setTimeout(r, 600));
 
-      for (let i = 0; i < words.length; i++) {
-        await new Promise(r => setTimeout(r, 60)); // Simulate latency between chunks
-        currentText += (i === 0 ? "" : " ") + words[i];
-        
-        setMessages((prev) => {
-          const newMsgs = [...prev];
-          const lastIndex = newMsgs.length - 1;
-          newMsgs[lastIndex] = {
-            ...newMsgs[lastIndex],
-            content: currentText
-          };
-          return newMsgs;
-        });
-      }
+      // Gateway unreachable — capture the question as a lead instead of faking a reply
+      pendingQuestion.current = trimmed;
+      setAwaitingEmail(true);
+      setMessages((prev) => {
+        const newMsgs = [...prev];
+        newMsgs[newMsgs.length - 1] = {
+          role: 'assistant',
+          content: 'The live assistant is temporarily offline. Drop your email and I will make sure our team follows up on your question.'
+        };
+        return newMsgs;
+      });
     } finally {
       setIsTyping(false);
     }
@@ -211,7 +234,7 @@ export default function AIAgentWidget() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask a question..."
+                  placeholder={awaitingEmail ? 'Your email...' : 'Ask a question...'}
                   className="w-full outline-none transition-all"
                   style={{
                     padding: '12px 48px 12px 16px',

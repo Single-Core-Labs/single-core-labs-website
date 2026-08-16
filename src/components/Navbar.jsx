@@ -20,8 +20,6 @@ const RESOURCES_RIGHT = [
   { label: 'Documentation', href: '/docs' },
 ]
 
-const darkBg = 'rgba(11, 11, 11, 0.88)'
-
 function SolutionsDropdown({ onClose, onMouseEnter, onMouseLeave }) {
   return (
     <motion.div
@@ -166,7 +164,7 @@ function ResourcesDropdown({ onClose }) {
   )
 }
 
-export function Navbar({ category }) {
+export function Navbar() {
   const [scrolled, setScrolled]           = useState(false)
   const [menuOpen, setMenuOpen]           = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)

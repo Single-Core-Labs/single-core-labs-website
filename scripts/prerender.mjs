@@ -62,8 +62,6 @@ const ROUTES = [
   '/research-collective',
   '/terms',
   '/privacy',
-  '/ai-infrastructure-vs-cloud',
-  '/indian-ai-cloud-market-alternative',
 ]
 
 async function prerender() {

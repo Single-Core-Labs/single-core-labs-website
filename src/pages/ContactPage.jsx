@@ -90,7 +90,7 @@ function SelectField({ label, id, required, value, onChange, children }) {
 export default function ContactPage() {
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', phone: '',
-    company: '', jobTitle: '', country: '', message: '', consent: false,
+    company: '', jobTitle: '', country: '', message: '', consent: false, website: '',
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading]   = useState(false)
@@ -101,6 +101,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (form.website) return
     setLoading(true)
     setError(null)
     try {
@@ -294,6 +295,16 @@ export default function ContactPage() {
 
               <form onSubmit={handleSubmit} noValidate>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+                  <input
+                    type="text"
+                    value={form.website}
+                    onChange={set('website')}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                  />
 
                   {/* Row: First / Last name */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>

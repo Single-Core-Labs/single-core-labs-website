@@ -477,7 +477,7 @@ function SalesSelect({ label, id, required, value, onChange, children }) {
 
 function TalkToSalesForm() {
   const [form, setForm] = useState({
-    name: '', email: '', company: '', industry: '', message: '',
+    name: '', email: '', company: '', industry: '', message: '', website: '',
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading]   = useState(false)
@@ -487,6 +487,7 @@ function TalkToSalesForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (form.website) return
     setLoading(true)
     setError(null)
     try {
@@ -532,6 +533,15 @@ function TalkToSalesForm() {
         Request a <span className="text-italic-serif">call</span>
       </h3>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+        <input
+          type="text"
+          value={form.website}
+          onChange={set('website')}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+        />
         <SalesField label="Full name" id="sales-name" required placeholder="Jane Doe" value={form.name} onChange={set('name')} />
         <SalesField label="Work email" id="sales-email" type="email" required placeholder="jane@company.com" value={form.email} onChange={set('email')} />
         <SalesField label="Company" id="sales-company" placeholder="Company Ltd." value={form.company} onChange={set('company')} />

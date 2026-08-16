@@ -19,6 +19,10 @@ export async function submitResearchApplication(formData) {
     return { error: 'Database is not configured. Please contact support.' }
   }
 
+  if (formData.website) {
+    return { error: null }
+  }
+
   const trimmedName = formData.fullName.trim()
   const nameParts = trimmedName.split(' ')
 

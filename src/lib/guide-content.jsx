@@ -1,7 +1,6 @@
-﻿import {
-  ArrowRight, Server, Shield, Cpu, Lock, Cloud,
-  Monitor, Users, Workflow, Layers, Search,
-  BookOpen, Database, Key, Zap
+﻿/* eslint-disable react-refresh/only-export-components */
+import {
+  Server, Shield, Lock, Workflow, Zap, BookOpen
 } from 'lucide-react'
 
 function SectionTitle({ children }) {
@@ -307,26 +306,6 @@ function FlowDiagram({ steps }) {
   )
 }
 
-function ComparisonChart({ items, width: w = 500, height: h = 200 }) {
-  const maxVal = Math.max(...items.map(i => i.value))
-  const barMaxW = w - 160
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} style={{ width: '100%', maxWidth: `${w}px`, display: 'block', margin: '0 auto' }}>
-      {items.map((item, i) => {
-        const barW = (item.value / maxVal) * barMaxW
-        const y = i * (h / items.length) + 10
-        return (
-          <g key={i}>
-            <text x="0" y={y + 16} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="12" fontWeight="500">{item.label}</text>
-            <rect x="150" y={y} width={Math.max(barW, 4)} height="22" rx="4" fill={item.color || 'rgba(184, 164, 120, 0.4)'} />
-            <text x={155 + barW + 4} y={y + 16} fill="rgba(228, 222, 201, 0.6)" fontFamily="var(--font-sans)" fontSize="11">{item.value}</text>
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
-
 function renderDiagram(guideSlug) {
   switch (guideSlug) {
     case 'sovereign-ai-infrastructure':
@@ -405,7 +384,6 @@ function renderDiagram(guideSlug) {
               { label: 'RAG Pipeline', x: 160, y: 145 },
               { label: 'Fine-Tuning (LoRA)', x: 380, y: 145 },
             ].map((b, i) => {
-              const px = [130, 440]
               const ty = 80 + 32
               const bx = b.x + 80
               return (

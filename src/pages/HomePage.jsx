@@ -1,10 +1,11 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Shield, Cloud, Settings } from 'lucide-react'
+import { ArrowRight, Shield, Cloud, Settings, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import SEO from '@/components/SEO'
+import { supabase } from '@/lib/supabase'
 import WordsPullUp from '@/components/WordsPullUp'
 import WordsPullUpMultiStyle from '@/components/WordsPullUpMultiStyle'
 
@@ -36,39 +37,6 @@ const FEATURE_CARDS = [
     href: '/solutions',
   },
 ]
-
-// ─── ANIMATED LETTER (scroll-linked opacity) ─────────────────────────────────
-
-function AnimatedChar({ char, index, total, targetRef }) {
-  const charProgress = index / total
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ['start 0.8', 'end 0.2'],
-  })
-  const opacity = useTransform(
-    scrollYProgress,
-    [charProgress - 0.1, charProgress + 0.05],
-    [0.15, 1]
-  )
-  if (char === ' ') return <span>&nbsp;</span>
-  return (
-    <motion.span style={{ opacity, display: 'inline' }}>
-      {char}
-    </motion.span>
-  )
-}
-
-function AnimatedBody({ text, className = '', style: customStyle }) {
-  const ref = useRef(null)
-  const chars = text.split('')
-  return (
-    <p ref={ref} className={className} style={{ display: 'block', wordBreak: 'break-word', ...customStyle }}>
-      {chars.map((ch, i) => (
-        <AnimatedChar key={i} char={ch} index={i} total={chars.length} targetRef={ref} />
-      ))}
-    </p>
-  )
-}
 
 // ─── SECTION 1: HERO ─────────────────────────────────────────────────────────
 
@@ -158,6 +126,7 @@ function HeroSection() {
             paddingBottom: 'clamp(24px, 3.5vw, 52px)',
             gap: 'clamp(16px, 2vw, 32px)',
           }}
+          className="home-hero-grid"
         >
           {/* Left: Giant SCL wordmark */}
           <div style={{ overflow: 'hidden', lineHeight: 0 }}>
@@ -567,7 +536,7 @@ function DataAdvantageSection() {
         maxWidth: '1000px',
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
         gap: 'clamp(16px, 2vw, 28px)',
       }}>
         {[
@@ -892,7 +861,6 @@ function FeatureCard({ card, index }) {
 
 function FeaturesSection() {
   const titleRef = useRef(null)
-  const titleInView = useInView(titleRef, { once: true, margin: '-80px' })
 
   return (
     <section
@@ -925,7 +893,7 @@ function FeaturesSection() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
             gap: 'clamp(16px, 2vw, 24px)',
           }}
         >
@@ -943,6 +911,31 @@ function FeaturesSection() {
 function NewsletterSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const [email, setEmail] = useState('')
+  const [honeypot, setHoneypot] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (honeypot) return
+    setLoading(true)
+    setError(null)
+    try {
+      if (!supabase) throw new Error('Supabase is not configured')
+      const { error: insertError } = await supabase
+        .from('newsletter_subscribers')
+        .insert([{ email }])
+      if (insertError) throw insertError
+      setSubmitted(true)
+    } catch (err) {
+      console.error('[newsletter] Insert error:', err)
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <section
@@ -1023,56 +1016,86 @@ function NewsletterSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
           style={{
             display: 'flex',
             gap: '12px',
             maxWidth: '460px',
             margin: '0 auto',
             justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <input
-            type="email"
-            placeholder="your@email.com"
-            required
-            style={{
-              flex: 1,
-              minWidth: 0,
-              background: '#000',
-              border: '1px solid rgba(225,224,204,0.15)',
-              borderRadius: '9999px',
-              padding: 'clamp(10px, 1vw, 14px) clamp(16px, 2vw, 24px)',
-              color: CREAM,
-              fontSize: 'clamp(12px, 1vw, 14px)',
-              fontFamily: "'Almarai', sans-serif",
-              fontWeight: 300,
-              outline: 'none',
-              transition: 'border-color 0.2s',
-            }}
-            onFocus={(e) => e.target.style.borderColor = 'rgba(225,224,204,0.4)'}
-            onBlur={(e) => e.target.style.borderColor = 'rgba(225,224,204,0.15)'}
+            type="text"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
           />
-          <button
-            type="submit"
-            style={{
-              background: CREAM,
-              border: 'none',
-              borderRadius: '9999px',
-              padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2.5vw, 32px)',
-              color: '#000',
-              fontSize: 'clamp(12px, 1vw, 14px)',
-              fontFamily: "'Almarai', sans-serif",
-              fontWeight: 500,
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
-              transition: 'opacity 0.2s',
-            }}
-            onMouseEnter={(e) => e.target.style.opacity = '0.8'}
-            onMouseLeave={(e) => e.target.style.opacity = '1'}
-          >
-            Subscribe
-          </button>
+          {submitted ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: CREAM, fontFamily: "'Almarai', sans-serif", fontSize: 'clamp(12px, 1.1vw, 15px)' }}>
+              <Check size={18} style={{ color: '#8FBF9F' }} />
+              You're on the list. Talk soon.
+            </div>
+          ) : (
+            <>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                required
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  background: '#000',
+                  border: '1px solid rgba(225,224,204,0.15)',
+                  borderRadius: '9999px',
+                  padding: 'clamp(10px, 1vw, 14px) clamp(16px, 2vw, 24px)',
+                  color: CREAM,
+                  fontSize: 'clamp(12px, 1vw, 14px)',
+                  fontFamily: "'Almarai', sans-serif",
+                  fontWeight: 300,
+                  outline: 'none',
+                  transition: 'border-color 0.2s',
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'rgba(225,224,204,0.4)'}
+                onBlur={(e) => e.target.style.borderColor = 'rgba(225,224,204,0.15)'}
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  background: CREAM,
+                  border: 'none',
+                  borderRadius: '9999px',
+                  padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2.5vw, 32px)',
+                  color: '#000',
+                  fontSize: 'clamp(12px, 1vw, 14px)',
+                  fontFamily: "'Almarai', sans-serif",
+                  fontWeight: 500,
+                  cursor: loading ? 'default' : 'pointer',
+                  whiteSpace: 'nowrap',
+                  opacity: loading ? 0.6 : 1,
+                  transition: 'opacity 0.2s',
+                }}
+                onMouseEnter={(e) => { if (!loading) e.target.style.opacity = '0.8' }}
+                onMouseLeave={(e) => { if (!loading) e.target.style.opacity = '1' }}
+              >
+                {loading ? 'Subscribing…' : 'Subscribe'}
+              </button>
+            </>
+          )}
+          {error && (
+            <p style={{ width: '100%', color: '#E07A5F', fontSize: '13px', fontFamily: "'Almarai', sans-serif", margin: 0 }}>
+              {error}
+            </p>
+          )}
         </motion.form>
       </motion.div>
     </section>
@@ -1097,6 +1120,14 @@ export default function HomePage() {
       <FeaturesSection />
       <NewsletterSection />
       <Footer />
+      <style>{`
+        @media (max-width: 768px) {
+          .home-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

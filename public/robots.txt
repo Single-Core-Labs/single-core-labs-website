@@ -1,4 +1,4 @@
-# https://singlecorelabs.in — Single Core Labs
+# https://singlecorelabs.in - Single Core Labs
 # https://www.robotstxt.org/robotstxt.html
 
 User-agent: *

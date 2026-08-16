@@ -7,8 +7,8 @@
 @theme {
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'DM Sans', 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-display: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Segoe UI Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
 
   /* Core Palette — Deep Charcoal + Warm Ivory */
   --color-bg:          #0B0B0B;

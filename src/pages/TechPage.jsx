@@ -5,7 +5,7 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Shield, Cpu, Cloud, Code2, Workflow, LineChart, BookOpen, Building2, Users, CheckCircle, Lock, Server, GitBranch, BarChart3, MessagesSquare, ChevronRight } from 'lucide-react'
+import { ArrowRight, Shield, Cpu, Cloud, Code2, Workflow, LineChart, Building2, Users, CheckCircle, Lock, Server, GitBranch, BarChart3, MessagesSquare, ChevronRight } from 'lucide-react'
 
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_055001_8e16d972-3b2b-441c-86ad-2901a54682f9.mp4'
 
@@ -280,6 +280,7 @@ export default function TechPage() {
               .hero-split { grid-template-columns: 1fr; gap: 32px; }
               .hero-split__text { text-align: center; }
               .hero-video-wrap { max-width: 320px; }
+              .teams-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
             }
           `}</style>
         </section>
@@ -297,7 +298,7 @@ export default function TechPage() {
             </RevealText>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', gap: '24px' }}>
             {CAPABILITIES.map((cap, i) => (
               <motion.div
                 key={cap.label}
@@ -586,7 +587,7 @@ export default function TechPage() {
             </RevealText>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '20px' }}>
             {SERVICES.map((svc, i) => (
               <motion.div
                 key={svc.title}

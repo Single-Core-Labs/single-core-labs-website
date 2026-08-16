@@ -414,6 +414,7 @@ function ApplicationFormSection() {
     statement: '',
     link: '',
     consent: false,
+    website: '',
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -555,6 +556,15 @@ function ApplicationFormSection() {
           >
             <form onSubmit={handleSubmit} noValidate>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <input
+                  type="text"
+                  value={form.website}
+                  onChange={set('website')}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                />
                 <Field label="Full name" id="fullName" required
                   value={form.fullName} onChange={set('fullName')} placeholder="e.g. Jane Smith" />
 

@@ -87,16 +87,6 @@ export default function GuideDetailPage() {
   const { meta, sections } = guide
 
   const tocItems = sections.filter(s => s.type === 'section' || s.type === 'subheading')
-  const bodySections = sections.filter(s => s.type !== 'intro')
-
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Guides', item: 'https://singlecorelabs.in/guides' },
-      { '@type': 'ListItem', position: 2, name: meta.title, item: typeof window !== 'undefined' ? window.location.href : `https://singlecorelabs.in/guides/${guideSlug}` },
-    ],
-  }
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -502,34 +492,6 @@ export default function GuideDetailPage() {
                             ))}
                           </tbody>
                         </table>
-                      </motion.div>
-                    )
-
-                  case 'outro':
-                    return (
-                      <motion.div key={index}
-                        variants={fadeUp}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={viewport}
-                      >
-                        <div style={{
-                          marginTop: '48px',
-                          padding: '24px',
-                          borderLeft: '2px solid var(--color-accent)',
-                          background: 'rgba(184, 164, 120, 0.04)',
-                          borderRadius: '0 10px 10px 0',
-                        }}>
-                          <p style={{
-                            fontFamily: 'var(--font-serif)',
-                            fontSize: 'clamp(1rem, 1.3vw, 1.1rem)',
-                            lineHeight: 1.7,
-                            color: 'rgba(228, 222, 201, 0.85)',
-                            fontStyle: 'italic',
-                          }}>
-                            {section.content}
-                          </p>
-                        </div>
                       </motion.div>
                     )
 

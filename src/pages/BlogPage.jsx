@@ -56,7 +56,7 @@ export default function BlogPage() {
           <HorizontalRule style={{ marginBottom: 'clamp(32px, 5vh, 56px)' }} />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            {BLOG_POSTS.map((post, i) => (
+            {BLOG_POSTS.map((post) => (
               <motion.div key={post.slug}
                 variants={fadeUp}
                 initial="hidden"

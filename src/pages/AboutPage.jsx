@@ -5,7 +5,7 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { RevealText } from '@/components/RevealText'
 import { HorizontalRule } from '@/components/HorizontalRule'
-import { ParallaxLayer, ScrollFade3D, Card3D, SectionDepth } from '@/components/ScrollScene'
+import { ScrollFade3D, Card3D, SectionDepth } from '@/components/ScrollScene'
 import { ArrowRight, Eye, ShieldAlert, Cpu, Check, Loader2 } from 'lucide-react'
 import { supabase } /* cspell:ignore supabase */ from '@/lib/supabase'
 
@@ -20,6 +20,7 @@ export default function AboutPage() {
     company: '',
     designation: '',
     message: '',
+    website: '',
   })
   const [prefix, setPrefix] = useState('+1')
   const [loading, setLoading] = useState(false)
@@ -39,6 +40,7 @@ export default function AboutPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (form.website) return
     setLoading(true)
     setError(null)
 
@@ -527,6 +529,15 @@ export default function AboutPage() {
                     exit={{ opacity: 0 }}
                     style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
                   >
+                    <input
+                      type="text"
+                      value={form.website}
+                      onChange={handleChange('website')}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                    />
                     {/* Row 1: Full name & Mobile number */}
                     <div
                       style={{
