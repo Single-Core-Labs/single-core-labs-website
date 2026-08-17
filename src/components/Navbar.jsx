@@ -20,7 +20,36 @@ const RESOURCES_RIGHT = [
   { label: 'Documentation', href: '/docs' },
 ]
 
+const SOLUTIONS_GROUPS = [
+  {
+    label: 'Enterprise',
+    items: [
+      { label: 'Enterprise',          href: '/enterprise' },
+      { label: 'Global Public Sector', href: '/global-public-sector' },
+    ],
+  },
+  {
+    label: 'By Industry',
+    items: [
+      { label: 'Insurance', href: '/insurance' },
+      { label: 'Healthcare', href: '/solutions/healthcare-intelligence' },
+    ],
+  },
+]
+
 function SolutionsDropdown({ onClose, onMouseEnter, onMouseLeave }) {
+  const colLinkStyle = {
+    fontFamily: 'var(--font-sans)',
+    fontSize: '14px',
+    fontWeight: 400,
+    color: 'rgba(228, 222, 201, 0.8)',
+    textDecoration: 'none',
+    letterSpacing: '-0.01em',
+    lineHeight: 1,
+    transition: 'color 0.15s',
+    display: 'block',
+  }
+
   return (
     <motion.div
       onMouseEnter={onMouseEnter}
@@ -42,45 +71,76 @@ function SolutionsDropdown({ onClose, onMouseEnter, onMouseLeave }) {
       }}
     >
       <div style={{
-        maxWidth: '860px',
+        maxWidth: '960px',
         marginInline: 'auto',
-        padding: '18px clamp(18px, 3vw, 32px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        padding: '26px clamp(18px, 3vw, 32px) 30px',
+        display: 'grid',
+        gridTemplateColumns: '1.4fr 1fr 1fr',
+        gap: '48px',
       }}>
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '13px',
-          fontWeight: 500,
-          lineHeight: 1.1,
-          color: 'var(--color-text)',
-          margin: 0,
-        }}>
-          Custom AI Solutions
-        </p>
-        <Link
-          to="/solutions"
-          onClick={onClose}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            textDecoration: 'none',
-            color: 'rgba(228, 222, 201, 0.85)',
-            transition: 'color 0.18s',
+        <div>
+          <p style={{
             fontFamily: 'var(--font-sans)',
             fontSize: '13px',
             fontWeight: 500,
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.85)'}
-        >
-          Embodied AGI
-          <span style={{ display: 'inline-flex', color: 'currentColor' }}>
-            <ArrowRight size={13} strokeWidth={2} />
-          </span>
-        </Link>
+            lineHeight: 1.1,
+            color: 'var(--color-text)',
+            margin: '0 0 20px',
+          }}>
+            Custom AI Solutions
+          </p>
+          <Link
+            to="/solutions"
+            onClick={onClose}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              textDecoration: 'none',
+              color: 'rgba(228, 222, 201, 0.85)',
+              transition: 'color 0.18s',
+              fontFamily: 'var(--font-sans)',
+              fontSize: '14px',
+              fontWeight: 500,
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.85)'}
+          >
+            Embodied AGI
+            <span style={{ display: 'inline-flex', color: 'currentColor' }}>
+              <ArrowRight size={13} strokeWidth={2} />
+            </span>
+          </Link>
+        </div>
+
+        {SOLUTIONS_GROUPS.map((group) => (
+          <div key={group.label}>
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '10px',
+              fontWeight: 500,
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: 'rgba(228, 222, 201, 0.4)',
+              display: 'block',
+              marginBottom: '18px',
+            }}>
+              {group.label}
+            </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {group.items.map((item) => (
+                <Link
+                  key={item.href} to={item.href} onClick={onClose}
+                  style={colLinkStyle}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.8)'}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </motion.div>
   )
@@ -395,6 +455,20 @@ export function Navbar() {
               >
                 Embodied AGI
               </Link>
+              {SOLUTIONS_GROUPS.map(group => (
+                <div key={group.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontFamily:'var(--font-display)', fontSize:'10px', fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'rgba(228,222,201,0.4)', marginTop:'8px' }}>
+                    {group.label}
+                  </span>
+                  {group.items.map(item => (
+                    <Link key={item.href} to={item.href} onClick={closeAll}
+                      style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(20px,4vw,28px)', fontWeight:400, color:'rgba(228,222,201,0.6)', textDecoration:'none', letterSpacing:'-0.02em' }}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
             </motion.div>
 
             {[...NAV_LINKS.filter(l => l.label !== 'Solutions'), { label: 'Case Studies', href: '/case-studies' }].map((link, i) => (
