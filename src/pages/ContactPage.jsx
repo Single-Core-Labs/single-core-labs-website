@@ -411,7 +411,7 @@ export default function ContactPage() {
                       width: '100%',
                       padding: '14px',
                       background: loading || !form.consent ? 'var(--color-border-strong)' : 'var(--color-accent)',
-                      color: loading || !form.consent ? 'var(--color-text-dim)' : '#0B0B0B',
+                      color: loading || !form.consent ? 'var(--color-text-dim)' : 'var(--color-bg)',
                       fontFamily: 'var(--font-sans)',
                       fontSize: '14px',
                       fontWeight: 600,

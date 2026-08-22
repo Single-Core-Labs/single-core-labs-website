@@ -1,517 +1,257 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ChevronDown, ArrowRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { NAV_LINKS } from '@/lib/constants'
 
-const RESOURCES_LEFT = {
-  label: 'Single Core Labs',
-  items: [
-    { label: 'About',               href: '/about' },
-    { label: 'Security',            href: '/security' },
-    { label: 'Careers',             href: '/careers' },
-    { label: 'Research Collective', href: '/research-collective' },
-  ],
-}
-
-const RESOURCES_RIGHT = [
-  { label: 'Contact us',    href: '/contact' },
-  { label: 'Guides',        href: '/guides' },
-  { label: 'Documentation', href: '/docs' },
-]
-
-const SOLUTIONS_GROUPS = [
-  {
-    label: 'Enterprise',
-    items: [
-      { label: 'Enterprise',          href: '/enterprise' },
-      { label: 'Global Public Sector', href: '/global-public-sector' },
-    ],
-  },
-  {
-    label: 'By Industry',
-    items: [
-      { label: 'Insurance', href: '/insurance' },
-      { label: 'Healthcare', href: '/solutions/healthcare-intelligence' },
-    ],
-  },
-]
-
-function SolutionsDropdown({ onClose, onMouseEnter, onMouseLeave }) {
-  const colLinkStyle = {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '14px',
-    fontWeight: 400,
-    color: 'rgba(228, 222, 201, 0.8)',
-    textDecoration: 'none',
-    letterSpacing: '-0.01em',
-    lineHeight: 1,
-    transition: 'color 0.15s',
-    display: 'block',
-  }
-
-  return (
-    <motion.div
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -4 }}
-      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        position: 'fixed',
-        top: '72px',
-        left: 0,
-        right: 0,
-        background: '#111111',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        boxShadow: '0 18px 40px rgba(0,0,0,0.5)',
-        zIndex: 99,
-      }}
-    >
-      <div style={{
-        maxWidth: '960px',
-        marginInline: 'auto',
-        padding: '26px clamp(18px, 3vw, 32px) 30px',
-        display: 'grid',
-        gridTemplateColumns: '1.4fr 1fr 1fr',
-        gap: '48px',
-      }}>
-        <div>
-          <p style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '13px',
-            fontWeight: 500,
-            lineHeight: 1.1,
-            color: 'var(--color-text)',
-            margin: '0 0 20px',
-          }}>
-            Custom AI Solutions
-          </p>
-          <Link
-            to="/solutions"
-            onClick={onClose}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              textDecoration: 'none',
-              color: 'rgba(228, 222, 201, 0.85)',
-              transition: 'color 0.18s',
-              fontFamily: 'var(--font-sans)',
-              fontSize: '14px',
-              fontWeight: 500,
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-            onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.85)'}
-          >
-            Embodied AGI
-            <span style={{ display: 'inline-flex', color: 'currentColor' }}>
-              <ArrowRight size={13} strokeWidth={2} />
-            </span>
-          </Link>
-        </div>
-
-        {SOLUTIONS_GROUPS.map((group) => (
-          <div key={group.label}>
-            <span style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '10px',
-              fontWeight: 500,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: 'rgba(228, 222, 201, 0.4)',
-              display: 'block',
-              marginBottom: '18px',
-            }}>
-              {group.label}
-            </span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {group.items.map((item) => (
-                <Link
-                  key={item.href} to={item.href} onClick={onClose}
-                  style={colLinkStyle}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.8)'}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  )
-}
-
-function ResourcesDropdown({ onClose }) {
-  const colLinkStyle = {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '15px',
-    fontWeight: 400,
-    color: 'rgba(228, 222, 201, 0.8)',
-    textDecoration: 'none',
-    letterSpacing: '-0.01em',
-    lineHeight: 1,
-    transition: 'color 0.15s',
-    display: 'block',
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        position: 'absolute',
-        top: 'calc(100% + 14px)',
-        right: 0,
-        width: '520px',
-        background: 'rgba(17, 17, 17, 0.98)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
-        zIndex: 200,
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-      }}
-    >
-      <div style={{ padding: '28px 24px 32px', borderRight: '1px solid rgba(255,255,255,0.07)' }}>
-        <span style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '10px',
-          fontWeight: 500,
-          letterSpacing: '0.16em',
-          textTransform: 'uppercase',
-          color: 'rgba(228, 222, 201, 0.4)',
-          display: 'block',
-          marginBottom: '20px',
-        }}>
-          {RESOURCES_LEFT.label}
-        </span>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-          {RESOURCES_LEFT.items.map((item) => (
-            <Link
-              key={item.href} to={item.href} onClick={onClose}
-              style={colLinkStyle}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.8)'}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-      <div style={{ padding: '28px 24px 32px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginTop: '30px' }}>
-          {RESOURCES_RIGHT.map((item) => (
-            <Link
-              key={item.href} to={item.href} onClick={onClose}
-              style={colLinkStyle}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(228, 222, 201, 0.8)'}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
-export function Navbar() {
-  const [scrolled, setScrolled]           = useState(false)
-  const [menuOpen, setMenuOpen]           = useState(false)
+// Scale-like navbar — fixed, Aeonik-style, h-10 rounded 8px, grid
+export function Navbar({ overlay = false }) {
+  const [open, setOpen] = useState(false)
+  const [announcementClosed, setAnnouncementClosed] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
-  const [resourcesOpen, setResourcesOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const solutionsRef = useRef(null)
 
-  const solutionsRef       = useRef(null)
-  const resourcesRef       = useRef(null)
-  const solutionsTimeout   = useRef(null)
-  const { scrollY }        = useScroll()
-
-  useMotionValueEvent(scrollY, 'change', (latest) => setScrolled(latest > 60))
+  // Backdrop blur only after scroll — saves full-screen blur repaint on every scroll frame at top
+  useEffect(() => {
+    if (overlay) return
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        ticking = false
+        const y = window.scrollY || document.documentElement.scrollTop
+        setIsScrolled(y > 16)
+      })
+    }
+    // also listen to lenis if present
+    const lenis = window.lenis
+    if (lenis) {
+      const onLenis = () => onScroll()
+      lenis.on('scroll', onLenis)
+      return () => lenis.off('scroll', onLenis)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [overlay])
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
-  }, [menuOpen])
+  }, [open])
 
+  // Keep dropdown pinned after click/hover — close only on outside click or selection
   useEffect(() => {
-    return () => { if (solutionsTimeout.current) clearTimeout(solutionsTimeout.current) }
-  }, [])
-
-  useEffect(() => {
-    function handleClick(e) {
-      if (solutionsRef.current  && !solutionsRef.current.contains(e.target))  setSolutionsOpen(false)
-      if (resourcesRef.current  && !resourcesRef.current.contains(e.target))  setResourcesOpen(false)
+    if (!solutionsOpen) return
+    const onDown = (e) => {
+      if (solutionsRef.current && !solutionsRef.current.contains(e.target)) setSolutionsOpen(false)
     }
-    function handleScroll() { setSolutionsOpen(false); }
-    document.addEventListener('mousedown', handleClick)
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    const onKey = (e) => { if (e.key === 'Escape') setSolutionsOpen(false) }
+    document.addEventListener('mousedown', onDown)
+    document.addEventListener('keydown', onKey)
     return () => {
-      document.removeEventListener('mousedown', handleClick)
-      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('mousedown', onDown)
+      document.removeEventListener('keydown', onKey)
     }
-  }, [])
+  }, [solutionsOpen])
 
-  const closeAll = () => {
-    setSolutionsOpen(false)
-    setResourcesOpen(false)
-    setMenuOpen(false)
-  }
-
-  const handleSolutionsEnter = () => {
-    if (solutionsTimeout.current) clearTimeout(solutionsTimeout.current)
-    setSolutionsOpen(true)
-  }
-
-  const handleSolutionsLeave = () => {
-    solutionsTimeout.current = setTimeout(() => setSolutionsOpen(false), 120)
-  }
-
-  const linkStyle = {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '13px',
-    fontWeight: 400,
-    letterSpacing: '0.02em',
-    color: 'rgba(228, 222, 201, 0.6)',
-    textDecoration: 'none',
-    transition: 'color 0.25s',
-  }
-
-  const chevron = (open) => (
-    <ChevronDown size={14} strokeWidth={2.5}
-      style={{ transition: 'transform 0.25s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
-    />
-  )
-
-  const dropdownBtn = (label, open, toggle) => (
-    <button
-      aria-haspopup="true"
-      aria-expanded={open}
-      onClick={toggle}
-      style={{
-        ...linkStyle,
-        background: 'none',
-        border: 'none',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px',
-        padding: 0,
-        color: open ? 'var(--color-text)' : 'rgba(228, 222, 201, 0.6)',
-      }}
-    >
-      {label}
-      {chevron(open)}
-    </button>
-  )
+  const close = () => { setOpen(false); setSolutionsOpen(false) }
 
   return (
     <>
-      <header role="banner" style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: '12px clamp(16px, 3vw, 40px) 0',
-        pointerEvents: 'none',
-      }}>
-        <nav aria-label="Main navigation" style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          height: '56px',
-          paddingInline: 'clamp(16px, 2.5vw, 32px)',
-          maxWidth: '1200px',
-          marginInline: 'auto',
-          border: '1px solid rgba(255,255,255,0.06)',
-          backgroundColor: scrolled ? 'rgba(11, 11, 11, 0.92)' : 'rgba(11, 11, 11, 0.75)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.3)' : 'none',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          pointerEvents: 'auto',
-        }}>
-          <Link to="/" aria-label="Single Core Labs home" style={{
-            display: 'flex', alignItems: 'center', gap: '10px',
-            textDecoration: 'none', color: 'var(--color-text)',
-          }}>
-            <img src="/logo-icon.png" alt="Single Core Labs Logo"
-              style={{ height: '28px', width: 'auto', display: 'block', filter: 'brightness(1.2)' }} loading="eager" />
-            <span style={{
-              fontFamily: 'var(--font-display)', fontSize: '14px', fontWeight: 500,
-              letterSpacing: '0.02em', color: 'var(--color-text)',
-            }}>
-              Single Core Labs
-            </span>
+      {/* Announcement bar — Scale style */}
+      {!announcementClosed && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 60, background: '#0A0A0A', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '10px 48px 10px 16px', fontSize: '13px', lineHeight: 1.4, textAlign: 'center' }}>
+          <span style={{ opacity: 0.9 }}>Single Core Labs — The Next Layer of Intelligence</span>
+          <Link to="/contact" style={{ color: '#fff', textDecoration: 'underline', textUnderlineOffset: '3px', fontWeight: 500, whiteSpace: 'nowrap' }}>Get Started →</Link>
+          <button aria-label="Dismiss announcement" onClick={() => setAnnouncementClosed(true)} style={{ position: 'absolute', right: '12px', width: '28px', height: '28px', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            ×
+          </button>
+        </div>
+      )}
+
+      <header
+        data-theme="dark"
+        style={{
+          position: overlay ? 'absolute' : 'fixed',
+          left: 0,
+          right: 0,
+          top: overlay ? (announcementClosed ? 0 : '40px') : (announcementClosed ? 0 : '40px'),
+          zIndex: 50,
+          background: overlay ? 'transparent' : (isScrolled ? 'rgba(10,10,10,0.82)' : '#0A0A0A'),
+          backdropFilter: overlay ? 'none' : (isScrolled ? 'blur(12px)' : 'none'),
+          WebkitBackdropFilter: overlay ? 'none' : (isScrolled ? 'blur(12px)' : 'none'),
+          borderBottom: overlay ? 'none' : '1px solid rgba(255,255,255,0.08)',
+          transition: 'top 0.25s, background 0.25s, backdrop-filter 0.25s',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          contain: 'layout paint',
+        }}
+      >
+        <div style={{ maxWidth: '1472px', margin: '0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+          {/* Logo — correct brand mark (public/logo-icon.original.png) at left corner */}
+          <Link to="/" aria-label="Home" onClick={close} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}>
+            <img src="/logo-icon.original.png" alt="Single Core Labs" style={{ height: '28px', width: 'auto', display: 'block', objectFit: 'contain' }} />
           </Link>
 
-          <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <div ref={solutionsRef} style={{ position: 'relative' }}
-              onMouseEnter={handleSolutionsEnter}
-              onMouseLeave={handleSolutionsLeave}
-            >
-              {dropdownBtn('Solutions', solutionsOpen, () => setSolutionsOpen(true))}
-              <AnimatePresence>
-                {solutionsOpen && (
-                  <SolutionsDropdown
-                    onClose={closeAll}
-                    onMouseEnter={handleSolutionsEnter}
-                    onMouseLeave={handleSolutionsLeave}
-                  />
-                )}
-              </AnimatePresence>
-            </div>
-
-            {NAV_LINKS.filter(l => l.label !== 'Solutions').map((link) => (
-              <Link key={link.href} to={link.href} style={linkStyle}
-                onMouseEnter={e => e.target.style.color = 'var(--color-text)'}
-                onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.6)'}
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            <Link to="/case-studies" style={linkStyle}
-              onMouseEnter={e => e.target.style.color = 'var(--color-text)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.6)'}
-            >
-              Case Studies
-            </Link>
-
-            <div ref={resourcesRef} style={{ position: 'relative' }}>
-              {dropdownBtn('Resources', resourcesOpen, () => setResourcesOpen(o => !o))}
-              <AnimatePresence>
-                {resourcesOpen && <ResourcesDropdown onClose={closeAll} />}
-              </AnimatePresence>
-            </div>
-
-            <Link to="/contact" className="btn-primary" style={{ background: 'var(--color-text)', color: 'var(--color-bg)', padding: '10px 24px', fontSize: '13px' }}>
-              Book a Demo
-            </Link>
-          </div>
-
-          <button
-            id="mobile-menu-toggle"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              background: 'none', border: '1px solid rgba(255,255,255,0.10)',
-              color: 'var(--color-text)', cursor: 'pointer',
-              padding: '7px 9px', borderRadius: '6px',
-              display: 'none', alignItems: 'center', justifyContent: 'center',
-              transition: 'background 0.2s, border-color 0.2s',
-            }}
-            className="mobile-menu-btn"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-              {menuOpen
-                ? <path strokeLinecap="round" d="M18 6L6 18M6 6l12 12" />
-                : <><path strokeLinecap="round" d="M3 7h18" /><path strokeLinecap="round" d="M3 12h12" /><path strokeLinecap="round" d="M3 17h18" /></>
+          {/* Center nav — Scale: Products/Solutions/Research/Resources */}
+          <nav aria-label="Primary" className="hidden md:flex" style={{ alignItems: 'center', gap: '4px', flex: 1, justifyContent: 'center' }}>
+            {NAV_LINKS.map((item) => {
+              if (item.label === 'Product') {
+                return (
+                  <div key={item.label} ref={solutionsRef} onMouseEnter={() => setSolutionsOpen(true)} style={{ position: 'relative' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                      <Link
+                        to={item.href}
+                        style={{
+                          height: '40px',
+                          padding: '0 14px 0 14px',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          fontSize: '14px',
+                          fontWeight: 500,
+                          letterSpacing: '-0.01em',
+                          color: 'rgba(255,255,255,0.85)',
+                          textDecoration: 'none',
+                          borderRadius: '8px 0 0 8px',
+                          transition: 'background 0.2s, color 0.2s',
+                        }}
+                      >
+                        {item.label}
+                      </Link>
+                      <button
+                        type="button"
+                        aria-label="Toggle Product menu"
+                        aria-expanded={solutionsOpen}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSolutionsOpen((o) => !o) }}
+                        style={{ height: '40px', padding: '0 10px 0 2px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.85)', cursor: 'pointer', borderRadius: '0 8px 8px 0' }}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" style={{ opacity: 0.6, transform: solutionsOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}><path d="M6 9l6 6 6-6" /></svg>
+                      </button>
+                    </div>
+                    <AnimatePresence>
+                      {solutionsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.18 }}
+                          style={{
+                            position: 'absolute',
+                            top: 'calc(100% + 8px)',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            background: '#FFFFFF',
+                            border: '1px solid #E5E5E5',
+                            borderRadius: '12px',
+                            padding: '8px',
+                            minWidth: '200px',
+                            boxShadow: '0 16px 40px rgba(0,0,0,0.12)',
+                            zIndex: 60,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '2px',
+                          }}
+                        >
+                          <Link to="/solutions" onClick={() => setSolutionsOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', color: '#0A0A0A', textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Solutions Overview</Link>
+                          <Link to="/training" onClick={() => setSolutionsOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', background: '#FFFFFF', color: '#0A0A0A', textDecoration: 'none', fontSize: '14px', fontWeight: 500, border: '1px solid #E5E7EB' }}>
+                            Training <span style={{ fontSize: '11px', color: '#6B7280', fontWeight: 400 }}>— Model Lab</span>
+                          </Link>
+                          <Link to="/solutions/rl-lab" onClick={() => setSolutionsOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', background: '#F5F5F5', color: '#0A0A0A', textDecoration: 'none', fontSize: '14px', fontWeight: 500, border: '1px solid #EFEFEF' }}>
+                            RL Lab <span style={{ fontSize: '11px', color: '#6B7280', fontWeight: 400 }}>— new</span>
+                          </Link>
+                          <Link to="/product/data-foundry" onClick={() => setSolutionsOpen(false)} style={{ padding: '10px 12px', borderRadius: '8px', background: '#0A0A0A', color: '#FFFFFF', textDecoration: 'none', fontSize: '14px', fontWeight: 500, border: '1px solid #0A0A0A', marginTop: '2px' }}>
+                            Data Foundry <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', fontWeight: 400 }}>— new</span>
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )
               }
-            </svg>
-          </button>
-
-          <style>{`@media (max-width: 1023px) { .mobile-menu-btn { display: flex !important; } }`}</style>
-        </nav>
-      </header>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            id="mobile-menu"
-            role="dialog"
-            aria-label="Mobile navigation"
-            aria-modal="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              position: 'fixed', inset: 0, zIndex: 90,
-              background: 'rgba(11, 11, 11, 0.98)',
-              backdropFilter: 'blur(24px)',
-              display: 'flex', flexDirection: 'column',
-              justifyContent: 'flex-start', alignItems: 'center', gap: '32px',
-              overflowY: 'auto',
-              paddingTop: '100px',
-              paddingBottom: '60px',
-            }}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}
-            >
-              <span style={{ fontFamily:'var(--font-display)', fontSize:'10px', fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'rgba(228,222,201,0.4)' }}>
-                Solutions
-              </span>
-              <Link to="/solutions" onClick={closeAll}
-                style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(22px,4.5vw,32px)', fontWeight:400, color:'rgba(228,222,201,0.6)', textDecoration:'none', letterSpacing:'-0.02em' }}
-              >
-                Embodied AGI
-              </Link>
-              {SOLUTIONS_GROUPS.map(group => (
-                <div key={group.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontFamily:'var(--font-display)', fontSize:'10px', fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'rgba(228,222,201,0.4)', marginTop:'8px' }}>
-                    {group.label}
-                  </span>
-                  {group.items.map(item => (
-                    <Link key={item.href} to={item.href} onClick={closeAll}
-                      style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(20px,4vw,28px)', fontWeight:400, color:'rgba(228,222,201,0.6)', textDecoration:'none', letterSpacing:'-0.02em' }}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              ))}
-            </motion.div>
-
-            {[...NAV_LINKS.filter(l => l.label !== 'Solutions'), { label: 'Case Studies', href: '/case-studies' }].map((link, i) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: (i + 2) * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Link to={link.href} onClick={closeAll}
-                  style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(28px,6vw,42px)', fontWeight:400, color:'var(--color-text)', textDecoration:'none', letterSpacing:'-0.02em' }}
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 1) * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}
-            >
-              <span style={{ fontFamily:'var(--font-display)', fontSize:'10px', fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'rgba(228,222,201,0.4)' }}>
-                Resources
-              </span>
-              {[...RESOURCES_LEFT.items, ...RESOURCES_RIGHT].map(item => (
-                <Link key={item.href} to={item.href} onClick={closeAll}
-                  style={{ fontFamily:'var(--font-serif)', fontSize:'clamp(20px,4vw,28px)', fontWeight:400, color:'rgba(228,222,201,0.6)', textDecoration:'none', letterSpacing:'-0.02em' }}
+              return (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  style={{
+                    height: '40px',
+                    padding: '0 14px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    letterSpacing: '-0.01em',
+                    color: 'rgba(255,255,255,0.85)',
+                    textDecoration: 'none',
+                    borderRadius: '8px',
+                  }}
                 >
                   {item.label}
                 </Link>
-              ))}
-            </motion.div>
+              )
+            })}
+          </nav>
 
-            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.45, duration:0.4 }}>
-              <Link to="/contact" onClick={closeAll} className="btn-primary" style={{ marginTop:'8px' }}>
-                Book a Demo
+          {/* CTAs — Scale: Book demo solid */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+            <div className="hidden md:flex" style={{ gap: '8px' }}>
+              <Link to="/contact" style={{ height: '40px', padding: '0 16px', display: 'inline-flex', alignItems: 'center', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none', background: '#FFFFFF', color: '#0A0A0A', border: '1px solid transparent' }}>
+                Get Started
               </Link>
-            </motion.div>
+            </div>
+            <button
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+              className="md:hidden"
+              style={{ width: '40px', height: '40px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.14)', background: 'rgba(255,255,255,0.06)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <span style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <span style={{ width: '16px', height: '2px', background: 'currentColor', display: 'block', transform: open ? 'rotate(45deg) translateY(4px)' : 'none', transition: 'transform 0.2s' }} />
+                <span style={{ width: '16px', height: '2px', background: 'currentColor', display: 'block', opacity: open ? 0 : 1 }} />
+                <span style={{ width: '16px', height: '2px', background: 'currentColor', display: 'block', transform: open ? 'rotate(-45deg) translateY(-4px)' : 'none', transition: 'transform 0.2s' }} />
+              </span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile menu — Scale: full-screen */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{ position: 'fixed', inset: 0, zIndex: 49, background: '#FFFFFF', padding: '80px 24px 32px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}
+          >
+            {NAV_LINKS.map((item) => (
+              <div key={item.label}>
+                <Link to={item.href} onClick={close} style={{ fontSize: '28px', fontWeight: 500, letterSpacing: '-0.02em', color: '#0A0A0A', textDecoration: 'none', display: 'block', padding: '8px 0' }}>
+                  {item.label}
+                </Link>
+                {item.label === 'Product' && (
+                  <div style={{ marginTop: '8px', paddingLeft: '16px', borderLeft: '1px solid #E5E5E5', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <Link to="/training" onClick={close} style={{ fontSize: '16px', color: '#0A0A0A', textDecoration: 'none', fontWeight: 500 }}>Training — Model Lab</Link>
+                    <Link to="/solutions/rl-lab" onClick={close} style={{ fontSize: '16px', color: '#6B7280', textDecoration: 'none' }}>RL Lab — new</Link>
+                    <Link to="/product/data-foundry" onClick={close} style={{ fontSize: '16px', color: '#0A0A0A', textDecoration: 'none', fontWeight: 500 }}>Data Foundry — new</Link>
+                  </div>
+                )}
+              </div>
+            ))}
+            <Link to="/contact" onClick={close} style={{ marginTop: '16px', background: '#0A0A0A', color: '#fff', padding: '14px', borderRadius: '999px', textAlign: 'center', textDecoration: 'none', fontWeight: 600, width: '100%', display: 'block' }}>Get Started</Link>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Spacer — skip on overlay heroes (they manage their own inset) */}
+      {!overlay && (
+        <div aria-hidden="true" style={{ height: announcementClosed ? '64px' : '104px' }} className="scale-nav-spacer" />
+      )}
+      {!overlay && (
+      <style>{`@media (max-width: 767px) { .scale-nav-spacer { height: ${announcementClosed ? '64px' : '104px'}; } }`}</style>
+      )}
     </>
   )
 }

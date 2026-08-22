@@ -1,4 +1,4 @@
-﻿/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-refresh/only-export-components */
 import {
   Server, Shield, Lock, Workflow, Zap, BookOpen
 } from 'lucide-react'
@@ -26,7 +26,7 @@ function SectionBody({ children }) {
       fontSize: 'clamp(15px, 1.1vw, 17px)',
       lineHeight: 1.8,
       letterSpacing: '-0.01em',
-      color: 'rgba(228, 222, 201, 0.75)',
+      color: 'color-mix(in srgb, var(--color-text) 75%, transparent)',
       marginBottom: '20px',
     }}>
       {children}
@@ -108,7 +108,7 @@ function BulletList({ items }) {
           fontFamily: 'var(--font-sans)',
           fontSize: 'clamp(14px, 1vw, 15px)',
           lineHeight: 1.6,
-          color: 'rgba(228, 222, 201, 0.75)',
+          color: 'color-mix(in srgb, var(--color-text) 75%, transparent)',
         }}>
           <span style={{
             color: 'var(--color-accent)',
@@ -125,8 +125,8 @@ function BulletList({ items }) {
 function InfoCallout({ title, children, icon: Icon }) {
   return (
     <div style={{
-      background: 'rgba(184, 164, 120, 0.06)',
-      border: '1px solid rgba(184, 164, 120, 0.15)',
+      background: 'color-mix(in srgb, var(--color-accent) 6%, transparent)',
+      border: '1px solid color-mix(in srgb, var(--color-accent) 15%, transparent)',
       borderRadius: '10px',
       padding: '20px 24px',
       marginBottom: '24px',
@@ -151,7 +151,7 @@ function InfoCallout({ title, children, icon: Icon }) {
           fontFamily: 'var(--font-sans)',
           fontSize: '14px',
           lineHeight: 1.6,
-          color: 'rgba(228, 222, 201, 0.7)',
+          color: 'color-mix(in srgb, var(--color-text) 70%, transparent)',
         }}>
           {children}
         </p>
@@ -189,12 +189,12 @@ function Table({ headers, rows }) {
         <tbody>
           {rows.map((row, i) => (
             <tr key={i} style={{
-              borderBottom: '1px solid rgba(255,255,255,0.04)',
+              borderBottom: '1px solid color-mix(in srgb, var(--color-text) 4%, transparent)',
             }}>
               {row.map((cell, j) => (
                 <td key={j} style={{
                   padding: '14px 16px',
-                  color: j === 0 ? 'var(--color-text)' : 'rgba(228, 222, 201, 0.7)',
+                  color: j === 0 ? 'var(--color-text)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)',
                   fontWeight: j === 0 ? 500 : 400,
                   verticalAlign: 'top',
                 }}>
@@ -221,8 +221,8 @@ function NumberedStep({ num, title, children }) {
         width: '32px',
         height: '32px',
         borderRadius: '50%',
-        background: 'rgba(184, 164, 120, 0.1)',
-        border: '1px solid rgba(184, 164, 120, 0.2)',
+        background: 'color-mix(in srgb, var(--color-accent) 10%, transparent)',
+        border: '1px solid color-mix(in srgb, var(--color-accent) 20%, transparent)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -248,7 +248,7 @@ function NumberedStep({ num, title, children }) {
           fontFamily: 'var(--font-sans)',
           fontSize: '14px',
           lineHeight: 1.6,
-          color: 'rgba(228, 222, 201, 0.7)',
+          color: 'color-mix(in srgb, var(--color-text) 70%, transparent)',
         }}>
           {children}
         </p>
@@ -267,9 +267,9 @@ function ArchitectureSVG({ layers }) {
         const y = i * (boxH + gap)
         return (
           <g key={i}>
-            <rect x="60" y={y} width="480" height={boxH} rx="6" fill={layer.fill || 'rgba(184, 164, 120, 0.06)'} stroke={layer.stroke || 'rgba(255,255,255,0.08)'} strokeWidth="1" />
+            <rect x="60" y={y} width="480" height={boxH} rx="6" fill={layer.fill || 'color-mix(in srgb, var(--color-accent) 6%, transparent)'} stroke={layer.stroke || 'color-mix(in srgb, var(--color-text) 8%, transparent)'} strokeWidth="1" />
             <text x="72" y={y + boxH / 2 + 4} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="13" fontWeight="500">{layer.label}</text>
-            <text x="540" y={y + boxH / 2 + 4} fill="rgba(228, 222, 201, 0.5)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="end">{layer.tech}</text>
+            <text x="540" y={y + boxH / 2 + 4} fill="color-mix(in srgb, var(--color-text) 50%, transparent)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="end">{layer.tech}</text>
           </g>
         )
       })}
@@ -291,12 +291,12 @@ function FlowDiagram({ steps }) {
         const arrowX = x + boxW + gap / 2
         return (
           <g key={i}>
-            <rect x={x} y="26" width={boxW} height={boxH} rx="8" fill="rgba(184, 164, 120, 0.06)" stroke="rgba(184, 164, 120, 0.2)" strokeWidth="1" />
+            <rect x={x} y="26" width={boxW} height={boxH} rx="8" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1" />
             <text x={x + boxW / 2} y={26 + boxH / 2 + 4} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="12" textAnchor="middle" fontWeight="500">{step.label}</text>
             {i < steps.length - 1 && (
               <>
-                <line x1={x + boxW + 2} y1="50" x2={arrowX - 4} y2="50" stroke="rgba(184, 164, 120, 0.3)" strokeWidth="1.5" />
-                <polygon points={`${arrowX},46 ${arrowX + 6},50 ${arrowX},54`} fill="rgba(184, 164, 120, 0.3)" />
+                <line x1={x + boxW + 2} y1="50" x2={arrowX - 4} y2="50" stroke="color-mix(in srgb, var(--color-accent) 30%, transparent)" strokeWidth="1.5" />
+                <polygon points={`${arrowX},46 ${arrowX + 6},50 ${arrowX},54`} fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" />
               </>
             )}
           </g>
@@ -312,10 +312,10 @@ function renderDiagram(guideSlug) {
       return (
         <DiagramBox label="Figure 1: Air-Gapped LLM Deployment Architecture" caption="A three-tier air-gapped deployment with physical separation between the public internet and the inference cluster.">
           <ArchitectureSVG layers={[
-            { label: 'Client Access Layer (VPN + Thin Client)', tech: 'OpenVPN / WireGuard', fill: 'rgba(184, 164, 120, 0.06)', stroke: 'rgba(184, 164, 120, 0.15)' },
-            { label: 'API Gateway & Auth Proxy', tech: 'Envoy / OAuth2 Proxy', fill: 'rgba(184, 164, 120, 0.04)', stroke: 'rgba(255,255,255,0.06)' },
-            { label: 'Model Inference Cluster (NVIDIA GPUs)', tech: 'vLLM / TensorRT-LLM', fill: 'rgba(184, 164, 120, 0.08)', stroke: 'rgba(184, 164, 120, 0.2)' },
-            { label: 'Audit & Monitoring Layer', tech: 'Fluentd + OpenSearch', fill: 'rgba(184, 164, 120, 0.04)', stroke: 'rgba(255,255,255,0.06)' },
+            { label: 'Client Access Layer (VPN + Thin Client)', tech: 'OpenVPN / WireGuard', fill: 'color-mix(in srgb, var(--color-accent) 6%, transparent)', stroke: 'color-mix(in srgb, var(--color-accent) 15%, transparent)' },
+            { label: 'API Gateway & Auth Proxy', tech: 'Envoy / OAuth2 Proxy', fill: 'color-mix(in srgb, var(--color-accent) 4%, transparent)', stroke: 'color-mix(in srgb, var(--color-text) 6%, transparent)' },
+            { label: 'Model Inference Cluster (NVIDIA GPUs)', tech: 'vLLM / TensorRT-LLM', fill: 'color-mix(in srgb, var(--color-accent) 8%, transparent)', stroke: 'color-mix(in srgb, var(--color-accent) 20%, transparent)' },
+            { label: 'Audit & Monitoring Layer', tech: 'Fluentd + OpenSearch', fill: 'color-mix(in srgb, var(--color-accent) 4%, transparent)', stroke: 'color-mix(in srgb, var(--color-text) 6%, transparent)' },
             { label: 'Physical Air Gap (No egress to internet)', tech: 'Hardware enforced', fill: 'rgba(200, 80, 80, 0.08)', stroke: 'rgba(200, 80, 80, 0.2)' },
           ]} />
         </DiagramBox>
@@ -326,7 +326,7 @@ function renderDiagram(guideSlug) {
         <DiagramBox label="Figure 1: Multi-Agent Orchestration Flow" caption="The orchestrator routes tasks to specialist agents, with optional human-in-the-loop approval gates at decision points.">
           <svg viewBox="0 0 600 320" style={{ width: '100%', maxWidth: '600px', display: 'block', margin: '0 auto' }}>
             {/* Orchestrator */}
-            <rect x="220" y="10" width="160" height="44" rx="22" fill="rgba(184, 164, 120, 0.1)" stroke="rgba(184, 164, 120, 0.3)" strokeWidth="1.5" />
+            <rect x="220" y="10" width="160" height="44" rx="22" fill="color-mix(in srgb, var(--color-accent) 10%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 30%, transparent)" strokeWidth="1.5" />
             <text x="300" y="37" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="13" textAnchor="middle" fontWeight="600">Orchestrator Agent</text>
             {/* Agents */}
             {[
@@ -335,20 +335,20 @@ function renderDiagram(guideSlug) {
               { label: 'Review Agent', x: 430, y: 100 },
             ].map((a, i) => (
               <g key={i}>
-                <rect x={a.x} y={a.y} width={160} height={40} rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                <rect x={a.x} y={a.y} width={160} height={40} rx="8" fill="color-mix(in srgb, var(--color-text) 4%, transparent)" stroke="color-mix(in srgb, var(--color-text) 8%, transparent)" strokeWidth="1" />
                 <text x={a.x + 80} y={a.y + 25} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="12" textAnchor="middle">{a.label}</text>
-                <line x1="300" y1="54" x2={a.x + 80} y2={a.y} stroke="rgba(184, 164, 120, 0.2)" strokeWidth="1" />
-                <circle cx={300} cy="54" r="3" fill="rgba(184, 164, 120, 0.4)" />
-                <circle cx={a.x + 80} cy={a.y} r="3" fill="rgba(184, 164, 120, 0.4)" />
+                <line x1="300" y1="54" x2={a.x + 80} y2={a.y} stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1" />
+                <circle cx={300} cy="54" r="3" fill="color-mix(in srgb, var(--color-accent) 40%, transparent)" />
+                <circle cx={a.x + 80} cy={a.y} r="3" fill="color-mix(in srgb, var(--color-accent) 40%, transparent)" />
               </g>
             ))}
             {/* Human Approval */}
-            <rect x="200" y="180" width="200" height="40" rx="20" fill="rgba(184, 164, 120, 0.06)" stroke="rgba(184, 164, 120, 0.2)" strokeWidth="1" strokeDasharray="4,3" />
+            <rect x="200" y="180" width="200" height="40" rx="20" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1" strokeDasharray="4,3" />
             <text x="300" y="205" fill="var(--color-accent)" fontFamily="var(--font-sans)" fontSize="12" textAnchor="middle">Human-in-the-Loop Gate</text>
             {[10, 220, 430].map((x, i) => (
               <g key={i}>
-                <line x1={x + 80} y1="140" x2="300" y2="180" stroke="rgba(184, 164, 120, 0.15)" strokeWidth="1" />
-                <circle cx={x + 80} cy="140" r="3" fill="rgba(184, 164, 120, 0.3)" />
+                <line x1={x + 80} y1="140" x2="300" y2="180" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
+                <circle cx={x + 80} cy="140" r="3" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" />
               </g>
             ))}
             {/* Output */}
@@ -365,7 +365,7 @@ function renderDiagram(guideSlug) {
         <DiagramBox label="Figure 1: Fine-Tuning Decision Framework" caption="A decision tree for choosing between prompting, RAG, fine-tuning, and pre-training based on task requirements.">
           <svg viewBox="0 0 600 340" style={{ width: '100%', maxWidth: '600px', display: 'block', margin: '0 auto' }}>
             {/* Root */}
-            <rect x="200" y="10" width="200" height="36" rx="18" fill="rgba(184, 164, 120, 0.1)" stroke="rgba(184, 164, 120, 0.3)" strokeWidth="1.5" />
+            <rect x="200" y="10" width="200" height="36" rx="18" fill="color-mix(in srgb, var(--color-accent) 10%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 30%, transparent)" strokeWidth="1.5" />
             <text x="300" y="33" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="12" textAnchor="middle" fontWeight="600">Task Requirements</text>
             {/* Branches */}
             {[
@@ -373,9 +373,9 @@ function renderDiagram(guideSlug) {
               { label: 'Needs proprietary knowledge?', x: 320, y: 80 },
             ].map((b, i) => (
               <g key={i}>
-                <rect x={b.x} y={b.y} width={240} height={32} rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                <rect x={b.x} y={b.y} width={240} height={32} rx="6" fill="color-mix(in srgb, var(--color-text) 4%, transparent)" stroke="color-mix(in srgb, var(--color-text) 8%, transparent)" strokeWidth="1" />
                 <text x={b.x + 120} y={b.y + 21} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">{b.label}</text>
-                <line x1={i === 0 ? 250 : 350} y1="46" x2={i === 0 ? 130 : 440} y2="80" stroke="rgba(184, 164, 120, 0.2)" strokeWidth="1" />
+                <line x1={i === 0 ? 250 : 350} y1="46" x2={i === 0 ? 130 : 440} y2="80" stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1" />
               </g>
             ))}
             {/* Second level */}
@@ -388,9 +388,9 @@ function renderDiagram(guideSlug) {
               const bx = b.x + 80
               return (
                 <g key={i}>
-                  <rect x={b.x} y={b.y} width={160} height={32} rx="6" fill="rgba(184, 164, 120, 0.06)" stroke="rgba(184, 164, 120, 0.15)" strokeWidth="1" />
+                  <rect x={b.x} y={b.y} width={160} height={32} rx="6" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
                   <text x={b.x + 80} y={b.y + 21} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">{b.label}</text>
-                  <line x1={i < 2 ? 130 : 440} y1={ty} x2={bx} y2={b.y} stroke="rgba(184, 164, 120, 0.15)" strokeWidth="1" />
+                  <line x1={i < 2 ? 130 : 440} y1={ty} x2={bx} y2={b.y} stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
                 </g>
               )
             })}
@@ -400,9 +400,9 @@ function renderDiagram(guideSlug) {
               { label: 'Full Pre-Training', x: 200, y: 215 },
             ].map((b, i) => (
               <g key={i}>
-                <rect x={b.x} y={b.y} width={180} height={32} rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                <rect x={b.x} y={b.y} width={180} height={32} rx="6" fill="color-mix(in srgb, var(--color-text) 4%, transparent)" stroke="color-mix(in srgb, var(--color-text) 8%, transparent)" strokeWidth="1" />
                 <text x={b.x + 90} y={b.y + 21} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">{b.label}</text>
-                <line x1="460" y1="177" x2={b.x + 90} y2={b.y} stroke="rgba(184, 164, 120, 0.15)" strokeWidth="1" />
+                <line x1="460" y1="177" x2={b.x + 90} y2={b.y} stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
               </g>
             ))}
             {/* Bottom */}
@@ -439,10 +439,10 @@ function renderDiagram(guideSlug) {
       return (
         <DiagramBox label="Figure 1: Healthcare Data Pipeline Architecture" caption="Data flows from clinical sources through de-identification and structuring layers before reaching the AI inference engine.">
           <ArchitectureSVG layers={[
-            { label: 'Clinical Data Sources (EHR / PACS / HL7)', tech: 'FHIR / DICOM', fill: 'rgba(184, 164, 120, 0.06)', stroke: 'rgba(184, 164, 120, 0.15)' },
-            { label: 'Ingestion & Normalization Layer', tech: 'Apache Kafka', fill: 'rgba(184, 164, 120, 0.04)', stroke: 'rgba(255,255,255,0.06)' },
+            { label: 'Clinical Data Sources (EHR / PACS / HL7)', tech: 'FHIR / DICOM', fill: 'color-mix(in srgb, var(--color-accent) 6%, transparent)', stroke: 'color-mix(in srgb, var(--color-accent) 15%, transparent)' },
+            { label: 'Ingestion & Normalization Layer', tech: 'Apache Kafka', fill: 'color-mix(in srgb, var(--color-accent) 4%, transparent)', stroke: 'color-mix(in srgb, var(--color-text) 6%, transparent)' },
             { label: 'De-identification Engine (PHI / PII)', tech: 'NER + Regex', fill: 'rgba(80, 200, 120, 0.06)', stroke: 'rgba(80, 200, 120, 0.15)' },
-            { label: 'Structured Storage (Vector + Relational)', tech: 'PostgreSQL + Qdrant', fill: 'rgba(184, 164, 120, 0.04)', stroke: 'rgba(255,255,255,0.06)' },
+            { label: 'Structured Storage (Vector + Relational)', tech: 'PostgreSQL + Qdrant', fill: 'color-mix(in srgb, var(--color-accent) 4%, transparent)', stroke: 'color-mix(in srgb, var(--color-text) 6%, transparent)' },
             { label: 'Clinical AI Inference', tech: 'Fine-tuned LLM', fill: 'rgba(80, 200, 120, 0.08)', stroke: 'rgba(80, 200, 120, 0.2)' },
           ]} />
         </DiagramBox>
@@ -455,23 +455,23 @@ function renderDiagram(guideSlug) {
             {/* Vertical layers */}
             {[
               { label: 'Input Guard', y: 10, color: 'rgba(200, 80, 80, 0.08)', stroke: 'rgba(200, 80, 80, 0.2)' },
-              { label: 'Auth & Rate Limit', y: 65, color: 'rgba(184, 164, 120, 0.06)', stroke: 'rgba(184, 164, 120, 0.15)' },
-              { label: 'Model Sandbox', y: 120, color: 'rgba(255,255,255,0.04)', stroke: 'rgba(255,255,255,0.08)' },
-              { label: 'Output Redaction', y: 175, color: 'rgba(184, 164, 120, 0.06)', stroke: 'rgba(184, 164, 120, 0.15)' },
+              { label: 'Auth & Rate Limit', y: 65, color: 'color-mix(in srgb, var(--color-accent) 6%, transparent)', stroke: 'color-mix(in srgb, var(--color-accent) 15%, transparent)' },
+              { label: 'Model Sandbox', y: 120, color: 'color-mix(in srgb, var(--color-text) 4%, transparent)', stroke: 'color-mix(in srgb, var(--color-text) 8%, transparent)' },
+              { label: 'Output Redaction', y: 175, color: 'color-mix(in srgb, var(--color-accent) 6%, transparent)', stroke: 'color-mix(in srgb, var(--color-accent) 15%, transparent)' },
               { label: 'Audit Log', y: 230, color: 'rgba(80, 200, 120, 0.06)', stroke: 'rgba(80, 200, 120, 0.15)' },
             ].map((l, i) => (
               <g key={i}>
                 <rect x="150" y={l.y} width="300" height="40" rx="6" fill={l.color} stroke={l.stroke} strokeWidth="1" />
                 <text x="300" y={l.y + 25} fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="13" textAnchor="middle" fontWeight="500">{l.label}</text>
-                {i < 4 && <line x1="300" y1={l.y + 40} x2="300" y2={l.y + 65} stroke="rgba(184, 164, 120, 0.2)" strokeWidth="1" />}
+                {i < 4 && <line x1="300" y1={l.y + 40} x2="300" y2={l.y + 65} stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1" />}
               </g>
             ))}
             {/* Side labels */}
-            <text x="50" y="30" fill="rgba(228, 222, 201, 0.4)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">Prompt injection, jailbreak detection</text>
-            <text x="50" y="85" fill="rgba(228, 222, 201, 0.4)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">OAuth2, JWT, rate limiting</text>
-            <text x="50" y="140" fill="rgba(228, 222, 201, 0.4)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">Isolated process, no egress</text>
-            <text x="50" y="195" fill="rgba(228, 222, 201, 0.4)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">PII redaction, content filter</text>
-            <text x="50" y="250" fill="rgba(228, 222, 201, 0.4)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">Tamper-proof, immutable</text>
+            <text x="50" y="30" fill="color-mix(in srgb, var(--color-text) 40%, transparent)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">Prompt injection, jailbreak detection</text>
+            <text x="50" y="85" fill="color-mix(in srgb, var(--color-text) 40%, transparent)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">OAuth2, JWT, rate limiting</text>
+            <text x="50" y="140" fill="color-mix(in srgb, var(--color-text) 40%, transparent)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">Isolated process, no egress</text>
+            <text x="50" y="195" fill="color-mix(in srgb, var(--color-text) 40%, transparent)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">PII redaction, content filter</text>
+            <text x="50" y="250" fill="color-mix(in srgb, var(--color-text) 40%, transparent)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="end">Tamper-proof, immutable</text>
           </svg>
         </DiagramBox>
       )

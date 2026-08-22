@@ -1,7 +1,62 @@
 export const NAV_LINKS = [
-  { label: 'Solutions',  href: '/solutions',  category: 'solutions' },
-  { label: 'Research',   href: '/research',   category: 'research' },
-  { label: 'Contact',    href: '/contact',    category: 'contact' },
+  { label: 'About',     href: '/about',     category: 'about' },
+  { label: 'Product',   href: '/product',   category: 'product' },
+  { label: 'Research',  href: '/research',  category: 'research' },
+  { label: 'Contact',   href: '/contact',   category: 'contact' },
+]
+
+export const PRODUCT_MENU = [
+  {
+    group: 'Build AI',
+    items: [
+      {
+        label: 'Scale Data Engine',
+        href: '/services',
+        description: 'AI-ready data pipelines, annotations, and RLHF for every domain.',
+        sub: [
+          { label: 'For Generative AI', href: '/solutions' },
+          { label: 'For Physical AI', href: '/enterprise' },
+          { label: 'For Government', href: '/deployment' },
+          { label: 'For Automotive', href: '/enterprise' },
+        ],
+      },
+      {
+        label: 'RL Environments',
+        href: '/research',
+        description: 'Reinforcement learning systems that learn from experience.',
+      },
+      {
+        label: 'Experts',
+        href: '/about',
+        description: 'Forward-deployed engineers who ship systems into production.',
+      },
+    ],
+  },
+  {
+    group: 'Apply AI',
+    items: [
+      {
+        label: 'Scale GenAI Platform',
+        href: '/services',
+        description: 'Full-stack GenAI deployment for regulated enterprises.',
+      },
+      {
+        label: 'Scale Donovan',
+        href: '/enterprise',
+        description: 'Agentic workflows that run your operations end to end.',
+      },
+      {
+        label: 'Evaluate AI',
+        href: '/research',
+        description: 'Rigorous evaluation and red-teaming for production AI.',
+        sub: [
+          { label: 'For Model Developers', href: '/research' },
+          { label: 'For Public Sector', href: '/deployment' },
+          { label: 'For Enterprise', href: '/enterprise' },
+        ],
+      },
+    ],
+  },
 ]
 
 export const SOCIAL_LINKS = {

@@ -230,7 +230,7 @@ export default function GuideDetailPage() {
                           style={{
                             fontFamily: 'var(--font-sans)',
                             fontSize: '12px',
-                            color: 'rgba(228, 222, 201, 0.45)',
+                            color: 'color-mix(in srgb, var(--color-text) 45%, transparent)',
                             textDecoration: 'none',
                             display: 'block',
                             padding: '5px 0',
@@ -241,7 +241,7 @@ export default function GuideDetailPage() {
                             position: 'relative',
                           }}
                           onMouseEnter={e => e.target.style.color = 'var(--color-text)'}
-                          onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.45)'}
+                          onMouseLeave={e => e.target.style.color = 'color-mix(in srgb, var(--color-text) 45%, transparent)'}
                         >
                           {item.type === 'subheading' && (
                             <span style={{
@@ -249,7 +249,7 @@ export default function GuideDetailPage() {
                               width: '3px',
                               height: '3px',
                               borderRadius: '50%',
-                              background: 'rgba(184, 164, 120, 0.3)',
+                              background: 'color-mix(in srgb, var(--color-accent) 30%, transparent)',
                               marginRight: '8px',
                               verticalAlign: 'middle',
                             }} />
@@ -278,8 +278,8 @@ export default function GuideDetailPage() {
                     Share
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <ShareButton platform="linkedin" color="rgba(228, 222, 201, 0.5)" />
-                    <ShareButton platform="x" color="rgba(228, 222, 201, 0.5)" />
+                    <ShareButton platform="linkedin" color="color-mix(in srgb, var(--color-text) 50%, transparent)" />
+                    <ShareButton platform="x" color="color-mix(in srgb, var(--color-text) 50%, transparent)" />
                   </div>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default function GuideDetailPage() {
                           fontFamily: 'var(--font-serif)',
                           fontSize: 'clamp(1.1rem, 1.5vw, 1.25rem)',
                           lineHeight: 1.7,
-                          color: 'rgba(228, 222, 201, 0.85)',
+                          color: 'color-mix(in srgb, var(--color-text) 85%, transparent)',
                           marginBottom: '48px',
                           fontStyle: 'italic',
                         }}>
@@ -340,7 +340,7 @@ export default function GuideDetailPage() {
                             fontSize: 'clamp(15px, 1.1vw, 17px)',
                             lineHeight: 1.8,
                             letterSpacing: '-0.01em',
-                            color: 'rgba(228, 222, 201, 0.75)',
+                            color: 'color-mix(in srgb, var(--color-text) 75%, transparent)',
                             marginBottom: '20px',
                           }}>
                             {p}
@@ -370,8 +370,8 @@ export default function GuideDetailPage() {
                         viewport={viewport}
                       >
                         <div style={{
-                          background: 'rgba(184, 164, 120, 0.06)',
-                          border: '1px solid rgba(184, 164, 120, 0.15)',
+                          background: 'color-mix(in srgb, var(--color-accent) 6%, transparent)',
+                          border: '1px solid color-mix(in srgb, var(--color-accent) 15%, transparent)',
                           borderRadius: '10px',
                           padding: '20px 24px',
                           marginBottom: '24px',
@@ -396,7 +396,7 @@ export default function GuideDetailPage() {
                               fontFamily: 'var(--font-sans)',
                               fontSize: '14px',
                               lineHeight: 1.6,
-                              color: 'rgba(228, 222, 201, 0.7)',
+                              color: 'color-mix(in srgb, var(--color-text) 70%, transparent)',
                             }}>
                               {section.content}
                             </p>
@@ -431,7 +431,7 @@ export default function GuideDetailPage() {
                             fontSize: 'clamp(15px, 1.1vw, 17px)',
                             lineHeight: 1.8,
                             letterSpacing: '-0.01em',
-                            color: 'rgba(228, 222, 201, 0.75)',
+                            color: 'color-mix(in srgb, var(--color-text) 75%, transparent)',
                             marginBottom: '20px',
                           }}>
                             {p}
@@ -476,12 +476,12 @@ export default function GuideDetailPage() {
                           <tbody>
                             {section.rows.map((row, i) => (
                               <tr key={i} style={{
-                                borderBottom: '1px solid rgba(255,255,255,0.04)',
+                                borderBottom: '1px solid color-mix(in srgb, var(--color-text) 4%, transparent)',
                               }}>
                                 {row.map((cell, j) => (
                                   <td key={j} style={{
                                     padding: '14px 16px',
-                                    color: j === 0 ? 'var(--color-text)' : 'rgba(228, 222, 201, 0.7)',
+                                    color: j === 0 ? 'var(--color-text)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)',
                                     fontWeight: j === 0 ? 500 : 400,
                                     verticalAlign: 'top',
                                   }}>
@@ -507,14 +507,14 @@ export default function GuideDetailPage() {
                           marginTop: '48px',
                           padding: '24px',
                           borderLeft: '2px solid var(--color-accent)',
-                          background: 'rgba(184, 164, 120, 0.04)',
+                          background: 'color-mix(in srgb, var(--color-accent) 4%, transparent)',
                           borderRadius: '0 10px 10px 0',
                         }}>
                           <p style={{
                             fontFamily: 'var(--font-serif)',
                             fontSize: 'clamp(1rem, 1.3vw, 1.1rem)',
                             lineHeight: 1.7,
-                            color: 'rgba(228, 222, 201, 0.85)',
+                            color: 'color-mix(in srgb, var(--color-text) 85%, transparent)',
                             fontStyle: 'italic',
                           }}>
                             {section.content}

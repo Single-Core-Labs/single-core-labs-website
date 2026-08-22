@@ -50,7 +50,7 @@ function TechCard({ item }) {
           height: '100%',
           display: 'flex',
           gap: '20px',
-          background: 'rgba(255, 255, 255, 0.75)',
+          background: 'color-mix(in srgb, var(--color-bg-surface) 85%, transparent)',
           backdropFilter: 'blur(12px)',
           border: '1px solid rgba(0, 105, 92, 0.08)',
           borderRadius: '20px',

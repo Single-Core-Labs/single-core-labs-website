@@ -1,11 +1,11 @@
 import { useRef } from 'react'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Shield, Lock, Server, Key, Bug, Eye, Database, Mail, ArrowRight, FileCheck } from 'lucide-react'
 import SEO from '@/components/SEO'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 
-const CREAM = '#E1E0CC'
+const CREAM = '#FAFAFA'
 
 const PILLARS = [
   {
@@ -61,7 +61,8 @@ function TreeWithSpine({ children }) {
     target: ref,
     offset: ['start 60%', 'end 40%'],
   })
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const raw = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const scaleY = useSpring(raw, { stiffness: 120, damping: 30, mass: 0.6 })
 
   return (
     <div ref={ref} style={{ position: 'relative' }}>
@@ -72,7 +73,7 @@ function TreeWithSpine({ children }) {
           top: 0,
           width: '1px',
           height: '100%',
-          background: 'linear-gradient(to bottom, transparent, rgba(225,224,204,0.15) 10%, rgba(225,224,204,0.15) 90%, transparent)',
+          background: 'linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-text) 15%, transparent) 10%, color-mix(in srgb, var(--color-text) 15%, transparent) 90%, transparent)',
           transform: 'translateX(-50%)',
           scaleY,
           originY: 0,
@@ -103,28 +104,28 @@ function TreeNode({ pillar, index, total }) {
         transition={{ duration: 0.55, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
         style={{
           width: 'calc(50% - clamp(24px, 3vw, 40px))',
-          background: '#111',
-          border: '1px solid rgba(225,224,204,0.06)',
+          background: 'var(--color-bg-card)',
+          border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
           borderRadius: '14px',
           padding: 'clamp(18px, 1.8vw, 26px) clamp(20px, 2vw, 28px)',
           transition: 'border-color 0.3s, box-shadow 0.4s',
         }}
         onMouseEnter={e => {
-          e.currentTarget.style.borderColor = 'rgba(225,224,204,0.2)'
-          e.currentTarget.style.boxShadow = '0 0 0 1px rgba(225,224,204,0.08), 0 0 30px rgba(225,224,204,0.03)'
+          e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 20%, transparent)'
+          e.currentTarget.style.boxShadow = '0 0 0 1px color-mix(in srgb, var(--color-text) 8%, transparent), 0 0 30px color-mix(in srgb, var(--color-text) 3%, transparent)'
         }}
         onMouseLeave={e => {
-          e.currentTarget.style.borderColor = 'rgba(225,224,204,0.06)'
+          e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 6%, transparent)'
           e.currentTarget.style.boxShadow = 'none'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-          <Icon size={20} strokeWidth={1.5} style={{ color: CREAM, flexShrink: 0 }} />
+          <Icon size={20} strokeWidth={1.5} style={{ color: 'var(--color-text)', flexShrink: 0 }} />
           <h3 style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 'clamp(14px, 1vw, 16px)',
             fontWeight: 600,
-            color: CREAM,
+            color: 'var(--color-text)',
             lineHeight: 1.3,
           }}>
             {pillar.title}
@@ -134,7 +135,7 @@ function TreeNode({ pillar, index, total }) {
           fontFamily: 'var(--font-sans)',
           fontSize: 'clamp(12px, 0.85vw, 14px)',
           fontWeight: 400,
-          color: 'rgba(225,224,204,0.55)',
+          color: 'color-mix(in srgb, var(--color-text) 55%, transparent)',
           lineHeight: 1.6,
         }}>
           {pillar.description}
@@ -160,7 +161,7 @@ function TreeNode({ pillar, index, total }) {
             background: CREAM,
             zIndex: 2,
             position: 'relative',
-            boxShadow: inView ? '0 0 12px rgba(225,224,204,0.2)' : 'none',
+            boxShadow: inView ? '0 0 12px color-mix(in srgb, var(--color-text) 20%, transparent)' : 'none',
           }}
         />
       </div>
@@ -186,7 +187,7 @@ export default function SecurityPage() {
           paddingTop: 'clamp(140px, 20vh, 220px)',
           paddingBottom: 'clamp(80px, 12vh, 120px)',
           paddingInline: 'clamp(20px, 4vw, 48px)',
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(225,224,204,0.06), transparent 70%), var(--color-bg)',
+          background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-text) 6%, transparent), transparent 70%), var(--color-bg)',
           textAlign: 'center',
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -197,7 +198,7 @@ export default function SecurityPage() {
                 fontWeight: 500,
                 letterSpacing: '0.16em',
                 textTransform: 'uppercase',
-                color: 'rgba(225,224,204,0.45)',
+                color: 'color-mix(in srgb, var(--color-text) 45%, transparent)',
                 marginBottom: '24px',
               }}>
                 Trust & Security
@@ -209,7 +210,7 @@ export default function SecurityPage() {
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(32px, 5vw, 64px)',
                 fontWeight: 500,
-                color: CREAM,
+                color: 'var(--color-text)',
                 lineHeight: 1.08,
                 letterSpacing: '-0.03em',
                 marginBottom: '24px',
@@ -224,7 +225,7 @@ export default function SecurityPage() {
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(16px, 1.3vw, 20px)',
                 fontWeight: 400,
-                color: 'rgba(225,224,204,0.6)',
+                color: 'color-mix(in srgb, var(--color-text) 60%, transparent)',
                 lineHeight: 1.6,
                 maxWidth: '640px',
                 margin: '0 auto 40px',
@@ -236,8 +237,8 @@ export default function SecurityPage() {
             <RevealSection delay={0.45}>
               <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a href="/contact" className="btn-primary" style={{
-                  background: CREAM,
-                  color: '#0B0B0B',
+                  background: 'var(--color-text)',
+                  color: 'var(--color-bg)',
                   padding: '14px 32px',
                   fontSize: '14px',
                   fontFamily: 'var(--font-sans)',
@@ -282,7 +283,7 @@ export default function SecurityPage() {
                 <p style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: 'clamp(14px, 1vw, 16px)',
-                  color: 'rgba(225,224,204,0.5)',
+                  color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                   maxWidth: '500px',
                   margin: '0 auto',
                 }}>
@@ -301,7 +302,7 @@ export default function SecurityPage() {
 
         <section style={{
           padding: 'clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px)',
-          background: 'radial-gradient(ellipse at 50% 100%, rgba(225,224,204,0.04), transparent 70%), #000',
+          background: 'radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--color-text) 4%, transparent), transparent 70%), #000',
           overflow: 'hidden',
         }}>
           <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
@@ -324,7 +325,7 @@ export default function SecurityPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(15px, 1.1vw, 18px)',
-                color: 'rgba(225,224,204,0.55)',
+                color: 'color-mix(in srgb, var(--color-text) 55%, transparent)',
                 lineHeight: 1.7,
                 maxWidth: '640px',
                 margin: '0 auto clamp(40px, 5vw, 64px)',
@@ -361,21 +362,21 @@ export default function SecurityPage() {
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + i * 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     style={{
-                      background: '#111',
-                      border: '1px solid rgba(225,224,204,0.06)',
+                      background: 'var(--color-bg-card)',
+                      border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
                       borderRadius: '12px',
                       padding: 'clamp(16px, 1.5vw, 24px)',
                       flex: 1,
                       transition: 'border-color 0.3s',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(225,224,204,0.2)'}
-                    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(225,224,204,0.06)'}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 20%, transparent)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 6%, transparent)'}
                   >
                     <p style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: 'clamp(12px, 0.85vw, 14px)',
                       fontWeight: 600,
-                      color: CREAM,
+                      color: 'var(--color-text)',
                       marginBottom: '6px',
                       whiteSpace: 'nowrap',
                     }}>
@@ -384,7 +385,7 @@ export default function SecurityPage() {
                     <p style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: 'clamp(11px, 0.75vw, 13px)',
-                      color: 'rgba(225,224,204,0.5)',
+                      color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                       lineHeight: 1.5,
                     }}>
                       {item.desc}
@@ -403,7 +404,7 @@ export default function SecurityPage() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: 'rgba(225,224,204,0.2)',
+                        color: 'color-mix(in srgb, var(--color-text) 20%, transparent)',
                       }}
                     >
                       <svg width="100%" height="20" viewBox="0 0 40 20" fill="none" style={{ display: 'block' }}>
@@ -456,7 +457,7 @@ export default function SecurityPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(14px, 1vw, 16px)',
-                color: 'rgba(225,224,204,0.5)',
+                color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                 lineHeight: 1.7,
                 maxWidth: '700px',
                 marginBottom: '40px',
@@ -484,8 +485,8 @@ export default function SecurityPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   style={{
-                    background: '#111',
-                    border: '1px solid rgba(225,224,204,0.06)',
+                    background: 'var(--color-bg-card)',
+                    border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
                     borderRadius: '12px',
                     padding: '20px 24px',
                   }}
@@ -494,7 +495,7 @@ export default function SecurityPage() {
                     fontFamily: 'var(--font-sans)',
                     fontSize: '14px',
                     fontWeight: 600,
-                    color: CREAM,
+                    color: 'var(--color-text)',
                     marginBottom: '6px',
                   }}>
                     {item.title}
@@ -502,7 +503,7 @@ export default function SecurityPage() {
                   <p style={{
                     fontFamily: 'var(--font-sans)',
                     fontSize: '13px',
-                    color: 'rgba(225,224,204,0.5)',
+                    color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                     lineHeight: 1.5,
                   }}>
                     {item.desc}
@@ -534,7 +535,7 @@ export default function SecurityPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(14px, 1vw, 16px)',
-                color: 'rgba(225,224,204,0.5)',
+                color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                 lineHeight: 1.7,
                 marginBottom: '32px',
               }}>
@@ -549,12 +550,12 @@ export default function SecurityPage() {
                   fontWeight: 500,
                   color: CREAM,
                   textDecoration: 'none',
-                  borderBottom: '1px solid rgba(225,224,204,0.2)',
+                  borderBottom: '1px solid color-mix(in srgb, var(--color-text) 20%, transparent)',
                   paddingBottom: '4px',
                   transition: 'border-color 0.2s',
                 }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = CREAM}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(225,224,204,0.2)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 20%, transparent)'}
               >
                 security@singlecorelabs.com
               </a>
@@ -568,8 +569,8 @@ export default function SecurityPage() {
         }}>
           <RevealSection>
             <div style={{
-              background: '#111',
-              border: '1px solid rgba(225,224,204,0.06)',
+              background: 'var(--color-bg-card)',
+              border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
               borderRadius: '20px',
               padding: 'clamp(40px, 5vw, 64px) clamp(28px, 4vw, 48px)',
               maxWidth: '700px',
@@ -579,7 +580,7 @@ export default function SecurityPage() {
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(20px, 2vw, 28px)',
                 fontWeight: 500,
-                color: CREAM,
+                color: 'var(--color-text)',
                 lineHeight: 1.2,
                 marginBottom: '16px',
               }}>
@@ -588,14 +589,14 @@ export default function SecurityPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '14px',
-                color: 'rgba(225,224,204,0.5)',
+                color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                 marginBottom: '28px',
               }}>
                 We're happy to share our security documentation and answer any questions.
               </p>
               <a href="/contact" className="btn-primary" style={{
-                background: CREAM,
-                color: '#0B0B0B',
+                background: 'var(--color-text)',
+                color: 'var(--color-bg)',
                 padding: '12px 28px',
                 fontSize: '14px',
                 fontFamily: 'var(--font-sans)',

@@ -40,9 +40,16 @@ const GUIDE_SLUGS = [
 
 const ROUTES = [
   '/',
+  '/product',
+  '/product/data-foundry',
+  '/training',
+  '/model-lab',
   '/solutions',
+  '/services',
   '/solutions/healthcare-intelligence',
   '/solutions/ai-modernization',
+  '/solutions/rl-environments',
+  '/solutions/rl-lab',
   '/solutions/tech',
   '/solutions/logistics',
   '/solutions/manufacturing',
@@ -60,6 +67,7 @@ const ROUTES = [
   '/security',
   '/deployment',
   '/research-collective',
+  '/open',
   '/terms',
   '/privacy',
 ]

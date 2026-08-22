@@ -9,7 +9,7 @@ export const INDUSTRIES = [
     description:
       'Warehouse robotics orchestration, autonomous picking and sorting, and vision-guided systems trained on your facility data.',
     href: '/solutions/logistics',
-    color: 'rgba(184, 164, 120, 0.12)',
+    color: 'color-mix(in srgb, var(--color-accent) 12%, transparent)',
   },
   {
     id: 'manufacturing',
@@ -19,7 +19,7 @@ export const INDUSTRIES = [
     description:
       'Predictive maintenance, computer vision quality assurance, robotic cell programming, and digital twin integration for smart manufacturing.',
     href: '/solutions/manufacturing',
-    color: 'rgba(184, 164, 120, 0.12)',
+    color: 'color-mix(in srgb, var(--color-accent) 12%, transparent)',
   },
   {
     id: 'healthcare',
@@ -29,7 +29,7 @@ export const INDUSTRIES = [
     description:
       'EHR-integrated clinical intelligence, medical imaging diagnostics, and surgical-assist robotics for the most regulated environments.',
     href: '/solutions/healthcare-intelligence',
-    color: 'rgba(184, 164, 120, 0.12)',
+    color: 'color-mix(in srgb, var(--color-accent) 12%, transparent)',
   },
   {
     id: 'energy',
@@ -39,7 +39,7 @@ export const INDUSTRIES = [
     description:
       'Vision-guided inspection of power lines, wind and solar assets, and subsea infrastructure — trained on years of your survey data.',
     href: '/solutions/energy',
-    color: 'rgba(184, 164, 120, 0.12)',
+    color: 'color-mix(in srgb, var(--color-accent) 12%, transparent)',
   },
   {
     id: 'defense',
@@ -49,7 +49,7 @@ export const INDUSTRIES = [
     description:
       'Air-gapped deployment, autonomous surveillance and logistics, and secure multi-level classification systems for defense and public sector.',
     href: '/solutions/defense',
-    color: 'rgba(184, 164, 120, 0.12)',
+    color: 'color-mix(in srgb, var(--color-accent) 12%, transparent)',
   },
 ]
 

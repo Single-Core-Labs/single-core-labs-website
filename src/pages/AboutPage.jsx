@@ -1,755 +1,183 @@
-import { useState } from 'react'
 import SEO from '@/components/SEO'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-import { RevealText } from '@/components/RevealText'
-import { HorizontalRule } from '@/components/HorizontalRule'
-import { ScrollFade3D, Card3D, SectionDepth } from '@/components/ScrollScene'
-import { ArrowRight, Eye, ShieldAlert, Cpu, Check, Loader2 } from 'lucide-react'
-import { supabase } /* cspell:ignore supabase */ from '@/lib/supabase'
 
 export default function AboutPage() {
-  // Fixed JSX tag mismatches
-
-  // Form State
-  const [form, setForm] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    company: '',
-    designation: '',
-    message: '',
-    website: '',
-  })
-  const [prefix, setPrefix] = useState('+1')
-  const [loading, setLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState(null)
-
-  // Focused state for inputs to apply glowing accent border
-  const [focusedField, setFocusedField] = useState(null)
-
-  const handleFocus = (field) => setFocusedField(field)
-  const handleBlur = () => setFocusedField(null)
-
-  const handleChange = (field) => (e) => {
-    if (field === 'message' && e.target.value.length > 1000) return
-    setForm({ ...form, [field]: e.target.value })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (form.website) return
-    setLoading(true)
-    setError(null)
-
-    try {
-      // Split full name safely for database mapping if required
-      const nameParts = form.fullName.trim().split(' ')
-      const firstName = nameParts[0] || ''
-      const lastName = nameParts.slice(1).join(' ') || ''
-
-      // Save submission in Supabase
-      const { error: submitError } = await supabase
-        .from('contact_submissions')
-        .insert([
-          {
-            first_name: firstName,
-            last_name: lastName,
-            company: form.company,
-            role: form.designation || 'Visitor',
-            email: form.email,
-            country: prefix === '+91' ? 'India' : prefix === '+1' ? 'United States' : 'Other',
-            budget: 'under-50k',
-            help_with: ['about-page-form'],
-            message: `[Phone: ${prefix} ${form.phone}] ${form.message}`,
-          },
-        ])
-
-      if (submitError) throw submitError
-
-      setSubmitted(true)
-    } catch (err) {
-      console.error('Submission error:', err)
-      setError('Something went wrong. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const formInputStyle = (fieldName) => ({
-    width: '100%',
-    padding: '12px 16px',
-    fontFamily: 'var(--font-sans)',
-    fontSize: '14px',
-    color: 'var(--color-text)',
-    background: 'var(--color-bg-surface)',
-    border: `1px solid ${focusedField === fieldName ? 'var(--color-accent)' : 'var(--color-border-strong)'}`,
-    borderRadius: '8px',
-    outline: 'none',
-    boxShadow: focusedField === fieldName ? '0 0 0 3px var(--color-accent-dim)' : 'none',
-    transition: 'all 0.25s ease',
-  })
-
-  const labelStyle = {
-    fontFamily: 'var(--font-sans)',
-    fontSize: '13px',
-    fontWeight: 600,
-    color: 'var(--color-text)',
-    marginBottom: '6px',
-    display: 'block',
-  }
-
   return (
-    <div className="page-dark">
-      <SEO 
-        title="About Us | Single Core Labs"
-        description="We design, deploy, and operate sovereign AI infrastructure, fine-tuned LLMs, and agentic systems for Indian enterprises in regulated industries."
-        keywords="applied AI research, AI systems engineering firm, custom agentic architectures"
+    <div className="page-dark page-callosum">
+      <SEO
+        title="About | Single Core Labs"
+        description="The future of enterprise intelligence is sovereign. We are building it — a team of engineers designing original architectures and shipping them into production across healthcare, infrastructure, and developer tooling."
+        keywords="Single Core Labs, sovereign AI, enterprise AI, applied AI, AI infrastructure"
       />
+
+      <style>{`
+        .page-callosum .cl-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: 10px;
+          padding-inline: 20px;
+        }
+        @media (min-width: 768px) {
+          .page-callosum .cl-grid {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            column-gap: 16px;
+            padding-inline: 24px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .page-callosum .cl-grid {
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            column-gap: 20px;
+            padding-inline: 40px;
+          }
+        }
+        .cl-span-full { grid-column: 1 / -1; }
+        .cl-span-6 { grid-column: span 6 / span 6; }
+        @media (min-width: 768px) { .cl-span-6 { grid-column: span 4 / span 4; } }
+        @media (min-width: 1200px) { .cl-span-6 { grid-column: span 6 / span 6; } }
+
+        .cl-lrg {
+          font-size: 2rem;
+          line-height: 1.1;
+          font-weight: 400;
+          letter-spacing: -0.01em;
+        }
+        @media (min-width: 768px) { .cl-lrg { font-size: 2.5rem; line-height: 1; } }
+
+        .cl-body {
+          font-size: 0.875rem;
+          line-height: 1.7;
+          color: var(--color-text-muted);
+        }
+        @media (min-width: 1200px) { .cl-body { font-size: 1rem; } }
+
+        .cl-cta {
+          min-width: 258px;
+          border-radius: 4px;
+          background: var(--color-text);
+          padding: 8px 24px;
+          text-align: center;
+          font-family: var(--font-mono);
+          font-size: 0.875rem;
+          line-height: 1;
+          color: var(--color-bg);
+          text-decoration: none;
+          display: inline-block;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+        .cl-cta:hover { background: var(--color-text-dim); color: var(--color-bg); }
+
+        @keyframes cl-fade-up {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .cl-reveal { animation: cl-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .cl-reveal-2 { animation: cl-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both; }
+      `}</style>
+
       <Navbar />
 
-      <main style={{ minHeight: '100vh', paddingTop: '120px' }}>
-        <div className="container-editorial" style={{ maxWidth: '800px' }}>
-          <RevealText>
-            <p className="text-eyebrow" style={{ marginBottom: '28px' }}>Who We Are</p>
-          </RevealText>
-          <RevealText delay={1}>
-            <h1 className="text-display" style={{ marginBottom: '28px' }}>
-              Applied AI research,
-              <br />
-              translated into <span className="text-italic-serif">enterprise outcomes.</span>
-            </h1>
-          </RevealText>
-          <RevealText delay={2}>
-            <div className="text-body" style={{ maxWidth: '600px' }}>
-              We design, deploy, and operate AI systems for Indian enterprises. Our work spans:
-              <ul style={{ paddingLeft: '20px', marginTop: '12px', marginBottom: '12px', listStyleType: 'disc' }}>
-                <li style={{ marginBottom: '8px' }}><strong>Custom AI Systems Engineering:</strong> Designing and deploying bespoke agentic architectures.</li>
-                <li style={{ marginBottom: '8px' }}><strong>Sovereign AI Infrastructure:</strong> Implementing air-gapped and on-premise models for strict privacy.</li>
-                <li><strong>Applied AI Research:</strong> Fine-tuning open-source frontier models for enterprise outcomes.</li>
-              </ul>
-            </div>
-          </RevealText>
-        </div>
-
-        {/* Core Pillars (Who We Are, Mission, Vision) */}
+      <main className="cl-grid" style={{ paddingTop: 'clamp(120px, 16vh, 200px)' }}>
+        {/* HERO STATEMENT */}
         <section
-          className="container-editorial"
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            paddingBottom: 'clamp(48px, 6vh, 80px)',
-          }}
+          className="cl-span-full cl-reveal"
+          style={{ display: 'grid', rowGap: '96px', paddingBottom: 'clamp(120px, 16vh, 200px)' }}
         >
-          <div style={{ height: '1px', backgroundColor: 'var(--color-border)', marginBottom: 'clamp(32px, 4vh, 48px)' }} />
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <h1 className="cl-span-6 cl-lrg" style={{ color: 'var(--color-text)' }}>
+              The future of intelligence will be built on different data, different models, and
+              different ways of learning.
+            </h1>
+          </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 'clamp(24px, 3vw, 40px)',
-            }}
-          >
-            {/* Pillar 1: Who We Are */}
-            <ScrollFade3D>
-              <Card3D intensity={5}>
-                <div
-                  className="card card--rounded card--pad"
-                  style={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div>
-                    <Cpu size={24} style={{ color: 'var(--color-accent)', marginBottom: '24px' }} />
-                    <h2
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: 'clamp(20px, 2.5vw, 26px)',
-                        fontWeight: 400,
-                        letterSpacing: '-0.015em',
-                        marginBottom: '16px',
-                        color: 'var(--color-text)',
-                      }}
-                    >
-                      Our Team
-                    </h2>
-                    <p className="text-body" style={{ fontSize: '14px', lineHeight: 1.6 }}>
-                      We are a collective of ML practitioners, systems architects, and research engineers from
-                      frontier environments. We avoid slide decks and hand-offs, choosing to embed directly with
-                      teams to build dependable, production-grade AI pipelines.
-                    </p>
-                  </div>
-                </div>
-              </Card3D>
-            </ScrollFade3D>
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p className="cl-span-6 cl-body" style={{ maxWidth: 560 }}>
+              AI is becoming a fundamental layer of how the world operates. But intelligence
+              cannot be built from a single model, a single dataset, or a single way of learning.
+            </p>
+          </div>
 
-            {/* Pillar 2: Our Mission */}
-            <ScrollFade3D>
-              <Card3D intensity={5}>
-                <div
-                  className="card card--rounded card--pad"
-                  style={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div>
-                    <ShieldAlert size={24} style={{ color: 'var(--color-accent)', marginBottom: '24px' }} />
-                    <h2
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: 'clamp(20px, 2.5vw, 26px)',
-                        fontWeight: 400,
-                        letterSpacing: '-0.015em',
-                        marginBottom: '16px',
-                        color: 'var(--color-text)',
-                      }}
-                    >
-                      Our Mission
-                    </h2>
-                    <p className="text-body" style={{ fontSize: '14px', lineHeight: 1.6 }}>
-                      To build and deploy private, zero-hallucination agentic models engineered specifically to work
-                      under high-stakes corporate constraints. We aim to strip away the fragility of basic wrappers,
-                      substituting it with production-grade engineering precision.
-                    </p>
-                  </div>
-                </div>
-              </Card3D>
-            </ScrollFade3D>
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p className="cl-span-6" style={{ maxWidth: 560 }}>
+              <strong style={{ fontWeight: 500, color: 'var(--color-text)' }}>
+                SingleCore Labs exists to build the systems that make intelligence more adaptable.
+              </strong>
+            </p>
+          </div>
 
-            {/* Pillar 3: Our Vision */}
-            <ScrollFade3D>
-              <Card3D intensity={5}>
-                <div
-                  className="card card--rounded card--pad"
-                  style={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div>
-                    <Eye size={24} style={{ color: 'var(--color-accent)', marginBottom: '24px' }} />
-                    <h2
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: 'clamp(20px, 2.5vw, 26px)',
-                        fontWeight: 400,
-                        letterSpacing: '-0.015em',
-                        marginBottom: '16px',
-                        color: 'var(--color-text)',
-                      }}
-                    >
-                      Our Vision
-                    </h2>
-                    <p className="text-body" style={{ fontSize: '14px', lineHeight: 1.6 }}>
-                      To pioneer safe, sovereign autonomous operation pipelines that allow modern enterprises to unlock
-                      the complete potential of their private datasets. We see a future where company intelligence acts
-                      autonomously, securely, and seamlessly at scale.
-                    </p>
-                  </div>
-                </div>
-              </Card3D>
-            </ScrollFade3D>
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p className="cl-span-6 cl-body" style={{ maxWidth: 560 }}>
+              We build across <strong style={{ fontWeight: 500, color: 'var(--color-text)' }}>AI, data, reinforcement learning, and infrastructure</strong> —
+              developing the models, learning systems, and data foundations that allow machines
+              to understand environments, learn from experience, and improve over time.
+            </p>
+          </div>
+
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p className="cl-span-6 cl-body" style={{ maxWidth: 560 }}>
+              Our work is grounded in a simple belief:
+            </p>
+          </div>
+
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p className="cl-span-6" style={{ maxWidth: 560 }}>
+              <strong style={{ fontWeight: 500, color: 'var(--color-text)' }}>
+                The next generation of AI will not come from doing more of the same. It will come
+                from building systems that can learn differently.
+              </strong>
+            </p>
+          </div>
+
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p className="cl-span-6 cl-body" style={{ maxWidth: 560 }}>
+              We are building toward that future.
+            </p>
+          </div>
+
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p
+              className="cl-span-6"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                color: 'var(--color-text-dim)',
+              }}
+            >
+              Backed by engineers from Bank of America, Global Logic, and Cognizant
+            </p>
+          </div>
+
+          <div className="cl-grid" style={{ padding: 0 }}>
+            <p
+              className="cl-span-6"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                color: 'var(--color-text-dim)',
+              }}
+            >
+              Part of Claude for Startups by Anthropic, Neo4j for Startups, and Z.AI
+            </p>
           </div>
         </section>
 
-        {/* Core Startup Values (Interactive Depth Section) */}
-        <SectionDepth>
-          <section
-            style={{
-              padding: 'var(--spacing-section-lg) 0',
-              background: 'var(--color-bg-elevated)',
-              position: 'relative',
-              zIndex: 1,
-            }}
-          >
-            <div className="container-editorial">
-              <div style={{ marginBottom: 'clamp(36px, 5vh, 56px)' }}>
-                <RevealText>
-                  <p className="text-eyebrow" style={{ marginBottom: '16px' }}>Core Beliefs</p>
-                </RevealText>
-                <RevealText delay={1}>
-                  <h2 className="text-display" style={{ maxWidth: '700px' }}>
-                    Sovereign engineering
-                    <br />
-                    <span className="text-italic-serif">built on core principles.</span>
-                  </h2>
-                </RevealText>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {/* Value 1 */}
-                <ScrollFade3D>
-                  <article
-                    className="card card--rounded card--pad"
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1.2fr',
-                      gap: 'clamp(20px, 4vw, 64px)',
-                      alignItems: 'start',
-                    }}
-                  >
-                    <div>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-serif)',
-                          fontSize: 'clamp(18px, 2.2vw, 28px)',
-                          fontWeight: 400,
-                          lineHeight: 1.2,
-                          letterSpacing: '-0.01em',
-                          color: 'var(--color-text)',
-                        }}
-                      >
-                        01 / Precision Over Placeholders
-                      </h3>
-                    </div>
-                    <div>
-                      <p className="text-body" style={{ maxWidth: '500px', fontSize: '14px', lineHeight: 1.7 }}>
-                        We believe that enterprise AI must be rigorous. We do not write simple API wrappers or leave
-                        broken edge cases. Every dataset pipeline, every model configuration, and every custom interface
-                        is heavily stress-tested and built for production reliability.
-                      </p>
-                    </div>
-                  </article>
-                </ScrollFade3D>
-
-                {/* Value 2 */}
-                <ScrollFade3D>
-                  <article
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1.2fr',
-                      gap: 'clamp(20px, 4vw, 64px)',
-                      paddingBlock: 'clamp(28px, 4vh, 48px)',
-                      borderTop: '1px solid var(--color-border)',
-                      alignItems: 'start',
-                    }}
-                  >
-                    <div>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-serif)',
-                          fontSize: 'clamp(18px, 2.2vw, 28px)',
-                          fontWeight: 400,
-                          lineHeight: 1.2,
-                          letterSpacing: '-0.01em',
-                          color: 'var(--color-text)',
-                        }}
-                      >
-                        02 / Complete Sovereign Sovereignty
-                      </h3>
-                    </div>
-                    <div>
-                      <p className="text-body" style={{ maxWidth: '500px', fontSize: '14px', lineHeight: 1.7 }}>
-                        Your proprietary intelligence should belong solely to you. We architect fully private, HIPAA and SOC-2
-                        aligned MLOps setups, with optional offline, air-gapped configuration so your models remain under your
-                        absolute control without leaks.
-                      </p>
-                    </div>
-                  </article>
-                </ScrollFade3D>
-
-                {/* Value 3 */}
-                <ScrollFade3D>
-                  <article
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '1fr 1.2fr',
-                      gap: 'clamp(20px, 4vw, 64px)',
-                      paddingBlock: 'clamp(28px, 4vh, 48px)',
-                      borderTop: '1px solid var(--color-border)',
-                      borderBottom: '1px solid var(--color-border)',
-                      alignItems: 'start',
-                    }}
-                  >
-                    <div>
-                      <h3
-                        style={{
-                          fontFamily: 'var(--font-serif)',
-                          fontSize: 'clamp(18px, 2.2vw, 28px)',
-                          fontWeight: 400,
-                          lineHeight: 1.2,
-                          letterSpacing: '-0.01em',
-                          color: 'var(--color-text)',
-                        }}
-                      >
-                        03 / Actual Agentic Orchestration
-                      </h3>
-                    </div>
-                    <div>
-                      <p className="text-body" style={{ maxWidth: '500px', fontSize: '14px', lineHeight: 1.7 }}>
-                        We build AI systems that go beyond chat boxes. SCL specialized agents are engineered to plan, reflect,
-                        safely run custom code, call specific enterprise APIs, and handle complete operational workloads
-                        autonomously and correctly.
-                      </p>
-                    </div>
-                  </article>
-                </ScrollFade3D>
-              </div>
-            </div>
-          </section>
-        </SectionDepth>
-
-        {/* Contact Form Section */}
+        {/* FINAL CTA */}
         <section
-          className="container-editorial"
-          style={{
-            paddingTop: 'var(--spacing-section-lg)',
-            position: 'relative',
-            zIndex: 1,
-          }}
+          className="cl-span-full cl-reveal-2"
+          style={{ display: 'flex', justifyContent: 'center', paddingBottom: 'clamp(120px, 16vh, 200px)' }}
         >
-          <HorizontalRule style={{ marginBottom: 'clamp(32px, 5vh, 60px)' }} />
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gridAutoRows: '1fr',
-              gap: '0',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              border: '1px solid var(--color-border-strong)',
-              boxShadow: '0 24px 60px -12px rgba(0, 0, 0, 0.05)',
-            }}
-          >
-            {/* Left Side: Brand Panel */}
-            <div
-              style={{
-                position: 'relative',
-                background: 'var(--color-bg-elevated)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                padding: 'clamp(32px, 5vw, 64px)',
-              }}
-            >
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'radial-gradient(ellipse at 20% 50%, var(--color-accent-dim) 0%, transparent 70%)',
-                  zIndex: 0,
-                }}
-              />
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-                    fontWeight: 400,
-                    lineHeight: 1.1,
-                    letterSpacing: '-0.025em',
-                    marginBottom: '16px',
-                    color: 'var(--color-text)',
-                  }}
-                >
-                  Need help with
-                  <br />
-                  your <span style={{ fontStyle: 'italic', fontFamily: 'var(--font-serif)' }}>Business?</span>
-                </h2>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '15px',
-                    fontWeight: 400,
-                    color: 'var(--color-text-muted)',
-                  }}
-                >
-                  Don't worry, we've got your back.
-                </p>
-              </div>
-            </div>
-
-            {/* Right Side: Form Panel */}
-            <div
-              style={{
-                background: 'var(--color-bg-surface)',
-                padding: 'clamp(32px, 5vw, 64px)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}
-            >
-              <AnimatePresence mode="wait">
-                {submitted ? (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4 }}
-                    style={{ textAlign: 'center', padding: '24px 0' }}
-                  >
-                    <div
-                      style={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '50%',
-                        background: 'var(--color-accent-dim)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 20px',
-                      }}
-                    >
-                      <Check size={24} style={{ color: 'var(--color-accent)' }} />
-                    </div>
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: '24px',
-                        fontWeight: 400,
-                        marginBottom: '10px',
-                        color: 'var(--color-text)',
-                      }}
-                    >
-                      Enquiry received.
-                    </h3>
-                    <p className="text-body" style={{ fontSize: '14px', maxWidth: '320px', margin: '0 auto' }}>
-                      Thank you for reaching out. We will get back to you within one business day.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <motion.form
-                    key="form"
-                    onSubmit={handleSubmit}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-                  >
-                    <input
-                      type="text"
-                      value={form.website}
-                      onChange={handleChange('website')}
-                      tabIndex={-1}
-                      autoComplete="off"
-                      aria-hidden="true"
-                      style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
-                    />
-                    {/* Row 1: Full name & Mobile number */}
-                    <div
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                        gap: '16px',
-                      }}
-                    >
-                      <div>
-                        <label htmlFor="fullName" style={labelStyle}>
-                          Full name <span style={{ color: 'var(--color-accent)' }}>*</span>
-                        </label>
-                        <input
-                          id="fullName"
-                          type="text"
-                          required
-                          placeholder="Enter your name"
-                          value={form.fullName}
-                          onChange={handleChange('fullName')}
-                          onFocus={() => handleFocus('fullName')}
-                          onBlur={handleBlur}
-                          style={formInputStyle('fullName')}
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="phone" style={labelStyle}>
-                          Mobile number <span style={{ color: 'var(--color-accent)' }}>*</span>
-                        </label>
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                            <select
-                              value={prefix}
-                              onChange={(e) => setPrefix(e.target.value)}
-                              style={{
-                                padding: '12px 28px 12px 12px',
-                                border: '1px solid var(--color-border-strong)',
-                                background: 'var(--color-bg-surface)',
-                                fontFamily: 'var(--font-sans)',
-                                fontSize: '14px',
-                                color: 'var(--color-text)',
-                                appearance: 'none',
-                                WebkitAppearance: 'none',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                outline: 'none',
-                              }}
-                            >
-                              <option value="+1">🇺🇸 +1</option>
-                              <option value="+91">🇮🇳 +91</option>
-                              <option value="+44">🇬🇧 +44</option>
-                            </select>
-                            <svg
-                              width="10"
-                              height="10"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              style={{
-                                position: 'absolute',
-                                right: '10px',
-                                pointerEvents: 'none',
-                                color: 'var(--color-text-dim)',
-                              }}
-                            >
-                              <path d="M6 9l6 6 6-6" />
-                            </svg>
-                          </div>
-                          <input
-                            id="phone"
-                            type="tel"
-                            required
-                            placeholder="Enter your phone"
-                            value={form.phone}
-                            onChange={handleChange('phone')}
-                            onFocus={() => handleFocus('phone')}
-                            onBlur={handleBlur}
-                            style={formInputStyle('phone')}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Row 2: Email address & Company name */}
-                    <div
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                        gap: '16px',
-                      }}
-                    >
-                      <div>
-                        <label htmlFor="email" style={labelStyle}>
-                          Email address <span style={{ color: 'var(--color-accent)' }}>*</span>
-                        </label>
-                        <input
-                          id="email"
-                          type="email"
-                          required
-                          placeholder="Enter your email"
-                          value={form.email}
-                          onChange={handleChange('email')}
-                          onFocus={() => handleFocus('email')}
-                          onBlur={handleBlur}
-                          style={formInputStyle('email')}
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="company" style={labelStyle}>
-                          Company name
-                        </label>
-                        <input
-                          id="company"
-                          type="text"
-                          placeholder="Enter your company name"
-                          value={form.company}
-                          onChange={handleChange('company')}
-                          onFocus={() => handleFocus('company')}
-                          onBlur={handleBlur}
-                          style={formInputStyle('company')}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 3: Designation */}
-                    <div>
-                      <label htmlFor="designation" style={labelStyle}>
-                        Designation
-                      </label>
-                      <input
-                        id="designation"
-                        type="text"
-                        placeholder="Enter your designation"
-                        value={form.designation}
-                        onChange={handleChange('designation')}
-                        onFocus={() => handleFocus('designation')}
-                        onBlur={handleBlur}
-                        style={formInputStyle('designation')}
-                      />
-                    </div>
-
-                    {/* Row 4: Message */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>
-                        <label htmlFor="message" style={{ ...labelStyle, marginBottom: 0 }}>
-                          Message <span style={{ color: 'var(--color-accent)' }}>*</span>
-                        </label>
-                        <span style={{ fontSize: '11px', color: 'var(--color-text-dim)', fontFamily: 'var(--font-mono)' }}>
-                          {form.message.length}/1000
-                        </span>
-                      </div>
-                      <textarea
-                        id="message"
-                        required
-                        rows={4}
-                        placeholder="Enter your message..."
-                        value={form.message}
-                        onChange={handleChange('message')}
-                        onFocus={() => handleFocus('message')}
-                        onBlur={handleBlur}
-                        style={{
-                          ...formInputStyle('message'),
-                          resize: 'none',
-                          minHeight: '100px',
-                        }}
-                      />
-                    </div>
-
-                    {/* Submit Row */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px' }}>
-                      {error && (
-                        <p style={{ color: 'var(--color-accent)', fontSize: '12px', fontWeight: 500 }}>
-                          {error}
-                        </p>
-                      )}
-                      <button
-                        type="submit"
-                        className="btn-primary"
-                        disabled={loading}
-                        style={{
-                          alignSelf: 'flex-start',
-                          padding: '12px 24px',
-                          borderRadius: '8px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          cursor: loading ? 'not-allowed' : 'pointer',
-                          opacity: loading ? 0.8 : 1,
-                        }}
-                      >
-                        {loading ? (
-                          <>
-                            Sending...
-                            <Loader2 size={16} className="animate-spin" />
-                          </>
-                        ) : (
-                          <>
-                            Send Enquiry
-                            <ArrowRight size={16} />
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </motion.form>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
+          <Link to="/contact" className="cl-cta">
+            Join Us
+          </Link>
         </section>
       </main>
+
       <Footer />
     </div>
   )

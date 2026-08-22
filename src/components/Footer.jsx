@@ -10,21 +10,9 @@ const FOOTER_LINKS = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Solutions', href: '/solutions' },
-      { label: 'Product', href: '/coming-soon' },
-      { label: 'Case Studies', href: '/case-studies' },
-      { label: 'Careers', href: '/careers' },
+      { label: 'Research', href: '/research' },
       { label: 'Contact', href: '/contact' },
       { label: 'LinkedIn', href: SOCIAL_LINKS.linkedin, isExternal: true },
-    ],
-  },
-  {
-    heading: 'Industries',
-    links: [
-      { label: 'Logistics & Warehousing', href: '/solutions/logistics' },
-      { label: 'Manufacturing', href: '/solutions/manufacturing' },
-      { label: 'Healthcare', href: '/solutions/healthcare-intelligence' },
-      { label: 'Energy & Infrastructure', href: '/solutions/energy' },
-      { label: 'Defense', href: '/solutions/defense' },
     ],
   },
   {
@@ -41,7 +29,7 @@ const FOOTER_LINKS = [
 const linkStyle = {
   fontFamily: 'var(--font-sans)',
   fontSize: '13px',
-  color: 'rgba(228, 222, 201, 0.5)',
+  color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
   textDecoration: 'none',
   transition: 'color 0.2s',
 };
@@ -50,7 +38,7 @@ const linkProminentStyle = {
   fontFamily: 'var(--font-sans)',
   fontSize: '13px',
   fontWeight: 600,
-  color: 'rgba(228, 222, 201, 0.85)',
+  color: 'color-mix(in srgb, var(--color-text) 85%, transparent)',
   textDecoration: 'none',
   transition: 'color 0.2s',
   letterSpacing: '0.01em',
@@ -58,7 +46,7 @@ const linkProminentStyle = {
 
 const FooterLink = memo(function FooterLink({ link }) {
   const style = link.prominent ? linkProminentStyle : linkStyle;
-  const leaveColor = link.prominent ? 'rgba(228, 222, 201, 0.85)' : 'rgba(228, 222, 201, 0.5)';
+  const leaveColor = link.prominent ? 'color-mix(in srgb, var(--color-text) 85%, transparent)' : 'color-mix(in srgb, var(--color-text) 50%, transparent)';
   if (link.isExternal) return <a href={link.href} target="_blank" rel="noopener noreferrer" style={style} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = leaveColor}>{link.label}</a>;
   if (link.isHash) return <a href={link.href} style={style} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = leaveColor}>{link.label}</a>;
   return <Link to={link.href} style={style} onMouseEnter={e => e.target.style.color = 'var(--color-text)'} onMouseLeave={e => e.target.style.color = leaveColor}>{link.label}</Link>;
@@ -68,12 +56,12 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
+      data-theme="dark"
       style={{
         position: 'relative',
-        background: 'rgba(11, 11, 11, 0.9)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.04)',
+        background: '#0A0A0A',
+        color: '#FAFAFA',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
       }}
     >
       <div className="container-editorial" style={{ paddingTop: '64px', paddingBottom: '40px' }}>
@@ -101,7 +89,7 @@ export function Footer() {
                 }}>
                   Single Core Labs
                 </Link>
-                <p style={{ fontSize: '12px', color: 'rgba(228, 222, 201, 0.4)' }}>Pune, Maharashtra</p>
+                <p style={{ fontSize: '12px', color: 'color-mix(in srgb, var(--color-text) 40%, transparent)' }}>Pune, Maharashtra</p>
               </div>
 
               {FOOTER_LINKS.map((col) => (
@@ -112,7 +100,7 @@ export function Footer() {
                     fontWeight: 500,
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
-                    color: 'rgba(228, 222, 201, 0.6)',
+                    color: 'color-mix(in srgb, var(--color-text) 60%, transparent)',
                     marginBottom: '16px',
                   }}>
                     {col.heading}
@@ -132,7 +120,7 @@ export function Footer() {
                   fontWeight: 500,
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  color: 'rgba(228, 222, 201, 0.6)',
+                  color: 'color-mix(in srgb, var(--color-text) 60%, transparent)',
                   marginBottom: '16px',
                 }}>
                   Connect
@@ -149,9 +137,9 @@ export function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Single Core Labs on ${social.label}`}
-                      style={{ color: 'rgba(228, 222, 201, 0.5)', transition: 'color 0.2s' }}
+                      style={{ color: 'color-mix(in srgb, var(--color-text) 50%, transparent)', transition: 'color 0.2s' }}
                       onMouseEnter={e => e.target.style.color = 'var(--color-text)'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(228, 222, 201, 0.5)'}
+                      onMouseLeave={e => e.target.style.color = 'color-mix(in srgb, var(--color-text) 50%, transparent)'}
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d={social.path} /></svg>
                     </a>
@@ -182,18 +170,18 @@ export function Footer() {
             lineHeight: 0.8,
             letterSpacing: '-0.05em',
             color: 'transparent',
-            WebkitTextStroke: '1px rgba(255,255,255,0.05)',
+            WebkitTextStroke: '1px color-mix(in srgb, var(--color-text) 5%, transparent)',
             whiteSpace: 'nowrap',
             transition: 'filter 0.4s ease, text-shadow 0.4s ease',
             cursor: 'default',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.filter = 'drop-shadow(0 0 30px rgba(228, 222, 201, 0.15)) drop-shadow(0 0 60px rgba(228, 222, 201, 0.08))'
-            e.currentTarget.style.WebkitTextStroke = '1px rgba(228, 222, 201, 0.25)'
+            e.currentTarget.style.filter = 'drop-shadow(0 0 30px color-mix(in srgb, var(--color-text) 15%, transparent)) drop-shadow(0 0 60px color-mix(in srgb, var(--color-text) 8%, transparent))'
+            e.currentTarget.style.WebkitTextStroke = '1px color-mix(in srgb, var(--color-text) 25%, transparent)'
           }}
           onMouseLeave={e => {
             e.currentTarget.style.filter = 'none'
-            e.currentTarget.style.WebkitTextStroke = '1px rgba(255,255,255,0.05)'
+            e.currentTarget.style.WebkitTextStroke = '1px color-mix(in srgb, var(--color-text) 5%, transparent)'
           }}
         >
           Single Core Labs
@@ -223,20 +211,20 @@ export function Footer() {
             padding: '12px clamp(16px, 2.5vw, 32px)',
             maxWidth: '1200px',
             marginInline: 'auto',
-            border: '1px solid rgba(255,255,255,0.06)',
-            backgroundColor: 'rgba(11, 11, 11, 0.85)',
+            border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
+            backgroundColor: 'color-mix(in srgb, var(--color-bg) 85%, transparent)',
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
             boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-            <p style={{ fontSize: '13px', color: 'rgba(228, 222, 201, 0.8)', letterSpacing: '0.02em', fontWeight: 500 }}>
+            <p style={{ fontSize: '13px', color: 'color-mix(in srgb, var(--color-text) 80%, transparent)', letterSpacing: '0.02em', fontWeight: 500 }}>
               Copyright © {new Date().getFullYear()} Single Core Labs. All rights reserved.
             </p>
             <a href="https://claude.com/programs/startups" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>  <span style={{
               fontSize: '10px',
-              color: 'rgba(228, 222, 201, 0.3)',
+              color: 'color-mix(in srgb, var(--color-text) 30%, transparent)',
               letterSpacing: '0.08em',
               fontWeight: 400,
               textTransform: 'uppercase',
@@ -244,7 +232,7 @@ export function Footer() {
               alignItems: 'center',
               gap: '5px',
               padding: '3px 10px',
-              border: '1px solid rgba(228, 222, 201, 0.08)',
+              border: '1px solid color-mix(in srgb, var(--color-text) 8%, transparent)',
               borderRadius: '100px',
             }}>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -266,7 +254,7 @@ export function Footer() {
                 to={link.href}
                 style={{
                   fontSize: '11px',
-                  color: 'rgba(228, 222, 201, 0.4)',
+                  color: 'color-mix(in srgb, var(--color-text) 40%, transparent)',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   fontWeight: 500,
@@ -274,7 +262,7 @@ export function Footer() {
                   textTransform: 'uppercase',
                 }}
                 onMouseEnter={(e) => e.target.style.color = 'var(--color-text)'}
-                onMouseLeave={(e) => e.target.style.color = 'rgba(228, 222, 201, 0.4)'}
+                onMouseLeave={(e) => e.target.style.color = 'color-mix(in srgb, var(--color-text) 40%, transparent)'}
               >
                 {link.label}
               </Link>

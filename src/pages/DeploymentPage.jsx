@@ -6,7 +6,7 @@ import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { supabase } from '@/lib/supabase'
 
-const CREAM = '#E1E0CC'
+const CREAM = '#FAFAFA'
 
 const baseInput = {
   width: '100%',
@@ -16,7 +16,7 @@ const baseInput = {
   color: 'var(--color-text)',
   background: 'transparent',
   border: 'none',
-  borderBottom: '1px solid rgba(225,224,204,0.12)',
+  borderBottom: '1px solid color-mix(in srgb, var(--color-text) 12%, transparent)',
   outline: 'none',
   borderRadius: 0,
   appearance: 'none',
@@ -30,7 +30,7 @@ function Field({ label, id, type = 'text', required, value, onChange }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
       <label htmlFor={id} style={{
         fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 500,
-        color: 'rgba(225,224,204,0.4)', letterSpacing: '0.01em',
+        color: 'color-mix(in srgb, var(--color-text) 40%, transparent)', letterSpacing: '0.01em',
       }}>
         {label}{required && <span style={{ color: CREAM }}> *</span>}
       </label>
@@ -38,7 +38,7 @@ function Field({ label, id, type = 'text', required, value, onChange }) {
         id={id} type={type} required={required}
         value={value} onChange={onChange}
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
-        style={{ ...baseInput, borderBottomColor: focused ? CREAM : 'rgba(225,224,204,0.12)' }}
+        style={{ ...baseInput, borderBottomColor: focused ? CREAM : 'color-mix(in srgb, var(--color-text) 12%, transparent)' }}
       />
     </div>
   )
@@ -90,21 +90,21 @@ function AnimatedCard({ icon: Icon, title, description, delay = 0 }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        background: '#111',
-        border: '1px solid rgba(225,224,204,0.06)',
+        background: 'var(--color-bg-card)',
+        border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
         borderRadius: '16px',
         padding: 'clamp(28px, 3vw, 36px)',
         transition: 'border-color 0.3s',
       }}
-      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(225,224,204,0.2)'}
-      onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(225,224,204,0.06)'}
+      onMouseEnter={e => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 20%, transparent)'}
+      onMouseLeave={e => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-text) 6%, transparent)'}
     >
-      <Icon size={24} strokeWidth={1.5} style={{ color: CREAM, marginBottom: '16px' }} />
+      <Icon size={24} strokeWidth={1.5} style={{ color: 'var(--color-text)', marginBottom: '16px' }} />
       <h3 style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 'clamp(16px, 1.2vw, 18px)',
         fontWeight: 600,
-        color: CREAM,
+        color: 'var(--color-text)',
         marginBottom: '10px',
       }}>
         {title}
@@ -112,7 +112,7 @@ function AnimatedCard({ icon: Icon, title, description, delay = 0 }) {
       <p style={{
         fontFamily: 'var(--font-sans)',
         fontSize: 'clamp(13px, 0.9vw, 14px)',
-        color: 'rgba(225,224,204,0.55)',
+        color: 'color-mix(in srgb, var(--color-text) 55%, transparent)',
         lineHeight: 1.6,
       }}>
         {description}
@@ -125,26 +125,49 @@ const VIDEO_SRC = '/deployment-hero.webm'
 
 function VideoHero() {
   const ref = useRef(null)
+  const wrapRef = useRef(null)
   useEffect(() => {
     const v = ref.current
-    if (!v) return
-    v.play().catch(() => {})
+    const wrap = wrapRef.current
+    if (!v || !wrap) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.pause()
+      return
+    }
+    v.muted = true
+    v.playsInline = true
+    let visible = false
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting
+      if (visible) v.play().catch(() => {})
+      else v.pause()
+    }, { threshold: 0.15, rootMargin: '100px' })
+    io.observe(wrap)
+    const onVis = () => { if (!document.hidden && visible) v.play().catch(() => {}) }
+    document.addEventListener('visibilitychange', onVis)
+    return () => { io.disconnect(); document.removeEventListener('visibilitychange', onVis) }
   }, [])
   return (
-    <video
-      ref={ref}
-      src={VIDEO_SRC}
-      autoPlay
-      loop
-      muted
-      playsInline
-      style={{
-        flex: '1 1 400px',
-        minHeight: '340px',
-        borderRadius: '20px',
-        objectFit: 'cover',
-      }}
-    />
+    <div ref={wrapRef} style={{ flex: '1 1 400px', minHeight: '340px', borderRadius: '20px', overflow: 'hidden', contain: 'paint', background: '#0A0A0A' }}>
+      <video
+        ref={ref}
+        src={VIDEO_SRC}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        style={{
+          width: '100%',
+          height: '100%',
+          minHeight: '340px',
+          borderRadius: '20px',
+          objectFit: 'cover',
+          display: 'block',
+          transform: 'translateZ(0)',
+        }}
+      />
+    </div>
   )
 }
 
@@ -218,7 +241,7 @@ export default function DeploymentPage() {
           paddingTop: 'clamp(140px, 20vh, 220px)',
           paddingBottom: 'clamp(80px, 10vh, 120px)',
           paddingInline: 'clamp(20px, 4vw, 48px)',
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(225,224,204,0.06), transparent 70%), var(--color-bg)',
+          background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-text) 6%, transparent), transparent 70%), var(--color-bg)',
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: 'clamp(40px, 6vw, 80px)', flexWrap: 'wrap' }}>
             <div style={{ flex: '1 1 480px' }}>
@@ -229,7 +252,7 @@ export default function DeploymentPage() {
                   fontWeight: 500,
                   letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: 'rgba(225,224,204,0.45)',
+                  color: 'color-mix(in srgb, var(--color-text) 45%, transparent)',
                   marginBottom: '20px',
                 }}>
                   Private Deployments
@@ -240,7 +263,7 @@ export default function DeploymentPage() {
                   fontFamily: 'var(--font-display)',
                   fontSize: 'clamp(32px, 4.5vw, 56px)',
                   fontWeight: 500,
-                  color: CREAM,
+                  color: 'var(--color-text)',
                   lineHeight: 1.08,
                   letterSpacing: '-0.03em',
                   marginBottom: '24px',
@@ -256,7 +279,7 @@ export default function DeploymentPage() {
                   fontFamily: 'var(--font-sans)',
                   fontSize: 'clamp(16px, 1.2vw, 19px)',
                   fontWeight: 400,
-                  color: 'rgba(225,224,204,0.6)',
+                  color: 'color-mix(in srgb, var(--color-text) 60%, transparent)',
                   lineHeight: 1.6,
                   marginBottom: '36px',
                   maxWidth: '540px',
@@ -266,8 +289,8 @@ export default function DeploymentPage() {
               </RevealSection>
               <RevealSection delay={0.45}>
                 <a href="#contact" style={{
-                  background: CREAM,
-                  color: '#0B0B0B',
+                  background: 'var(--color-text)',
+                  color: 'var(--color-bg)',
                   padding: '14px 32px',
                   fontSize: '14px',
                   fontFamily: 'var(--font-sans)',
@@ -294,8 +317,8 @@ export default function DeploymentPage() {
         <section style={{
           padding: 'clamp(60px, 8vw, 100px) clamp(20px, 4vw, 48px)',
           background: '#000',
-          borderTop: '1px solid rgba(225,224,204,0.04)',
-          borderBottom: '1px solid rgba(225,224,204,0.04)',
+          borderTop: '1px solid color-mix(in srgb, var(--color-text) 4%, transparent)',
+          borderBottom: '1px solid color-mix(in srgb, var(--color-text) 4%, transparent)',
         }}>
           <div style={{ maxWidth: '960px', margin: '0 auto' }}>
             <RevealSection>
@@ -303,7 +326,7 @@ export default function DeploymentPage() {
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(10px, 0.8vw, 12px)',
                 fontWeight: 500,
-                color: 'rgba(225,224,204,0.25)',
+                color: 'color-mix(in srgb, var(--color-text) 25%, transparent)',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
                 textAlign: 'center',
@@ -331,7 +354,7 @@ export default function DeploymentPage() {
                       fontFamily: 'var(--font-sans)',
                       fontSize: 'clamp(17px, 1.8vw, 24px)',
                       fontWeight: 500,
-                      color: 'rgba(225,224,204,0.4)',
+                      color: 'color-mix(in srgb, var(--color-text) 40%, transparent)',
                       letterSpacing: '0.04em',
                     }}>
                       {logo.alt}
@@ -351,7 +374,7 @@ export default function DeploymentPage() {
 
         <section style={{
           padding: 'clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px)',
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(225,224,204,0.04), transparent 70%), #000',
+          background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-text) 4%, transparent), transparent 70%), #000',
         }}>
           <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
             <RevealSection>
@@ -370,7 +393,7 @@ export default function DeploymentPage() {
               <p style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: 'clamp(15px, 1.1vw, 18px)',
-                color: 'rgba(225,224,204,0.55)',
+                color: 'color-mix(in srgb, var(--color-text) 55%, transparent)',
                 lineHeight: 1.6,
                 textAlign: 'center',
                 maxWidth: '640px',
@@ -412,7 +435,7 @@ export default function DeploymentPage() {
                 <p style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: 'clamp(14px, 1vw, 16px)',
-                  color: 'rgba(225,224,204,0.55)',
+                  color: 'color-mix(in srgb, var(--color-text) 55%, transparent)',
                   maxWidth: '600px',
                   margin: '0 auto',
                 }}>
@@ -435,7 +458,7 @@ export default function DeploymentPage() {
 
         <section id="contact" style={{
           padding: 'clamp(80px, 10vw, 140px) clamp(20px, 4vw, 48px)',
-          background: 'radial-gradient(ellipse at 50% 100%, rgba(225,224,204,0.04), transparent 70%), #000',
+          background: 'radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--color-text) 4%, transparent), transparent 70%), #000',
         }}>
           <div style={{
             maxWidth: '1100px',
@@ -460,7 +483,7 @@ export default function DeploymentPage() {
                 <p style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: 'clamp(14px, 1vw, 16px)',
-                  color: 'rgba(225,224,204,0.55)',
+                  color: 'color-mix(in srgb, var(--color-text) 55%, transparent)',
                   lineHeight: 1.7,
                   maxWidth: '400px',
                 }}>
@@ -473,8 +496,8 @@ export default function DeploymentPage() {
               <RevealSection delay={0.15}>
                 {submitted ? (
                   <div style={{
-                    background: '#111',
-                    border: '1px solid rgba(225,224,204,0.06)',
+                    background: 'var(--color-bg-card)',
+                    border: '1px solid color-mix(in srgb, var(--color-text) 6%, transparent)',
                     borderRadius: '20px',
                     padding: 'clamp(48px, 6vw, 72px)',
                     textAlign: 'center',
@@ -492,7 +515,7 @@ export default function DeploymentPage() {
                     <p style={{
                       fontFamily: 'var(--font-sans)',
                       fontSize: '14px',
-                      color: 'rgba(225,224,204,0.5)',
+                      color: 'color-mix(in srgb, var(--color-text) 50%, transparent)',
                     }}>
                       Our team will be in touch within 24 hours to discuss your private deployment.
                     </p>
@@ -519,7 +542,7 @@ export default function DeploymentPage() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                         <label htmlFor="dmsg" style={{
                           fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 500,
-                          color: 'rgba(225,224,204,0.4)', letterSpacing: '0.01em',
+                          color: 'color-mix(in srgb, var(--color-text) 40%, transparent)', letterSpacing: '0.01em',
                         }}>
                           How do you plan to use AI? *
                         </label>
@@ -537,14 +560,14 @@ export default function DeploymentPage() {
                             color: CREAM,
                             background: 'transparent',
                             border: 'none',
-                            borderBottom: '1px solid rgba(225,224,204,0.12)',
+                            borderBottom: '1px solid color-mix(in srgb, var(--color-text) 12%, transparent)',
                             outline: 'none',
                             resize: 'none',
                             transition: 'border-color 0.2s',
                             lineHeight: 1.6,
                           }}
                           onFocus={e => e.currentTarget.style.borderBottomColor = CREAM}
-                          onBlur={e => e.currentTarget.style.borderBottomColor = 'rgba(225,224,204,0.12)'}
+                          onBlur={e => e.currentTarget.style.borderBottomColor = 'color-mix(in srgb, var(--color-text) 12%, transparent)'}
                         />
                       </div>
 
@@ -562,7 +585,7 @@ export default function DeploymentPage() {
                           fontFamily: 'var(--font-sans)',
                           fontSize: '11px',
                           lineHeight: 1.6,
-                          color: 'rgba(225,224,204,0.4)',
+                          color: 'color-mix(in srgb, var(--color-text) 40%, transparent)',
                         }}>
                           I agree to receive communications from Single Core Labs about its products,
                           services, and events.
@@ -575,8 +598,8 @@ export default function DeploymentPage() {
                         style={{
                           width: '100%',
                           padding: '14px',
-                          background: (form.consent && !loading) ? CREAM : 'rgba(225,224,204,0.08)',
-                          color: (form.consent && !loading) ? '#0B0B0B' : 'rgba(225,224,204,0.3)',
+                          background: (form.consent && !loading) ? CREAM : 'color-mix(in srgb, var(--color-text) 8%, transparent)',
+                          color: (form.consent && !loading) ? '#050505' : 'color-mix(in srgb, var(--color-text) 30%, transparent)',
                           fontFamily: 'var(--font-sans)',
                           fontSize: '14px',
                           fontWeight: 600,

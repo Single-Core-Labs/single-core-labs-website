@@ -165,7 +165,7 @@ function LazyHeroVideo() {
   return (
     <div ref={containerRef} className="hero-video-wrap">
       {/* Subtle placeholder gradient while video loads */}
-      <div className="hero-3d-scene" style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.6s ease', background: 'radial-gradient(ellipse at 50% 50%, rgba(184,164,120,0.04), transparent 70%)', borderRadius: '16px' }} />
+      <div className="hero-3d-scene" style={{ opacity: loaded ? 0 : 1, transition: 'opacity 0.6s ease', background: 'radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--color-accent) 4%, transparent), transparent 70%)', borderRadius: '16px' }} />
       {/* Video — fades in once loaded */}
       <video
         ref={videoRef}
@@ -200,7 +200,7 @@ export default function TechPage() {
             position: 'relative',
             paddingTop: 'clamp(120px, 18vh, 180px)',
             paddingBottom: 'clamp(80px, 12vh, 140px)',
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(184, 164, 120, 0.08), transparent 70%), var(--color-bg)',
+            background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 70%), var(--color-bg)',
             overflow: 'hidden',
           }}
         >
@@ -261,7 +261,7 @@ export default function TechPage() {
               height: 100%;
               border-radius: 16px;
               object-fit: cover;
-              border: 1px solid rgba(184,164,120,0.1);
+              border: 1px solid color-mix(in srgb, var(--color-accent) 10%, transparent);
               box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             }
 
@@ -309,7 +309,7 @@ export default function TechPage() {
                 className="card card--rounded card--pad"
                 style={{ padding: '36px', display: 'flex', flexDirection: 'column' }}
               >
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(184, 164, 120, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', color: 'var(--color-accent)' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'color-mix(in srgb, var(--color-accent) 10%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', color: 'var(--color-accent)' }}>
                   <cap.icon size={22} strokeWidth={1.5} />
                 </div>
                 <p className="text-eyebrow" style={{ fontSize: '11px', marginBottom: '8px', letterSpacing: '2px' }}>
@@ -337,7 +337,7 @@ export default function TechPage() {
         {/* ──────── Teams Section ──────── */}
         <section style={{ marginBottom: '120px', position: 'relative' }}>
           <div style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(184, 164, 120, 0.04), transparent 70%)',
+            background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-accent) 4%, transparent), transparent 70%)',
             paddingTop: '80px',
             paddingBottom: '100px',
           }}>
@@ -367,7 +367,7 @@ export default function TechPage() {
                       padding: '10px 20px',
                       borderRadius: '100px',
                       border: activeTeam === team.id ? '1px solid var(--color-accent)' : '1px solid var(--color-border)',
-                      background: activeTeam === team.id ? 'rgba(184, 164, 120, 0.1)' : 'transparent',
+                      background: activeTeam === team.id ? 'color-mix(in srgb, var(--color-accent) 10%, transparent)' : 'transparent',
                       color: activeTeam === team.id ? 'var(--color-accent)' : 'var(--color-text-dim)',
                       cursor: 'pointer',
                       fontSize: '14px',
@@ -438,27 +438,33 @@ export default function TechPage() {
                         <svg viewBox="0 0 400 340" style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet">
                           <rect width="400" height="340" fill="var(--color-bg-elevated)" />
                           {/* Divider */}
-                          <line x1="200" y1="26" x2="200" y2="322" stroke="rgba(184,164,120,0.08)" strokeWidth="1" strokeDasharray="3,3" />
+                          <line x1="200" y1="26" x2="200" y2="322" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" strokeDasharray="3,3" />
                           {/* ── LEFT: Traditional ── */}
-                          <rect x="36" y="26" width="158" height="18" rx="4" fill="rgba(184,164,120,0.04)" />
-                          <text x="44" y="38" fontSize="8" fill="rgba(184,164,120,0.3)" fontFamily="monospace" letterSpacing="1">TRADITIONAL</text>
+                          <rect x="36" y="26" width="158" height="18" rx="4" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" />
+                          <text x="44" y="38" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace" letterSpacing="1">TRADITIONAL</text>
                           {/* Editor frame */}
-                          <rect x="20" y="52" width="174" height="258" rx="6" fill="rgba(0,0,0,0.3)" stroke="rgba(184,164,120,0.06)" strokeWidth="1" />
+                          <rect x="20" y="52" width="174" height="258" rx="6" fill="rgba(0,0,0,0.3)" stroke="color-mix(in srgb, var(--color-accent) 6%, transparent)" strokeWidth="1" />
                           <circle cx="32" cy="66" r="3" fill="#ff5f57" />
                           <circle cx="42" cy="66" r="3" fill="#ffbd2e" />
                           <circle cx="52" cy="66" r="3" fill="#28c840" />
-                          {/* Live code — Traditional */}
-                          {[' 1  // Manual implementation',' 2  function fetchUser(id: any) {',' 3    // TODO: add error handling',' 4    const res = await fetch(',' 5      /api/user/{id}',' 6    );',' 7    return res.json(); // X no type',' 8  }'].map((line, li) => (
-                            <motion.text key={li} x={li===0||li===1||li===7?28:44} y={88+li*12} fontSize="7" fill={li===1?'rgba(100,180,255,0.4)':li===6?'rgba(255,95,87,0.5)':'rgba(200,200,200,0.25)'} fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1+li*0.1}}>{line}</motion.text>
-                          ))}
+                          {/* Live code — Traditional (batched stagger via single container) */}
+                          <motion.g initial="hidden" animate="visible" variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.055, delayChildren:0.08 } } }}>
+                            {[' 1  // Manual implementation',' 2  function fetchUser(id: any) {',' 3    // TODO: add error handling',' 4    const res = await fetch(',' 5      /api/user/{id}',' 6    );',' 7    return res.json(); // X no type',' 8  }'].map((line, li) => (
+                              <motion.text key={li} x={li===0||li===1||li===7?28:44} y={88+li*12} fontSize="7" fill={li===1?'rgba(100,180,255,0.4)':li===6?'rgba(255,95,87,0.5)':'rgba(200,200,200,0.25)'} fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1, transition:{duration:0.4}} }}>{line}</motion.text>
+                            ))}
+                          </motion.g>
                           {/* Problem pane */}
                           <rect x="28" y="186" width="158" height="42" rx="4" fill="rgba(255,95,87,0.04)" stroke="rgba(255,95,87,0.08)" strokeWidth="1" />
-                          <motion.text x="34" y="200" fontSize="6.5" fill="rgba(255,95,87,0.45)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.9}}>✕  PROBLEMS (3)</motion.text>
-                          <motion.text x="34" y="211" fontSize="6.5" fill="rgba(255,95,87,0.3)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.0}}>  TS2345  id: any → no type safety</motion.text>
-                          <motion.text x="34" y="221" fontSize="6.5" fill="rgba(255,95,87,0.3)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.1}}>  TS7006  missing return type</motion.text>
+                          <motion.g initial="hidden" animate="visible" variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.08, delayChildren:0.85 } } }}>
+                            <motion.text x="34" y="200" fontSize="6.5" fill="rgba(255,95,87,0.45)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}} >✕  PROBLEMS (3)</motion.text>
+                            <motion.text x="34" y="211" fontSize="6.5" fill="rgba(255,95,87,0.3)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>  TS2345  id: any → no type safety</motion.text>
+                            <motion.text x="34" y="221" fontSize="6.5" fill="rgba(255,95,87,0.3)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>  TS7006  missing return type</motion.text>
+                          </motion.g>
                           {/* Timer */}
-                          <motion.text x="54" y="252" fontSize="7.5" fill="rgba(184,164,120,0.2)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.2}}>⏱ Manual review: ~35 min</motion.text>
-                          <motion.text x="54" y="264" fontSize="7.5" fill="rgba(184,164,120,0.15)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.3}}>  3 bugs to fix in PR</motion.text>
+                          <motion.g initial="hidden" animate="visible" variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.08, delayChildren:1.15 } } }}>
+                            <motion.text x="54" y="252" fontSize="7.5" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>⏱ Manual review: ~35 min</motion.text>
+                            <motion.text x="54" y="264" fontSize="7.5" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>  3 bugs to fix in PR</motion.text>
+                          </motion.g>
                           {/* ── RIGHT: AI-Native ── */}
                           <rect x="210" y="26" width="158" height="18" rx="4" fill="rgba(40,200,64,0.04)" />
                           <rect x="210" y="26" width="3" height="18" rx="1.5" fill="rgba(40,200,64,0.3)" />
@@ -470,97 +476,102 @@ export default function TechPage() {
                           <circle cx="240" cy="66" r="3" fill="#28c840" />
                           {/* AI badge */}
                           <rect x="340" y="54" width="36" height="14" rx="7" fill="rgba(40,200,64,0.1)" />
-                          <motion.text x="346" y="64" fontSize="6.5" fill="rgba(40,200,64,0.5)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1}}>AI ⚡</motion.text>
-                          {/* Live code — AI-native */}
-                          {[
-                            ' 1  // AI-suggested implementation',
-                            ' 2  function fetchUser<T>(id: T):',
-                            ' 3    Promise<UserResponse> {',
-                            ' 4    const url = buildEndpoint(',
-                            " 5      'users', { id }         // <- auto",
-                            ' 6    );',
-                            ' 7    return request<UserResp>(url);',
-                            ' 8  }',
-                          ].map((line, li) => (
-                            <motion.text key={li} x={li===2||li===4?'232':'216'} y={88+li*12} fontSize="7" fill={li===1||li===2?'rgba(100,180,255,0.5)':li===4?'rgba(255,200,100,0.35)':'rgba(200,200,200,0.3)'} fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.2+li*0.1}}>{line}</motion.text>
-                          ))}
+                          <motion.text x="346" y="64" fontSize="6.5" fill="rgba(40,200,64,0.5)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.1, duration:0.3}}>AI ⚡</motion.text>
+                          {/* Live code — AI-native (batched) */}
+                          <motion.g initial="hidden" animate="visible" variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.055, delayChildren:0.18 } } }}>
+                            {[
+                              ' 1  // AI-suggested implementation',
+                              ' 2  function fetchUser<T>(id: T):',
+                              ' 3    Promise<UserResponse> {',
+                              ' 4    const url = buildEndpoint(',
+                              " 5      'users', { id }         // <- auto",
+                              ' 6    );',
+                              ' 7    return request<UserResp>(url);',
+                              ' 8  }',
+                            ].map((line, li) => (
+                              <motion.text key={li} x={li===2||li===4?'232':'216'} y={88+li*12} fontSize="7" fill={li===1||li===2?'rgba(100,180,255,0.5)':li===4?'rgba(255,200,100,0.35)':'rgba(200,200,200,0.3)'} fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1, transition:{duration:0.4}} }}>{line}</motion.text>
+                            ))}
+                          </motion.g>
                           {/* AI suggestion pane */}
-                          <rect x="216" y="186" width="158" height="42" rx="4" fill="rgba(40,200,64,0.04)" stroke="rgba(40,200,64,0.08)" strokeWidth="1" />
-                          <motion.text x="222" y="200" fontSize="6.5" fill="rgba(40,200,64,0.45)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.0}}>✓  AI SUGGESTIONS (2)</motion.text>
-                          <motion.text x="222" y="211" fontSize="6.5" fill="rgba(40,200,64,0.3)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.1}}>  Generic type T inferred → </motion.text>
-                          <motion.text x="222" y="221" fontSize="6.5" fill="rgba(40,200,64,0.3)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.2}}>  Error handling auto-added</motion.text>
+                          <motion.g initial="hidden" animate="visible" variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.08, delayChildren:0.95 } } }}>
+                            <motion.text x="222" y="200" fontSize="6.5" fill="rgba(40,200,64,0.45)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>✓  AI SUGGESTIONS (2)</motion.text>
+                            <motion.text x="222" y="211" fontSize="6.5" fill="rgba(40,200,64,0.3)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>  Generic type T inferred → </motion.text>
+                            <motion.text x="222" y="221" fontSize="6.5" fill="rgba(40,200,64,0.3)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>  Error handling auto-added</motion.text>
+                          </motion.g>
                           {/* Timer */}
-                          <motion.text x="240" y="252" fontSize="7.5" fill="rgba(40,200,64,0.3)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.3}}>⚡ AI review: ~12 sec</motion.text>
-                          <motion.text x="240" y="264" fontSize="7.5" fill="rgba(40,200,64,0.2)" fontFamily="monospace" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.4}}>  0 bugs — merges automatically</motion.text>
-                          {/* Blinking cursor */}
-                          <motion.rect x="340" y="166" width="5" height="9" rx="1" fill="rgba(184,164,120,0.4)" animate={{opacity:[1,0,1]}} transition={{duration:0.8,repeat:Infinity}} />
+                          <motion.g initial="hidden" animate="visible" variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.08, delayChildren:1.25 } } }}>
+                            <motion.text x="240" y="252" fontSize="7.5" fill="rgba(40,200,64,0.3)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>⚡ AI review: ~12 sec</motion.text>
+                            <motion.text x="240" y="264" fontSize="7.5" fill="rgba(40,200,64,0.2)" fontFamily="monospace" variants={{ hidden:{opacity:0}, visible:{opacity:1}}}>  0 bugs — merges automatically</motion.text>
+                          </motion.g>
+                          {/* Blinking cursor — CSS instead of JS repeatInfinity */}
+                          <rect x="340" y="166" width="5" height="9" rx="1" fill="color-mix(in srgb, var(--color-accent) 40%, transparent)" style={{ animation: 'tech-cursor 0.9s steps(1) infinite' }} />
                         </svg>
                       )}
                       {team.id === 'operations' && (
                         <svg viewBox="0 0 400 340" style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet">
                           <rect width="400" height="340" fill="var(--color-bg-elevated)" />
                           {/* Pipeline flow */}
-                          <rect x="40" y="60" width="80" height="40" rx="6" fill="rgba(184,164,120,0.08)" stroke="rgba(184,164,120,0.15)" strokeWidth="1" />
-                          <text x="52" y="84" fontSize="10" fill="rgba(184,164,120,0.5)" fontFamily="monospace">CI BUILD</text>
+                          <rect x="40" y="60" width="80" height="40" rx="6" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
+                          <text x="52" y="84" fontSize="10" fill="color-mix(in srgb, var(--color-accent) 50%, transparent)" fontFamily="monospace">CI BUILD</text>
                           {/* Arrow */}
-                          <line x1="120" y1="80" x2="150" y2="80" stroke="rgba(184,164,120,0.2)" strokeWidth="1.5" />
-                          <polygon points="148,76 156,80 148,84" fill="rgba(184,164,120,0.2)" />
+                          <line x1="120" y1="80" x2="150" y2="80" stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1.5" />
+                          <polygon points="148,76 156,80 148,84" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
                           {/* Test */}
-                          <rect x="156" y="60" width="80" height="40" rx="6" fill="rgba(184,164,120,0.08)" stroke="rgba(184,164,120,0.15)" strokeWidth="1" />
-                          <text x="168" y="84" fontSize="10" fill="rgba(184,164,120,0.5)" fontFamily="monospace">TESTS</text>
-                          <line x1="236" y1="80" x2="266" y2="80" stroke="rgba(184,164,120,0.2)" strokeWidth="1.5" />
-                          <polygon points="264,76 272,80 264,84" fill="rgba(184,164,120,0.2)" />
+                          <rect x="156" y="60" width="80" height="40" rx="6" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
+                          <text x="168" y="84" fontSize="10" fill="color-mix(in srgb, var(--color-accent) 50%, transparent)" fontFamily="monospace">TESTS</text>
+                          <line x1="236" y1="80" x2="266" y2="80" stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1.5" />
+                          <polygon points="264,76 272,80 264,84" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
                           {/* Deploy */}
-                          <rect x="272" y="60" width="80" height="40" rx="6" fill="rgba(184,164,120,0.12)" stroke="rgba(184,164,120,0.25)" strokeWidth="1" />
-                          <text x="280" y="84" fontSize="10" fill="rgba(184,164,120,0.6)" fontFamily="monospace">DEPLOY</text>
+                          <rect x="272" y="60" width="80" height="40" rx="6" fill="color-mix(in srgb, var(--color-accent) 12%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 25%, transparent)" strokeWidth="1" />
+                          <text x="280" y="84" fontSize="10" fill="color-mix(in srgb, var(--color-accent) 60%, transparent)" fontFamily="monospace">DEPLOY</text>
                           {/* Service boxes */}
-                          <rect x="40" y="140" width="100" height="60" rx="6" fill="rgba(0,0,0,0.15)" stroke="rgba(184,164,120,0.08)" strokeWidth="1" />
-                          <rect x="52" y="154" width="76" height="4" rx="2" fill="rgba(184,164,120,0.15)" />
-                          <rect x="52" y="166" width="50" height="4" rx="2" fill="rgba(184,164,120,0.08)" />
-                          <rect x="52" y="178" width="60" height="4" rx="2" fill="rgba(184,164,120,0.08)" />
-                          <rect x="150" y="140" width="100" height="60" rx="6" fill="rgba(0,0,0,0.15)" stroke="rgba(184,164,120,0.08)" strokeWidth="1" />
-                          <rect x="162" y="154" width="76" height="4" rx="2" fill="rgba(184,164,120,0.15)" />
-                          <rect x="162" y="166" width="50" height="4" rx="2" fill="rgba(184,164,120,0.08)" />
-                          <rect x="162" y="178" width="60" height="4" rx="2" fill="rgba(184,164,120,0.08)" />
-                          <rect x="260" y="140" width="100" height="60" rx="6" fill="rgba(0,0,0,0.15)" stroke="rgba(184,164,120,0.08)" strokeWidth="1" />
-                          <rect x="272" y="154" width="76" height="4" rx="2" fill="rgba(184,164,120,0.15)" />
-                          <rect x="272" y="166" width="50" height="4" rx="2" fill="rgba(184,164,120,0.08)" />
-                          <rect x="272" y="178" width="60" height="4" rx="2" fill="rgba(184,164,120,0.08)" />
+                          <rect x="40" y="140" width="100" height="60" rx="6" fill="rgba(0,0,0,0.15)" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" />
+                          <rect x="52" y="154" width="76" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+                          <rect x="52" y="166" width="50" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" />
+                          <rect x="52" y="178" width="60" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" />
+                          <rect x="150" y="140" width="100" height="60" rx="6" fill="rgba(0,0,0,0.15)" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" />
+                          <rect x="162" y="154" width="76" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+                          <rect x="162" y="166" width="50" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" />
+                          <rect x="162" y="178" width="60" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" />
+                          <rect x="260" y="140" width="100" height="60" rx="6" fill="rgba(0,0,0,0.15)" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" />
+                          <rect x="272" y="154" width="76" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+                          <rect x="272" y="166" width="50" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" />
+                          <rect x="272" y="178" width="60" height="4" rx="2" fill="color-mix(in srgb, var(--color-accent) 8%, transparent)" />
                           {/* Success checkmark */}
                           <circle cx="345" cy="235" r="20" fill="none" stroke="rgba(40,200,64,0.3)" strokeWidth="2" />
                           <polyline points="337,235 343,241 353,229" fill="none" stroke="rgba(40,200,64,0.4)" strokeWidth="2" strokeLinecap="round" />
                           {/* Metrics */}
-                          <rect x="40" y="240" width="80" height="30" rx="4" fill="rgba(184,164,120,0.04)" />
-                          <text x="48" y="258" fontSize="10" fill="rgba(184,164,120,0.35)" fontFamily="monospace">99.9% uptime</text>
-                          <rect x="130" y="240" width="80" height="30" rx="4" fill="rgba(184,164,120,0.04)" />
-                          <text x="138" y="258" fontSize="10" fill="rgba(184,164,120,0.35)" fontFamily="monospace">0 failures</text>
+                          <rect x="40" y="240" width="80" height="30" rx="4" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" />
+                          <text x="48" y="258" fontSize="10" fill="color-mix(in srgb, var(--color-accent) 35%, transparent)" fontFamily="monospace">99.9% uptime</text>
+                          <rect x="130" y="240" width="80" height="30" rx="4" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" />
+                          <text x="138" y="258" fontSize="10" fill="color-mix(in srgb, var(--color-accent) 35%, transparent)" fontFamily="monospace">0 failures</text>
                         </svg>
                       )}
                       {team.id === 'customer' && (
                         <svg viewBox="0 0 400 340" style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet">
                           <rect width="400" height="340" fill="var(--color-bg-elevated)" />
                           {/* Dashboard card */}
-                          <rect x="30" y="40" width="340" height="260" rx="10" fill="rgba(0,0,0,0.2)" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
+                          <rect x="30" y="40" width="340" height="260" rx="10" fill="rgba(0,0,0,0.2)" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
                           {/* Chart area */}
                           <rect x="48" y="72" width="150" height="100" rx="6" fill="rgba(0,0,0,0.15)" />
                           {/* Line chart */}
-                          <polyline points="60,152 90,130 110,140 140,110 170,120 185,95" fill="none" stroke="rgba(184,164,120,0.4)" strokeWidth="2" strokeLinecap="round" />
-                          <polyline points="60,152 90,145 110,148 140,135 170,138 185,130" fill="none" stroke="rgba(184,164,120,0.15)" strokeWidth="1.5" strokeLinecap="round" />
+                          <polyline points="60,152 90,130 110,140 140,110 170,120 185,95" fill="none" stroke="color-mix(in srgb, var(--color-accent) 40%, transparent)" strokeWidth="2" strokeLinecap="round" />
+                          <polyline points="60,152 90,145 110,148 140,135 170,138 185,130" fill="none" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1.5" strokeLinecap="round" />
                           {/* Bar chart */}
-                          <rect x="216" y="120" width="22" height="52" rx="3" fill="rgba(184,164,120,0.15)" />
-                          <rect x="246" y="100" width="22" height="72" rx="3" fill="rgba(184,164,120,0.25)" />
-                          <rect x="276" y="130" width="22" height="42" rx="3" fill="rgba(184,164,120,0.15)" />
-                          <rect x="306" y="110" width="22" height="62" rx="3" fill="rgba(184,164,120,0.2)" />
+                          <rect x="216" y="120" width="22" height="52" rx="3" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+                          <rect x="246" y="100" width="22" height="72" rx="3" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" />
+                          <rect x="276" y="130" width="22" height="42" rx="3" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+                          <rect x="306" y="110" width="22" height="62" rx="3" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
                           {/* KPI cards */}
-                          <rect x="48" y="190" width="100" height="50" rx="6" fill="rgba(184,164,120,0.04)" stroke="rgba(184,164,120,0.06)" strokeWidth="1" />
-                          <text x="56" y="210" fontSize="9" fill="rgba(184,164,120,0.3)" fontFamily="monospace">NPS Score</text>
-                          <text x="56" y="228" fontSize="16" fill="rgba(184,164,120,0.6)" fontFamily="var(--font-display)" fontWeight="600">72</text>
-                          <rect x="160" y="190" width="100" height="50" rx="6" fill="rgba(184,164,120,0.04)" stroke="rgba(184,164,120,0.06)" strokeWidth="1" />
-                          <text x="168" y="210" fontSize="9" fill="rgba(184,164,120,0.3)" fontFamily="monospace">Retention</text>
+                          <rect x="48" y="190" width="100" height="50" rx="6" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 6%, transparent)" strokeWidth="1" />
+                          <text x="56" y="210" fontSize="9" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace">NPS Score</text>
+                          <text x="56" y="228" fontSize="16" fill="color-mix(in srgb, var(--color-accent) 60%, transparent)" fontFamily="var(--font-display)" fontWeight="600">72</text>
+                          <rect x="160" y="190" width="100" height="50" rx="6" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 6%, transparent)" strokeWidth="1" />
+                          <text x="168" y="210" fontSize="9" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace">Retention</text>
                           <text x="168" y="228" fontSize="16" fill="rgba(40,200,64,0.5)" fontFamily="var(--font-display)" fontWeight="600">94%</text>
-                          <rect x="272" y="190" width="80" height="50" rx="6" fill="rgba(184,164,120,0.04)" stroke="rgba(184,164,120,0.06)" strokeWidth="1" />
-                          <text x="278" y="210" fontSize="9" fill="rgba(184,164,120,0.3)" fontFamily="monospace">ARR</text>
-                          <text x="278" y="228" fontSize="16" fill="rgba(184,164,120,0.6)" fontFamily="var(--font-display)" fontWeight="600">$2.4M</text>
+                          <rect x="272" y="190" width="80" height="50" rx="6" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 6%, transparent)" strokeWidth="1" />
+                          <text x="278" y="210" fontSize="9" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace">ARR</text>
+                          <text x="278" y="228" fontSize="16" fill="color-mix(in srgb, var(--color-accent) 60%, transparent)" fontFamily="var(--font-display)" fontWeight="600">$2.4M</text>
                           {/* Pulse dot */}
                           <circle cx="48" cy="40" r="3" fill="rgba(40,200,64,0.5)" />
                           <circle cx="48" cy="40" r="6" fill="none" stroke="rgba(40,200,64,0.2)" strokeWidth="1" />
@@ -604,7 +615,7 @@ export default function TechPage() {
                 }}
                 className="service-card"
               >
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(184, 164, 120, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: 'var(--color-accent)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'color-mix(in srgb, var(--color-accent) 10%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: 'var(--color-accent)' }}>
                   <svc.icon size={20} strokeWidth={1.5} />
                 </div>
                 <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}>
@@ -649,7 +660,7 @@ export default function TechPage() {
                     transition={{ delay: i * 0.1 }}
                     style={{ textAlign: 'center' }}
                   >
-                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(184, 164, 120, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--color-accent)' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--color-accent)' }}>
                       <feat.icon size={22} strokeWidth={1.5} />
                     </div>
                     <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}>
@@ -681,12 +692,12 @@ export default function TechPage() {
               ].map((g) => (
                 <Link key={g.href} to={g.href} style={{
                   fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500,
-                  color: 'rgba(228, 222, 201, 0.6)', textDecoration: 'none',
+                  color: 'color-mix(in srgb, var(--color-text) 60%, transparent)', textDecoration: 'none',
                   padding: '8px 16px', border: '1px solid var(--color-border)',
                   borderRadius: '100px', transition: 'color 0.2s, border-color 0.2s',
                 }}
-                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'rgba(184, 164, 120, 0.3)' }}
-                  onMouseLeave={e => { e.target.style.color = 'rgba(228, 222, 201, 0.6)'; e.target.style.borderColor = 'var(--color-border)' }}
+                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'color-mix(in srgb, var(--color-accent) 30%, transparent)' }}
+                  onMouseLeave={e => { e.target.style.color = 'color-mix(in srgb, var(--color-text) 60%, transparent)'; e.target.style.borderColor = 'var(--color-border)' }}
                 >
                   {g.label}
                 </Link>
@@ -721,10 +732,14 @@ export default function TechPage() {
       </main>
       <Footer />
 
-      <style>{`
+        <style>{`
         .service-card:hover {
           border-color: var(--color-accent) !important;
           background: var(--color-bg-elevated) !important;
+        }
+        @keyframes tech-cursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="tech-cursor"] { animation: none !important; opacity: 0.6 !important; }
         }
       `}</style>
     </div>
