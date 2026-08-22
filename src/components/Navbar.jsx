@@ -6,7 +6,6 @@ import { NAV_LINKS } from '@/lib/constants'
 // Scale-like navbar — fixed, Aeonik-style, h-10 rounded 8px, grid
 export function Navbar({ overlay = false }) {
   const [open, setOpen] = useState(false)
-  const [announcementClosed, setAnnouncementClosed] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const solutionsRef = useRef(null)
@@ -60,30 +59,19 @@ export function Navbar({ overlay = false }) {
 
   return (
     <>
-      {/* Announcement bar — Scale style */}
-      {!announcementClosed && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 60, background: '#0A0A0A', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '10px 48px 10px 16px', fontSize: '13px', lineHeight: 1.4, textAlign: 'center' }}>
-          <span style={{ opacity: 0.9 }}>Single Core Labs — The Next Layer of Intelligence</span>
-          <Link to="/contact" style={{ color: '#fff', textDecoration: 'underline', textUnderlineOffset: '3px', fontWeight: 500, whiteSpace: 'nowrap' }}>Get Started →</Link>
-          <button aria-label="Dismiss announcement" onClick={() => setAnnouncementClosed(true)} style={{ position: 'absolute', right: '12px', width: '28px', height: '28px', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-            ×
-          </button>
-        </div>
-      )}
-
       <header
         data-theme="dark"
         style={{
           position: overlay ? 'absolute' : 'fixed',
           left: 0,
           right: 0,
-          top: overlay ? (announcementClosed ? 0 : '40px') : (announcementClosed ? 0 : '40px'),
+          top: 0,
           zIndex: 50,
           background: overlay ? 'transparent' : (isScrolled ? 'rgba(10,10,10,0.82)' : '#0A0A0A'),
           backdropFilter: overlay ? 'none' : (isScrolled ? 'blur(12px)' : 'none'),
           WebkitBackdropFilter: overlay ? 'none' : (isScrolled ? 'blur(12px)' : 'none'),
           borderBottom: overlay ? 'none' : '1px solid rgba(255,255,255,0.08)',
-          transition: 'top 0.25s, background 0.25s, backdrop-filter 0.25s',
+          transition: 'background 0.25s, backdrop-filter 0.25s',
           willChange: 'transform',
           transform: 'translateZ(0)',
           contain: 'layout paint',
@@ -247,10 +235,7 @@ export function Navbar({ overlay = false }) {
 
       {/* Spacer — skip on overlay heroes (they manage their own inset) */}
       {!overlay && (
-        <div aria-hidden="true" style={{ height: announcementClosed ? '64px' : '104px' }} className="scale-nav-spacer" />
-      )}
-      {!overlay && (
-      <style>{`@media (max-width: 767px) { .scale-nav-spacer { height: ${announcementClosed ? '64px' : '104px'}; } }`}</style>
+        <div aria-hidden="true" style={{ height: '64px' }} className="scale-nav-spacer" />
       )}
     </>
   )
