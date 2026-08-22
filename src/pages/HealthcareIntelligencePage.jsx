@@ -173,7 +173,7 @@ function LazyHeroVisual() {
       {/* Placeholder shown while loading */}
       {!loaded && (
         <div className="hc-hero-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(184,164,120,0.2)" strokeWidth="1">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="color-mix(in srgb, var(--color-accent) 20%, transparent)" strokeWidth="1">
             <circle cx="12" cy="12" r="10" />
             <path d="M12 6v6l4 2" />
           </svg>
@@ -203,7 +203,7 @@ export default function HealthcareIntelligencePage() {
             position: 'relative',
             paddingTop: 'clamp(120px, 18vh, 180px)',
             paddingBottom: 'clamp(80px, 12vh, 140px)',
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(184, 164, 120, 0.08), transparent 70%), var(--color-bg)',
+            background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 70%), var(--color-bg)',
             overflow: 'hidden',
           }}
         >
@@ -262,7 +262,7 @@ export default function HealthcareIntelligencePage() {
               inset: 0;
               border-radius: 16px;
               overflow: hidden;
-              border: 1px solid rgba(184,164,120,0.1);
+              border: 1px solid color-mix(in srgb, var(--color-accent) 10%, transparent);
               box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             }
             .hc-hero-image {
@@ -290,7 +290,7 @@ export default function HealthcareIntelligencePage() {
               justify-content: center;
               background: rgba(17, 17, 17, 0.6);
               border-radius: 16px;
-              border: 1px solid rgba(184,164,120,0.06);
+              border: 1px solid color-mix(in srgb, var(--color-accent) 6%, transparent);
             }
 
             @media (max-width: 900px) {
@@ -327,7 +327,7 @@ export default function HealthcareIntelligencePage() {
                 className="card card--rounded card--pad"
                 style={{ padding: '36px', display: 'flex', flexDirection: 'column' }}
               >
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(184, 164, 120, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', color: 'var(--color-accent)' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'color-mix(in srgb, var(--color-accent) 10%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', color: 'var(--color-accent)' }}>
                   <cap.icon size={22} strokeWidth={1.5} />
                 </div>
                 <p className="text-eyebrow" style={{ fontSize: '11px', marginBottom: '8px', letterSpacing: '2px' }}>
@@ -355,7 +355,7 @@ export default function HealthcareIntelligencePage() {
         {/* ──────── Teams Section ──────── */}
         <section style={{ marginBottom: '120px', position: 'relative' }}>
           <div style={{
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(184, 164, 120, 0.04), transparent 70%)',
+            background: 'radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-accent) 4%, transparent), transparent 70%)',
             paddingTop: '80px',
             paddingBottom: '100px',
           }}>
@@ -381,7 +381,7 @@ export default function HealthcareIntelligencePage() {
                       display: 'flex', alignItems: 'center', gap: '8px',
                       padding: '10px 20px', borderRadius: '100px',
                       border: activeTeam === team.id ? '1px solid var(--color-accent)' : '1px solid var(--color-border)',
-                      background: activeTeam === team.id ? 'rgba(184, 164, 120, 0.1)' : 'transparent',
+                      background: activeTeam === team.id ? 'color-mix(in srgb, var(--color-accent) 10%, transparent)' : 'transparent',
                       color: activeTeam === team.id ? 'var(--color-accent)' : 'var(--color-text-dim)',
                       cursor: 'pointer', fontSize: '14px', fontWeight: 500,
                       transition: 'all 0.3s ease',
@@ -442,61 +442,61 @@ export default function HealthcareIntelligencePage() {
                         <svg viewBox="0 0 400 340" style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet">
                           <rect width="400" height="340" fill="var(--color-bg-elevated)" />
                           {/* EHR screen */}
-                          <rect x="40" y="40" width="320" height="180" rx="10" fill="rgba(0,0,0,0.25)" stroke="rgba(184,164,120,0.08)" strokeWidth="1" />
-                          <rect x="56" y="56" width="120" height="8" rx="3" fill="rgba(184,164,120,0.12)" />
-                          <rect x="56" y="72" width="80" height="8" rx="3" fill="rgba(184,164,120,0.06)" />
+                          <rect x="40" y="40" width="320" height="180" rx="10" fill="rgba(0,0,0,0.25)" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" />
+                          <rect x="56" y="56" width="120" height="8" rx="3" fill="color-mix(in srgb, var(--color-accent) 12%, transparent)" />
+                          <rect x="56" y="72" width="80" height="8" rx="3" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" />
                           {/* Patient vitals card */}
                           <rect x="56" y="98" width="150" height="80" rx="6" fill="rgba(0,0,0,0.15)" />
-                          <text x="68" y="116" fontSize="8" fill="rgba(184,164,120,0.3)" fontFamily="monospace">Patient: #4815</text>
+                          <text x="68" y="116" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace">Patient: #4815</text>
                           <text x="68" y="130" fontSize="8" fill="rgba(40,200,64,0.4)" fontFamily="monospace">HR: 72 bpm</text>
-                          <text x="68" y="144" fontSize="8" fill="rgba(184,164,120,0.3)" fontFamily="monospace">BP: 118/76</text>
+                          <text x="68" y="144" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace">BP: 118/76</text>
                           <text x="68" y="158" fontSize="8" fill="rgba(255,200,100,0.4)" fontFamily="monospace">Temp: 37.2 C</text>
                           {/* AI suggestion panel */}
                           <rect x="220" y="98" width="126" height="80" rx="6" fill="rgba(40,200,64,0.04)" stroke="rgba(40,200,64,0.1)" strokeWidth="1" />
                           <text x="232" y="116" fontSize="8" fill="rgba(40,200,64,0.4)" fontFamily="monospace">AI Clinical Note</text>
-                          <text x="232" y="130" fontSize="7" fill="rgba(184,164,120,0.25)" fontFamily="monospace">Acute bronchitis</text>
-                          <text x="232" y="144" fontSize="7" fill="rgba(184,164,120,0.25)" fontFamily="monospace">Recommended: Amox</text>
-                          <text x="232" y="158" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Follow-up: 7 days</text>
+                          <text x="232" y="130" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">Acute bronchitis</text>
+                          <text x="232" y="144" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">Recommended: Amox</text>
+                          <text x="232" y="158" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Follow-up: 7 days</text>
                           {/* Bottom bars */}
                           <rect x="56" y="200" width="100" height="14" rx="4" fill="rgba(40,200,64,0.04)" />
                           <text x="64" y="210" fontSize="7" fill="rgba(40,200,64,0.35)" fontFamily="monospace">EHR synced</text>
-                          <rect x="170" y="200" width="176" height="14" rx="4" fill="rgba(184,164,120,0.03)" />
-                          <text x="178" y="210" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">FHIR/HL7 | Epic EHR</text>
+                          <rect x="170" y="200" width="176" height="14" rx="4" fill="color-mix(in srgb, var(--color-accent) 3%, transparent)" />
+                          <text x="178" y="210" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">FHIR/HL7 | Epic EHR</text>
                           {/* Physician icon */}
-                          <circle cx="340" cy="270" r="32" fill="rgba(184,164,120,0.04)" stroke="rgba(184,164,120,0.08)" strokeWidth="1" />
-                          <circle cx="340" cy="260" r="8" fill="rgba(184,164,120,0.1)" />
-                          <rect x="328" y="274" width="24" height="16" rx="8" fill="rgba(184,164,120,0.06)" />
+                          <circle cx="340" cy="270" r="32" fill="color-mix(in srgb, var(--color-accent) 4%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" />
+                          <circle cx="340" cy="260" r="8" fill="color-mix(in srgb, var(--color-accent) 10%, transparent)" />
+                          <rect x="328" y="274" width="24" height="16" rx="8" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" />
                         </svg>
                       )}
                       {team.id === 'operations' && (
                         <svg viewBox="0 0 400 340" style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet">
                           <rect width="400" height="340" fill="var(--color-bg-elevated)" />
                           {/* Claims pipeline */}
-                          <text x="40" y="56" fontSize="9" fill="rgba(184,164,120,0.25)" fontFamily="monospace">Claims Processing Pipeline</text>
-                          <rect x="40" y="70" width="90" height="36" rx="6" fill="rgba(184,164,120,0.06)" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
-                          <text x="50" y="92" fontSize="8" fill="rgba(184,164,120,0.35)" fontFamily="monospace">Intake</text>
-                          <line x1="130" y1="88" x2="160" y2="88" stroke="rgba(184,164,120,0.15)" strokeWidth="1" />
-                          <polygon points="158,85 166,88 158,91" fill="rgba(184,164,120,0.15)" />
-                          <rect x="166" y="70" width="90" height="36" rx="6" fill="rgba(184,164,120,0.06)" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
-                          <text x="176" y="92" fontSize="8" fill="rgba(184,164,120,0.35)" fontFamily="monospace">Validate</text>
-                          <line x1="256" y1="88" x2="286" y2="88" stroke="rgba(184,164,120,0.15)" strokeWidth="1" />
-                          <polygon points="284,85 292,88 284,91" fill="rgba(184,164,120,0.15)" />
+                          <text x="40" y="56" fontSize="9" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">Claims Processing Pipeline</text>
+                          <rect x="40" y="70" width="90" height="36" rx="6" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
+                          <text x="50" y="92" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 35%, transparent)" fontFamily="monospace">Intake</text>
+                          <line x1="130" y1="88" x2="160" y2="88" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
+                          <polygon points="158,85 166,88 158,91" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+                          <rect x="166" y="70" width="90" height="36" rx="6" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
+                          <text x="176" y="92" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 35%, transparent)" fontFamily="monospace">Validate</text>
+                          <line x1="256" y1="88" x2="286" y2="88" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" strokeWidth="1" />
+                          <polygon points="284,85 292,88 284,91" fill="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
                           <rect x="292" y="70" width="90" height="36" rx="6" fill="rgba(40,200,64,0.04)" stroke="rgba(40,200,64,0.1)" strokeWidth="1" />
                           <text x="312" y="92" fontSize="8" fill="rgba(40,200,64,0.35)" fontFamily="monospace">Auto-pay</text>
                           {/* Processing metrics */}
                           <rect x="40" y="130" width="342" height="80" rx="6" fill="rgba(0,0,0,0.1)" />
                           <rect x="56" y="144" width="80" height="50" rx="4" fill="rgba(0,0,0,0.1)" />
                           <text x="66" y="162" fontSize="18" fill="rgba(40,200,64,0.5)" fontFamily="var(--font-display)" fontWeight="600">847</text>
-                          <text x="62" y="180" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Claims/day</text>
+                          <text x="62" y="180" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Claims/day</text>
                           <rect x="152" y="144" width="80" height="50" rx="4" fill="rgba(0,0,0,0.1)" />
-                          <text x="162" y="162" fontSize="18" fill="rgba(184,164,120,0.5)" fontFamily="var(--font-display)" fontWeight="600">94%</text>
-                          <text x="156" y="180" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Auto-approved</text>
+                          <text x="162" y="162" fontSize="18" fill="color-mix(in srgb, var(--color-accent) 50%, transparent)" fontFamily="var(--font-display)" fontWeight="600">94%</text>
+                          <text x="156" y="180" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Auto-approved</text>
                           <rect x="248" y="144" width="80" height="50" rx="4" fill="rgba(0,0,0,0.1)" />
                           <text x="258" y="162" fontSize="18" fill="rgba(255,200,100,0.5)" fontFamily="var(--font-display)" fontWeight="600">2.4h</text>
-                          <text x="252" y="180" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Avg processing</text>
+                          <text x="252" y="180" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Avg processing</text>
                           {/* Regulatory */}
                           <rect x="40" y="230" width="342" height="40" rx="6" fill="rgba(0,0,0,0.08)" />
-                          <text x="56" y="248" fontSize="8" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Regulatory compliance: HIPAA | SOC 2 | DPDP</text>
+                          <text x="56" y="248" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Regulatory compliance: HIPAA | SOC 2 | DPDP</text>
                           <text x="56" y="260" fontSize="8" fill="rgba(40,200,64,0.25)" fontFamily="monospace">All audits passed — no findings</text>
                         </svg>
                       )}
@@ -504,37 +504,37 @@ export default function HealthcareIntelligencePage() {
                         <svg viewBox="0 0 400 340" style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMid meet">
                           <rect width="400" height="340" fill="var(--color-bg-elevated)" />
                           {/* Research dashboard */}
-                          <text x="40" y="50" fontSize="9" fill="rgba(184,164,120,0.25)" fontFamily="monospace">Clinical Research Platform</text>
+                          <text x="40" y="50" fontSize="9" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">Clinical Research Platform</text>
                           {/* Trial card */}
                           <rect x="40" y="66" width="150" height="100" rx="6" fill="rgba(0,0,0,0.15)" />
-                          <text x="52" y="84" fontSize="8" fill="rgba(184,164,120,0.3)" fontFamily="monospace">Active Trials</text>
-                          <text x="52" y="106" fontSize="22" fill="rgba(184,164,120,0.5)" fontFamily="var(--font-display)" fontWeight="600">12</text>
-                          <text x="52" y="124" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Phase II: 4 | Phase III: 8</text>
+                          <text x="52" y="84" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" fontFamily="monospace">Active Trials</text>
+                          <text x="52" y="106" fontSize="22" fill="color-mix(in srgb, var(--color-accent) 50%, transparent)" fontFamily="var(--font-display)" fontWeight="600">12</text>
+                          <text x="52" y="124" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Phase II: 4 | Phase III: 8</text>
                           <text x="52" y="140" fontSize="7" fill="rgba(40,200,64,0.25)" fontFamily="monospace">Enrolling: 3 new sites</text>
                           {/* Molecule / network visualization */}
-                          <circle cx="280" cy="100" r="50" fill="rgba(184,164,120,0.02)" stroke="rgba(184,164,120,0.08)" strokeWidth="1" />
-                          <circle cx="280" cy="100" r="3" fill="rgba(184,164,120,0.3)" />
-                          <circle cx="260" cy="80" r="2" fill="rgba(184,164,120,0.2)" />
-                          <circle cx="300" cy="80" r="2" fill="rgba(184,164,120,0.2)" />
-                          <circle cx="260" cy="120" r="2" fill="rgba(184,164,120,0.2)" />
-                          <circle cx="300" cy="120" r="2" fill="rgba(184,164,120,0.2)" />
-                          <line x1="280" y1="100" x2="260" y2="80" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
-                          <line x1="280" y1="100" x2="300" y2="80" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
-                          <line x1="280" y1="100" x2="260" y2="120" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
-                          <line x1="280" y1="100" x2="300" y2="120" stroke="rgba(184,164,120,0.1)" strokeWidth="1" />
-                          <text x="270" y="168" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Compound DB</text>
+                          <circle cx="280" cy="100" r="50" fill="color-mix(in srgb, var(--color-accent) 2%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 8%, transparent)" strokeWidth="1" />
+                          <circle cx="280" cy="100" r="3" fill="color-mix(in srgb, var(--color-accent) 30%, transparent)" />
+                          <circle cx="260" cy="80" r="2" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
+                          <circle cx="300" cy="80" r="2" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
+                          <circle cx="260" cy="120" r="2" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
+                          <circle cx="300" cy="120" r="2" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" />
+                          <line x1="280" y1="100" x2="260" y2="80" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
+                          <line x1="280" y1="100" x2="300" y2="80" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
+                          <line x1="280" y1="100" x2="260" y2="120" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
+                          <line x1="280" y1="100" x2="300" y2="120" stroke="color-mix(in srgb, var(--color-accent) 10%, transparent)" strokeWidth="1" />
+                          <text x="270" y="168" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Compound DB</text>
                           {/* Publication feed */}
                           <rect x="40" y="186" width="342" height="28" rx="4" fill="rgba(0,0,0,0.08)" />
-                          <text x="52" y="204" fontSize="7" fill="rgba(184,164,120,0.25)" fontFamily="monospace">Latest: AI-driven target identification in oncology — Nature Medicine</text>
+                          <text x="52" y="204" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">Latest: AI-driven target identification in oncology — Nature Medicine</text>
                           <rect x="40" y="220" width="342" height="28" rx="4" fill="rgba(0,0,0,0.05)" />
-                          <text x="52" y="238" fontSize="7" fill="rgba(184,164,120,0.2)" fontFamily="monospace">Automated: 47 new trials matched to patient cohort</text>
+                          <text x="52" y="238" fontSize="7" fill="color-mix(in srgb, var(--color-accent) 20%, transparent)" fontFamily="monospace">Automated: 47 new trials matched to patient cohort</text>
                           {/* Metrics */}
                           <rect x="40" y="268" width="110" height="30" rx="4" fill="rgba(0,0,0,0.06)" />
                           <text x="52" y="286" fontSize="8" fill="rgba(40,200,64,0.3)" fontFamily="monospace">3.2x discovery speed</text>
                           <rect x="160" y="268" width="110" height="30" rx="4" fill="rgba(0,0,0,0.06)" />
-                          <text x="172" y="286" fontSize="8" fill="rgba(184,164,120,0.25)" fontFamily="monospace">847 patients matched</text>
+                          <text x="172" y="286" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">847 patients matched</text>
                           <rect x="280" y="268" width="102" height="30" rx="4" fill="rgba(0,0,0,0.06)" />
-                          <text x="292" y="286" fontSize="8" fill="rgba(184,164,120,0.25)" fontFamily="monospace">12 protocols optimized</text>
+                          <text x="292" y="286" fontSize="8" fill="color-mix(in srgb, var(--color-accent) 25%, transparent)" fontFamily="monospace">12 protocols optimized</text>
                         </svg>
                       )}
                     </div>
@@ -575,7 +575,7 @@ export default function HealthcareIntelligencePage() {
                 }}
                 className="hc-service-card"
               >
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(184, 164, 120, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: 'var(--color-accent)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'color-mix(in srgb, var(--color-accent) 10%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', color: 'var(--color-accent)' }}>
                   <svc.icon size={20} strokeWidth={1.5} />
                 </div>
                 <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}>
@@ -618,7 +618,7 @@ export default function HealthcareIntelligencePage() {
                     transition={{ delay: i * 0.1 }}
                     style={{ textAlign: 'center' }}
                   >
-                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(184, 164, 120, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--color-accent)' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--color-accent)' }}>
                       <feat.icon size={22} strokeWidth={1.5} />
                     </div>
                     <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-text)', marginBottom: '8px' }}>
@@ -650,12 +650,12 @@ export default function HealthcareIntelligencePage() {
               ].map((g) => (
                 <Link key={g.href} to={g.href} style={{
                   fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 500,
-                  color: 'rgba(228, 222, 201, 0.6)', textDecoration: 'none',
+                  color: 'color-mix(in srgb, var(--color-text) 60%, transparent)', textDecoration: 'none',
                   padding: '8px 16px', border: '1px solid var(--color-border)',
                   borderRadius: '100px', transition: 'color 0.2s, border-color 0.2s',
                 }}
-                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'rgba(184, 164, 120, 0.3)' }}
-                  onMouseLeave={e => { e.target.style.color = 'rgba(228, 222, 201, 0.6)'; e.target.style.borderColor = 'var(--color-border)' }}
+                  onMouseEnter={e => { e.target.style.color = 'var(--color-text)'; e.target.style.borderColor = 'color-mix(in srgb, var(--color-accent) 30%, transparent)' }}
+                  onMouseLeave={e => { e.target.style.color = 'color-mix(in srgb, var(--color-text) 60%, transparent)'; e.target.style.borderColor = 'var(--color-border)' }}
                 >
                   {g.label}
                 </Link>

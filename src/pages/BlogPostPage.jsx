@@ -99,7 +99,7 @@ export default function BlogPostPage() {
                     <p style={{
                       fontFamily: 'var(--font-sans)', fontSize: 'clamp(15px, 1.1vw, 17px)',
                       lineHeight: 1.8, letterSpacing: '-0.01em',
-                      color: 'rgba(228, 222, 201, 0.75)', marginBottom: '20px',
+                      color: 'color-mix(in srgb, var(--color-text) 75%, transparent)', marginBottom: '20px',
                     }}>{block.text}</p>
                   </motion.div>
                 )
@@ -108,7 +108,7 @@ export default function BlogPostPage() {
                 return (
                   <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                     <div style={{
-                      background: 'rgba(184, 164, 120, 0.06)', border: '1px solid rgba(184, 164, 120, 0.15)',
+                      background: 'color-mix(in srgb, var(--color-accent) 6%, transparent)', border: '1px solid color-mix(in srgb, var(--color-accent) 15%, transparent)',
                       borderRadius: '10px', padding: '20px 24px', marginBottom: '24px',
                     }}>
                       <p style={{
@@ -117,7 +117,7 @@ export default function BlogPostPage() {
                       }}>{block.title}</p>
                       <p style={{
                         fontFamily: 'var(--font-sans)', fontSize: '14px',
-                        lineHeight: 1.6, color: 'rgba(228, 222, 201, 0.7)',
+                        lineHeight: 1.6, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)',
                       }}>{block.text}</p>
                     </div>
                   </motion.div>
@@ -130,12 +130,12 @@ export default function BlogPostPage() {
                   <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
                     <Link to={`/guides/${block.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                       <div style={{
-                        background: 'rgba(184, 164, 120, 0.04)', border: '1px solid var(--color-border)',
+                        background: 'color-mix(in srgb, var(--color-accent) 4%, transparent)', border: '1px solid var(--color-border)',
                         borderRadius: '10px', padding: '16px 20px', marginBottom: '24px',
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                         transition: 'border-color 0.2s',
                       }}
-                        onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(184, 164, 120, 0.3)'}
+                        onMouseEnter={e => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-accent) 30%, transparent)'}
                         onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
                       >
                         <div>

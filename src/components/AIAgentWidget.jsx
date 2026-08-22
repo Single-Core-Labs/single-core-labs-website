@@ -15,11 +15,14 @@ export default function AIAgentWidget() {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Use instant scroll during streaming to avoid smooth thrash per chunk
+    messagesEndRef.current?.scrollIntoView({ behavior: isTyping ? 'instant' : 'smooth', block: 'nearest' });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    // Debounce scroll to next frame to batch rapid streaming updates
+    let raf = requestAnimationFrame(scrollToBottom)
+    return () => cancelAnimationFrame(raf)
   }, [messages]);
 
   const submitLead = async (email, question) => {
@@ -89,6 +92,21 @@ export default function AIAgentWidget() {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
 
+      // Batch deltas per frame to avoid React thrash (one render per RAF, not per chunk)
+      let pending = ''
+      let raf = 0
+      const flush = () => {
+        raf = 0
+        if (!pending) return
+        const chunk = pending
+        pending = ''
+        setMessages((prev) => {
+          const newMsgs = [...prev];
+          const lastIndex = newMsgs.length - 1;
+          newMsgs[lastIndex] = { ...newMsgs[lastIndex], content: newMsgs[lastIndex].content + chunk };
+          return newMsgs;
+        });
+      }
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
@@ -106,21 +124,22 @@ export default function AIAgentWidget() {
               const delta = json.choices?.[0]?.delta?.content || "";
               
               if (delta) {
-                setMessages((prev) => {
-                  const newMsgs = [...prev];
-                  const lastIndex = newMsgs.length - 1;
-                  newMsgs[lastIndex] = {
-                    ...newMsgs[lastIndex],
-                    content: newMsgs[lastIndex].content + delta
-                  };
-                  return newMsgs;
-                });
+                pending += delta
+                if (!raf) raf = requestAnimationFrame(flush)
               }
             } catch (e) { void e;
               // Ignore parse errors for partial chunks
             }
           }
         }
+      }
+      if (pending) {
+        if (raf) cancelAnimationFrame(raf)
+        // final flush synchronously
+        const chunk = pending
+        setMessages((prev) => {
+          const n = [...prev]; n[n.length-1] = { ...n[n.length-1], content: n[n.length-1].content + chunk }; return n
+        })
       }
     } catch (error) {
       console.error("Chat error:", error);
@@ -198,7 +217,7 @@ export default function AIAgentWidget() {
                       className="shadow-sm"
                       style={{
                         padding: '10px 16px',
-                        backgroundColor: msg.role === 'user' ? 'var(--color-text)' : 'rgba(255, 255, 255, 0.8)',
+                        backgroundColor: msg.role === 'user' ? 'var(--color-text)' : 'color-mix(in srgb, var(--color-text) 80%, transparent)',
                         color: msg.role === 'user' ? '#ffffff' : 'var(--color-text)',
                         border: msg.role === 'user' ? 'none' : '1px solid var(--color-border)',
                         borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
@@ -238,7 +257,7 @@ export default function AIAgentWidget() {
                   className="w-full outline-none transition-all"
                   style={{
                     padding: '12px 48px 12px 16px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                    backgroundColor: 'color-mix(in srgb, var(--color-text) 60%, transparent)',
                     border: '1px solid var(--color-border-strong)',
                     borderRadius: '24px',
                     fontFamily: 'var(--font-sans)',

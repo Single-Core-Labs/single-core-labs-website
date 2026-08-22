@@ -40,16 +40,16 @@ export default function IndustryPage() {
         }}
       >
         <p className="text-eyebrow" style={{ marginBottom: '24px', color: '#5A9E8F' }}>
-          {industry ? 'Accelerating embodied AGI' : 'Coming Soon'}
+          {industry ? '' : 'Coming Soon'}
         </p>
         <h1
           style={{
-            fontFamily: "'Almarai', sans-serif",
+            fontFamily: "var(--font-sans)",
             fontWeight: 400,
             fontSize: 'clamp(2.4rem, 6vw, 5rem)',
             letterSpacing: '-0.03em',
             lineHeight: 1.05,
-            color: '#E1E0CC',
+            color: 'var(--color-text)',
             marginBottom: '20px',
             maxWidth: '900px',
           }}
@@ -59,20 +59,20 @@ export default function IndustryPage() {
         {tagline && (
           <p
             style={{
-              fontFamily: "'Instrument Serif', serif",
+              fontFamily: "var(--font-serif)",
               fontStyle: 'italic',
               fontSize: 'clamp(1.2rem, 2.4vw, 2rem)',
-              color: 'rgba(225,224,204,0.6)',
+              color: 'color-mix(in srgb, var(--color-text) 60%, transparent)',
               marginBottom: '28px',
             }}
           >
             {tagline}
           </p>
         )}
-        <p className="text-body" style={{ maxWidth: '520px', marginBottom: '48px', color: 'rgba(225,224,204,0.55)' }}>
+        <p className="text-body" style={{ maxWidth: '520px', marginBottom: '48px', color: 'color-mix(in srgb, var(--color-text) 55%, transparent)' }}>
           {description}
         </p>
-        <p className="text-eyebrow" style={{ marginBottom: '32px', color: 'rgba(225,224,204,0.35)' }}>
+        <p className="text-eyebrow" style={{ marginBottom: '32px', color: 'color-mix(in srgb, var(--color-text) 35%, transparent)' }}>
           Full page under development
         </p>
         <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -89,7 +89,7 @@ export default function IndustryPage() {
             className="link-underline"
             style={{ fontSize: '14px', fontWeight: 500, color: '#5A9E8F' }}
           >
-            Talk to us
+            Get Started
             <ArrowRight size={14} />
           </Link>
         </div>
