@@ -1,4 +1,4 @@
-Oimport { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ArrowRight, Shield, Cloud, Settings } from 'lucide-react'
 

@@ -4,14 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'scl-aggregator/apps/router/**'
       - 'scl-aggregator/apps/cache/**'
       - 'scl-aggregator/packages/semantic-cache/**'
       - '.github/workflows/python-ci.yml'
   pull_request:
     branches: [main]
     paths:
-      - 'scl-aggregator/apps/router/**'
       - 'scl-aggregator/apps/cache/**'
       - 'scl-aggregator/packages/semantic-cache/**'
       - '.github/workflows/python-ci.yml'
@@ -47,13 +45,6 @@ jobs:
         run: |
           uv sync --dev
           uv run pytest
-
-      - name: Test Router Service
-        working-directory: scl-aggregator/apps/router
-        run: |
-          uv sync --dev
-          # PYTHONPATH=. is needed because of the router_app rename and local structure
-          PYTHONPATH=. uv run pytest
 
       - name: Test Cache Service
         working-directory: scl-aggregator/apps/cache

@@ -2,7 +2,7 @@
 
 **AI Infrastructure Platform — Marketing Website & SCL Aggregator**
 
-Unified monorepo for Single Core Labs' high-performance marketing site and the distributed backend platform for intelligent LLM routing, semantic caching, and multi-provider abstraction.
+Unified monorepo for Single Core Labs' high-performance marketing site and the distributed backend platform for inference, semantic caching, and billing.
 
 ---
 
@@ -13,15 +13,12 @@ single-core-platform
 ├── src/                    # Marketing website (React 19, Vite 8, Tailwind v4)
 ├── scripts/                # Build, prerender, and sitemap generation
 ├── public/                 # Static assets
-└── scl-aggregator/         # Backend monorepo (Turborepo)
+└── scl-aggregator/         # Backend monorepo (Turborepo - Inference)
     ├── apps/
-    │   ├── gateway/        # Rust Axum API gateway
-    │   ├── router/         # Python FastAPI routing engine
     │   ├── cache/          # Python FastAPI semantic cache (ChromaDB)
     │   ├── dashboard/      # Next.js 14 admin dashboard
     │   └── billing/        # Node.js/TS billing service (Stripe, Razorpay)
     ├── packages/
-    │   ├── provider-adapters/  # Rust provider traits (OpenAI, Anthropic, etc.)
     │   ├── semantic-cache/     # Python vector search library
     │   └── scl-cli/            # Rust CLI (route cards, benchmark, cache inspect)
     └── infra/              # Terraform (AWS — VPC, ECS, RDS, Redis, ALB)
@@ -51,14 +48,12 @@ npm run dev
 
 ## SCL Aggregator
 
-Polyglot AI infrastructure platform — routes LLM requests through intelligent provider selection, semantic caching, and usage-based billing.
+Polyglot AI infrastructure platform — inference, semantic caching, and usage-based billing.
 
 **Services:**
 
 | Service | Language | Role |
 |---------|----------|------|
-| Gateway | Rust (Axum) | Auth, rate limiting, SSE streaming |
-| Router | Python (FastAPI) | Intent classification, model selection |
 | Cache | Python (ChromaDB) | Semantic response caching |
 | Dashboard | Next.js 14 | API key management, usage analytics |
 | Billing | Node.js/TS | Credit system, Stripe & Razorpay |

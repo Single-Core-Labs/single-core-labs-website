@@ -9,7 +9,7 @@ This file is a comprehensive orientation guide for the Single Core Labs codebase
 The project consists of two primary domains:
 
 1.  **Frontend Website**: A high-performance React-based marketing site for Single Core Labs.
-2.  **SCL Aggregator**: A distributed backend system for intelligent LLM routing, semantic caching, billing, and provider abstraction.
+2.  **SCL Aggregator**: A distributed backend system for inference, semantic caching, and billing.
 
 ## Codebase Structure
 
@@ -18,15 +18,12 @@ The project consists of two primary domains:
 ├── src/                    # React Website Frontend
 ├── scripts/                # Website build/prerender scripts
 ├── public/                 # Website static assets
-└── scl-aggregator/         # Backend Monorepo
+└── scl-aggregator/         # Backend Monorepo (Inference)
     ├── apps/               # Services
-    │   ├── gateway/        # Rust Axum API Gateway
-    │   ├── router/         # Python FastAPI Routing Engine
     │   ├── cache/          # Python FastAPI Semantic Cache Service
     │   ├── dashboard/      # Next.js 14 Web Dashboard (NextAuth, shadcn/ui, Tailwind)
     │   └── billing/        # Node.js/TS Express Billing Service (Prisma, Stripe, Razorpay)
     ├── packages/           # Shared Libraries
-    │   ├── provider-adapters/ # Rust Provider Traits & Impls
     │   ├── semantic-cache/    # Python Vector Search Library
     │   └── scl-cli/           # Rust Management CLI (clap, indicatif, bench, config)
     ├── infra/              # Terraform AWS configurations (VPC, ECS, RDS, Redis, ALB)
@@ -75,19 +72,9 @@ Cohere-style page with hero (lazy-loaded Pexels image of doctor with tablet, dar
 
 ## 2. SCL Aggregator (Backend)
 
-The aggregator is a high-performance LLM routing platform built as a polyglot microservices monorepo.
+The aggregator is a high-performance inference platform built as a polyglot microservices monorepo.
 
 ### Core Services
-
-#### API Gateway (`apps/gateway`)
-
-- **Language**: Rust (Axum, Tokio)
-- **Role**: Entry point for LLM requests. Handles authentication, Redis rate limiting, chunked SSE streaming, and telemetry.
-
-#### Router (`apps/router`)
-
-- **Language**: Python (FastAPI)
-- **Role**: Intelligent model selection based on intent classification (e.g. coding, creative) and user policy (cost_first, speed_first).
 
 #### Semantic Cache Service (`apps/cache`)
 
@@ -105,11 +92,6 @@ The aggregator is a high-performance LLM routing platform built as a polyglot mi
 - **Role**: User-facing web portal for managing keys and viewing usage. Currently fully scaffolded with Tailwind, shadcn/ui, and NextAuth.js (GitHub/Google).
 
 ### Shared Packages
-
-#### Provider Adapters (`packages/provider-adapters`)
-
-- **Language**: Rust
-- **Role**: Standardizes LLM provider APIs (OpenAI, Anthropic, Google, Groq, Together).
 
 #### Semantic Cache Library (`packages/semantic-cache`)
 
