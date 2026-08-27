@@ -20,15 +20,20 @@ const ROOT      = path.resolve(__dirname, '..')
 const DIST      = path.join(ROOT, 'dist')
 const PORT      = 4173
 
-// ─── All routes to pre-render ────────────────────────────────────────────────
-// Keep in sync with App.jsx. Dynamic /:slug routes use ComingSoon so skip them.
-const BLOG_SLUGS = [
-  'solving-the-ml-handoff-with-kitops',
-  'why-indian-enterprises-need-sovereign-ai',
-  'fine-tuning-vs-rag-decision-guide',
-  'healthcare-ai-india-2026',
-  'llm-security-checklist',
-]
+// ─── Auto-extract blog slugs from blog-content.jsx ──────────────────────────
+async function extractBlogSlugs() {
+  const src = await fs.readFile(
+    path.join(ROOT, 'src', 'lib', 'blog-content.jsx'),
+    'utf-8',
+  )
+  const slugs = []
+  // Match only top-level blog post slugs (4-space indent), not nested
+  // diagram/guide-link slugs (8-space indent)
+  for (const m of src.matchAll(/^ {4}slug:\s*['"]([^'"]+)['"]/gm)) {
+    slugs.push(m[1])
+  }
+  return slugs
+}
 
 const GUIDE_SLUGS = [
   'sovereign-ai-infrastructure',
@@ -39,42 +44,73 @@ const GUIDE_SLUGS = [
   'llm-security-patterns',
 ]
 
-const ROUTES = [
-  '/',
-  '/product',
-  '/product/data-foundry',
-  '/training',
-  '/model-lab',
-  '/solutions',
-  '/services',
-  '/solutions/healthcare-intelligence',
-  '/solutions/ai-modernization',
-  '/solutions/rl-environments',
-  '/solutions/rl-lab',
-  '/solutions/tech',
-  '/solutions/logistics',
-  '/solutions/manufacturing',
-  '/solutions/energy',
-  '/solutions/defense',
-  '/enterprise',
-  '/contact',
-  '/case-studies',
-  '/about',
-  '/guides',
-  ...GUIDE_SLUGS.map(s => `/guides/${s}`),
-  '/blog',
-  ...BLOG_SLUGS.map(s => `/blog/${s}`),
-  '/research',
-  '/security',
-  '/deployment',
-  '/research-collective',
-  '/open',
-  '/terms',
-  '/privacy',
-]
+// ─── Strip duplicate homepage meta tags from pre-rendered HTML ───────────────
+// index.html contains hardcoded homepage OG / Twitter / title / description
+// tags.  react-helmet-async injects the correct per-page tags later in <head>.
+// Crawlers (LinkedIn, Twitter) read the *first* og:title they find, so we must
+// remove the homepage defaults and keep only Helmet's tags.
+//
+// We match by EXACT content values from index.html so we never accidentally
+// strip Helmet's per-page tags.
+function cleanDuplicateMeta(html) {
+  return html
+    // Remove the hardcoded homepage <title>
+    .replace(/<title>Single Core Labs — Enterprise AI &amp; Research<\/title>/, '')
+    // Remove hardcoded homepage meta description
+    .replace(/<meta\s+name="description"\s+content="Single Core Labs is an applied AI[^"]*"\s*\/?>/, '')
+    // Remove hardcoded homepage robots
+    .replace(/<meta\s+name="robots"\s+content="index, follow"\s*\/?>/, '')
+    // Remove hardcoded homepage canonical (exact root URL only)
+    .replace(/<link\s+rel="canonical"\s+href="https:\/\/singlecorelabs\.in\/"\s*\/?>/, '')
+    // Remove hardcoded homepage OG tags (match by exact homepage content values)
+    .replace(/<meta\s+property="og:type"\s+content="website"\s*\/?>\s*\n?\s*<meta\s+property="og:site_name"\s+content="Single Core Labs"\s*\/?>\s*\n?\s*<meta\s+property="og:title"\s+content="Single Core Labs[^"]*"\s*\/?>\s*\n?\s*<meta\s+property="og:description"\s+content="Applied AI research lab\.[^"]*"\s*\/?>\s*\n?\s*<meta\s+property="og:url"\s+content="https:\/\/singlecorelabs\.in\/"\s*\/?>\s*\n?\s*<meta\s+property="og:image"\s+content="https:\/\/singlecorelabs\.in\/og-image\.png"\s*\/?>\s*\n?\s*<meta\s+property="og:image:alt"[^>]*\/?>\s*\n?\s*<meta\s+property="og:image:width"[^>]*\/?>\s*\n?\s*<meta\s+property="og:image:height"[^>]*\/?>/, '')
+    // Remove hardcoded homepage Twitter Card tags (match by exact homepage content)
+    .replace(/<meta\s+name="twitter:card"\s+content="summary_large_image"\s*\/?>\s*\n?\s*<meta\s+name="twitter:title"\s+content="Single Core Labs[^"]*"\s*\/?>\s*\n?\s*<meta\s+name="twitter:description"\s+content="AI at scale\.[^"]*"\s*\/?>\s*\n?\s*<meta\s+name="twitter:image"\s+content="https:\/\/singlecorelabs\.in\/og-image\.png"\s*\/?>/, '')
+    // Remove sitemap link (Helmet doesn't add this, keep it if present)
+    // Clean up blank lines left behind
+    .replace(/\n{3,}/g, '\n\n')
+}
 
 async function prerender() {
   console.log('\n🔧  Pre-render starting...\n')
+
+  // 0. Build route list (blog slugs auto-extracted from source)
+  const BLOG_SLUGS = await extractBlogSlugs()
+  console.log(`  ✓ Found ${BLOG_SLUGS.length} blog slugs: ${BLOG_SLUGS.join(', ')}\n`)
+
+  const ROUTES = [
+    '/',
+    '/product',
+    '/product/data-foundry',
+    '/training',
+    '/model-lab',
+    '/solutions',
+    '/services',
+    '/solutions/healthcare-intelligence',
+    '/solutions/ai-modernization',
+    '/solutions/rl-environments',
+    '/solutions/rl-lab',
+    '/solutions/tech',
+    '/solutions/logistics',
+    '/solutions/manufacturing',
+    '/solutions/energy',
+    '/solutions/defense',
+    '/enterprise',
+    '/contact',
+    '/case-studies',
+    '/about',
+    '/guides',
+    ...GUIDE_SLUGS.map(s => `/guides/${s}`),
+    '/blog',
+    ...BLOG_SLUGS.map(s => `/blog/${s}`),
+    '/research',
+    '/security',
+    '/deployment',
+    '/research-collective',
+    '/open',
+    '/terms',
+    '/privacy',
+  ]
 
   // 1. Start Vite preview server (serves built dist/)
   const server = await preview({
@@ -110,7 +146,10 @@ async function prerender() {
       // Extra wait for lazy-loaded / animated content to settle
       await new Promise(r => setTimeout(r, 600))
 
-      const html = await page.content()
+      let html = await page.content()
+
+      // Strip duplicate homepage meta tags so crawlers see only Helmet's tags
+      html = cleanDuplicateMeta(html)
 
       // Write to dist/<route>/index.html
       const outDir  = path.join(DIST, route === '/' ? '' : route)
