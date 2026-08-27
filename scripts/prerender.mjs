@@ -23,6 +23,7 @@ const PORT      = 4173
 // ─── All routes to pre-render ────────────────────────────────────────────────
 // Keep in sync with App.jsx. Dynamic /:slug routes use ComingSoon so skip them.
 const BLOG_SLUGS = [
+  'solving-the-ml-handoff-with-kitops',
   'why-indian-enterprises-need-sovereign-ai',
   'fine-tuning-vs-rag-decision-guide',
   'healthcare-ai-india-2026',

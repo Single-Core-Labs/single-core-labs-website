@@ -17,6 +17,7 @@ export const GUIDE_ROUTES = [
 ]
 
 export const BLOG_SLUGS = [
+  'solving-the-ml-handoff-with-kitops',
   'why-indian-enterprises-need-sovereign-ai',
   'fine-tuning-vs-rag-decision-guide',
   'healthcare-ai-india-2026',

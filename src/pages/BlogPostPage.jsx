@@ -5,7 +5,7 @@ import { Footer } from '@/components/Footer'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import SEO from '@/components/SEO'
 import { BLOG_POSTS } from '@/lib/blog-content.jsx'
-import { GUIDE_CONTENT } from '@/lib/guide-content.jsx'
+import { GUIDE_CONTENT, DiagramBox } from '@/lib/guide-content.jsx'
 
 const containerStyle = {
   maxWidth: '800px',
@@ -19,6 +19,107 @@ const fadeUp = {
 }
 
 const viewport = { once: true, amount: 0.15, margin: '-40px' }
+
+function KitOpsWorkflowDiagram() {
+  return (
+    <div style={{ margin: '36px 0' }}>
+      <div style={{
+        background: 'var(--color-bg-surface)',
+        border: '1px solid var(--color-border)',
+        borderRadius: '12px',
+        padding: 'clamp(20px, 3vw, 40px)',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '10px',
+          fontWeight: 600,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--color-accent)',
+          marginBottom: '20px',
+        }}>
+          KitOps Packaging & Delivery Pipeline
+        </div>
+        <svg viewBox="0 0 720 280" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          <defs>
+            <linearGradient id="gradient-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.2" />
+            </linearGradient>
+            <linearGradient id="gradient-box" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="color-mix(in srgb, var(--color-text) 5%, transparent)" />
+              <stop offset="100%" stopColor="color-mix(in srgb, var(--color-text) 1%, transparent)" />
+            </linearGradient>
+          </defs>
+
+          {/* Left Block: Data Science (Source) */}
+          <rect x="10" y="40" width="180" height="200" rx="8" fill="url(#gradient-box)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="100" y="28" fill="var(--color-text-dim)" fontFamily="var(--font-display)" fontSize="11" fontWeight="600" textAnchor="middle" letterSpacing="0.05em">1. DEVELOP</text>
+          
+          <rect x="25" y="60" width="150" height="34" rx="6" fill="color-mix(in srgb, var(--color-accent) 5%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+          <text x="100" y="81" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">Model Weights</text>
+          
+          <rect x="25" y="105" width="150" height="34" rx="6" fill="color-mix(in srgb, var(--color-accent) 5%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+          <text x="100" y="126" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">Datasets (LakeFS)</text>
+          
+          <rect x="25" y="150" width="150" height="34" rx="6" fill="color-mix(in srgb, var(--color-accent) 5%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+          <text x="100" y="171" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">Code & Config</text>
+
+          <rect x="25" y="195" width="150" height="34" rx="6" fill="color-mix(in srgb, var(--color-accent) 5%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 15%, transparent)" />
+          <text x="100" y="216" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle">Agent Skills</text>
+
+          {/* Arrow 1 */}
+          <path d="M 190 140 L 255 140" fill="none" stroke="var(--color-accent)" strokeWidth="1.5" strokeDasharray="4 3" />
+          <polygon points="255,136 263,140 255,144" fill="var(--color-accent)" />
+          <text x="222" y="130" fill="var(--color-accent)" fontFamily="var(--font-display)" fontSize="9" textAnchor="middle" fontWeight="600">kit pack</text>
+
+          {/* Middle Block: ModelKit OCI Artifact */}
+          <rect x="270" y="60" width="180" height="160" rx="10" fill="color-mix(in srgb, var(--color-accent) 6%, transparent)" stroke="var(--color-accent)" strokeWidth="1.5" />
+          <text x="360" y="28" fill="var(--color-accent)" fontFamily="var(--font-display)" fontSize="11" fontWeight="600" textAnchor="middle" letterSpacing="0.05em">2. OCI MODELKIT</text>
+          
+          <rect x="285" y="80" width="150" height="30" rx="4" fill="color-mix(in srgb, var(--color-bg) 60%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 30%, transparent)" />
+          <text x="360" y="99" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle" fontWeight="500">Unified Artifact</text>
+
+          <rect x="285" y="120" width="150" height="30" rx="4" fill="color-mix(in srgb, var(--color-bg) 60%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 30%, transparent)" />
+          <text x="360" y="139" fill="var(--color-accent)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle" fontWeight="600">SHA-256 Hash</text>
+
+          <rect x="285" y="160" width="150" height="30" rx="4" fill="color-mix(in srgb, var(--color-bg) 60%, transparent)" stroke="color-mix(in srgb, var(--color-accent) 30%, transparent)" />
+          <text x="360" y="179" fill="var(--color-text-dim)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="middle">SBOM & Compliance</text>
+
+          {/* Arrow 2 */}
+          <path d="M 450 140 L 515 140" fill="none" stroke="var(--color-accent)" strokeWidth="1.5" strokeDasharray="4 3" />
+          <polygon points="515,136 523,140 515,144" fill="var(--color-accent)" />
+          <text x="482" y="130" fill="var(--color-accent)" fontFamily="var(--font-display)" fontSize="9" textAnchor="middle" fontWeight="600">kit pull</text>
+          <text x="482" y="157" fill="var(--color-text-dim)" fontFamily="var(--font-sans)" fontSize="8" textAnchor="middle">selective</text>
+
+          {/* Right Block: Deployment (Target) */}
+          <rect x="530" y="40" width="180" height="200" rx="8" fill="url(#gradient-box)" stroke="var(--color-border)" strokeWidth="1" />
+          <text x="620" y="28" fill="var(--color-text-dim)" fontFamily="var(--font-display)" fontSize="11" fontWeight="600" textAnchor="middle" letterSpacing="0.05em">3. DEPLOY (vLLM)</text>
+
+          <rect x="545" y="70" width="150" height="36" rx="6" fill="color-mix(in srgb, var(--color-text) 4%, transparent)" stroke="var(--color-border)" />
+          <text x="620" y="92" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="11" textAnchor="middle" fontWeight="500">Inference Engines</text>
+
+          <rect x="545" y="125" width="150" height="36" rx="6" fill="color-mix(in srgb, var(--color-text) 4%, transparent)" stroke="var(--color-border)" />
+          <text x="620" y="147" fill="var(--color-text)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="middle">Validated Weights Only</text>
+
+          <rect x="545" y="180" width="150" height="36" rx="6" fill="color-mix(in srgb, var(--color-text) 4%, transparent)" stroke="var(--color-border)" />
+          <text x="620" y="202" fill="var(--color-text-dim)" fontFamily="var(--font-sans)" fontSize="10" textAnchor="middle">Dev / Staging / Prod</text>
+        </svg>
+      </div>
+      <p style={{
+        fontFamily: 'var(--font-sans)',
+        fontSize: '13px',
+        color: 'var(--color-text-dim)',
+        marginTop: '10px',
+        fontStyle: 'italic',
+        textAlign: 'center',
+      }}>
+        Figure 1: KitOps lifecycle — from development checkpoints to ModelKits in registries to selective deployment.
+      </p>
+    </div>
+  )
+}
 
 export default function BlogPostPage() {
   const { postSlug } = useParams()
@@ -155,6 +256,16 @@ export default function BlogPostPage() {
                   </motion.div>
                 )
               }
+
+              case 'diagram':
+                if (block.slug === 'kitops-workflow') {
+                  return (
+                    <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
+                      <KitOpsWorkflowDiagram />
+                    </motion.div>
+                  )
+                }
+                return null
 
               default:
                 return null

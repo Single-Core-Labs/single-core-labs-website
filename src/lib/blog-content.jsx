@@ -1,5 +1,73 @@
 export const BLOG_POSTS = [
   {
+    slug: 'solving-the-ml-handoff-with-kitops',
+    title: 'Solving the ML Handoff: How We Use KitOps to Package and Version AI Workloads',
+    excerpt: 'AI deployments fail at the handoff between data science, engineering, and DevOps. Here is how we integrated KitOps to package models, datasets, and configs into OCI ModelKits.',
+    category: 'MLOps',
+    readTime: '6 min read',
+    date: '2026-08-27',
+    author: 'Single Core Labs',
+    tags: ['MLOps', 'KitOps', 'ModelKit', 'Docker', 'OCI Registry', 'Enterprise AI'],
+    relatedGuides: ['sovereign-ai-infrastructure', 'llm-security-patterns'],
+    content: [
+      {
+        type: 'paragraph',
+        text: 'At Single Core Labs, our ML pipelines used to break at the exact same point every time: the handoff. The data scientist finishes training, but the application team cannot reproduce the outputs. DevOps deploys the model, but uses the wrong weights. Compliance asks which version of the dataset was used to train the production model, and nobody knows. The packaging problem in enterprise AI is severely underrated, and it often breaks deployments before they even go live.',
+      },
+      {
+        type: 'paragraph',
+        text: 'We integrated KitOps to fix this disjointed process. KitOps packages your model weights, training dataset references, code, configuration, and agent skills into a single, versioned OCI-compliant artifact called a ModelKit. These ModelKits are stored directly in the container registries you already run, such as AWS ECR, JFrog Artifactory, Harbor, or GitHub Packages. By doing this, we turned our existing container registry into an AI registry without adding new, complex tools to our stack.',
+      },
+      {
+        type: 'diagram',
+        slug: 'kitops-workflow',
+      },
+      {
+        type: 'callout',
+        title: 'The AI Packaging Problem',
+        text: 'Before adopting KitOps, our workflow was fragmented. Model weights were pulled from custom S3 buckets, configurations were stored in Notion docs or Git repositories, and dataset references were lost in Slack logs. KitOps provides a clean, standardized format ("Docker for models") that keeps everything together.',
+      },
+      {
+        type: 'paragraph',
+        text: 'What actually changed for us after integrating KitOps:',
+      },
+      {
+        type: 'paragraph',
+        text: '1. No more scattered checkpoints: All files, from model weights to model cards and configs, are tied together in a single versioned ModelKit. We no longer search across S3 buckets and text documents to figure out which model file goes with which code version.',
+      },
+      {
+        type: 'paragraph',
+        text: '2. SHA-256 tamper detection: KitOps generates unique SHA-256 hashes for every layer of the ModelKit. This provides cryptographically secure tamper detection, giving our security team complete confidence in what is running in production.',
+      },
+      {
+        type: 'paragraph',
+        text: '3. Selective pull: A ModelKit is composed of layers. DevOps and CI/CD pipelines can pull only the model weights or configs they need, leaving 80GB of raw training data or source code in the registry. This reduces deployment times and saves significant network bandwidth.',
+      },
+      {
+        type: 'paragraph',
+        text: '4. Auto-generated SBOM: KitOps automatically generates a Software Bill of Materials (SBOM) for the ModelKit. This SBOM maps directly to compliance frameworks like the EU AI Act and NIST Risk Management Framework (RMF), streamlining audit processes.',
+      },
+      {
+        type: 'paragraph',
+        text: '5. Zero new tooling: Because ModelKits are standard OCI artifacts, our existing CI/CD pipelines, access control policies, security scanners, and container registries just work. We did not need to buy or maintain any new registry platforms.',
+      },
+      {
+        type: 'callout',
+        title: 'Case Study: The Standard in Action',
+        text: 'Standardizing model packaging is becoming a standard in the industry. For example, topological deep learning research lab Arlequin AI adopted KitOps to bundle their model cards, MLflow experiment links, and LakeFS data references into ModelKits. By doing so, they promoted models across dev, staging, and production as simple registry operations rather than manual copy-paste handoffs.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Integrating KitOps has changed how we think about AI software delivery. We no longer ship raw weights; we ship fully verified, compliant, and auditable ModelKits. For any enterprise deploying AI in regulated environments, solving this packaging problem before it breaks a deployment is essential.',
+      },
+      {
+        type: 'guide-link',
+        slug: 'sovereign-ai-infrastructure',
+        text: 'Read our full guide on deploying sovereign AI infrastructure in regulated markets',
+      },
+    ],
+  },
+  {
     slug: 'why-indian-enterprises-need-sovereign-ai',
     title: 'Why Indian Enterprises Need Sovereign AI Infrastructure',
     excerpt: 'Indian enterprises in BFSI, healthcare, and government face a painful choice: use US-based AI APIs and violate data residency, or build in-house and lose access to top models. Sovereign AI bridges this gap.',
