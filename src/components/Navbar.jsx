@@ -77,14 +77,14 @@ export function Navbar({ overlay = false }) {
           contain: 'layout paint',
         }}
       >
-        <div style={{ maxWidth: '1472px', margin: '0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+        <div style={{ maxWidth: '1472px', margin: '0 auto', padding: '12px 24px', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: '16px' }}>
           {/* Logo — correct brand mark (public/logo-icon.original.png) at left corner */}
-          <Link to="/" aria-label="Home" onClick={close} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}>
+          <Link to="/" aria-label="Home" onClick={close} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0, justifySelf: 'start' }}>
             <img src="/logo-icon.original.png" alt="Single Core Labs" style={{ height: '28px', width: 'auto', display: 'block', objectFit: 'contain' }} />
           </Link>
 
           {/* Center nav — Scale: Products/Solutions/Research/Resources */}
-          <nav aria-label="Primary" className="hidden md:flex" style={{ alignItems: 'center', gap: '4px', flex: 1, justifyContent: 'center' }}>
+          <nav aria-label="Primary" className="hidden md:flex" style={{ alignItems: 'center', gap: '4px', justifyContent: 'center', justifySelf: 'center' }}>
             {NAV_LINKS.map((item) => {
               if (item.label === 'Product') {
                 return (
@@ -182,7 +182,7 @@ export function Navbar({ overlay = false }) {
           </nav>
 
           {/* CTAs — Scale: Book demo solid */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0, justifySelf: 'end' }}>
             <div className="hidden md:flex" style={{ gap: '8px' }}>
               <Link to="/contact" style={{ height: '40px', padding: '0 16px', display: 'inline-flex', alignItems: 'center', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none', background: '#FFFFFF', color: '#0A0A0A', border: '1px solid transparent' }}>
                 Get Started
